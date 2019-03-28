@@ -1,0 +1,19 @@
+{
+  "name": "ts-retry",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/franckLdx/ts-retry.git",
+  "author": "Franck Ledoux <franck.ledoux.pro@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^5.2.6",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "typescript": "^3.3.4000"
+  },
+  "scripts": {
+    "lib:watch": "tsc -p src--watch",
+    "lib:build": "tsc -p src",
+    "test:build": "tsc -p test"
+  }
+}
