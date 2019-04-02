@@ -20,7 +20,7 @@ export async function retryAsync<T>(fn: () => Promise<T>, { maxTry, delay }: Ret
   } catch (err) {
     if (maxTry > 1) {
       await wait(delay);
-      return await retryAsync(fn, { delay, maxTry: maxTry-- });
+      return await retryAsync(fn, { delay, maxTry: maxTry - 1 });
     }
     throw err;
   }
