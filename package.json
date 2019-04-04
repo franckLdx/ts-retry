@@ -20,6 +20,13 @@
     "ts-node": "^8.0.3",
     "typescript": "^3.3.4000"
   },
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "prelib": "rimraf lib",
     "lib:watch": "npm run prelib && tsc --watch",

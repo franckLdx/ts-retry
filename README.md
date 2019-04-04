@@ -1,2 +1,2 @@
 # ts-retry
-A little retry tool for javascript/typescript
+A little retry tool in javascript/typescript for node
