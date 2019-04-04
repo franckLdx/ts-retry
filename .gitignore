@@ -1,3 +1,4 @@
 .cache
 tempTest
 node_modules
+yarn-error.log
