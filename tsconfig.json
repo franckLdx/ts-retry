@@ -57,6 +57,9 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "newLine": "lf",
   },
+  "include": [
+    "**/src"
+  ],
   "exclude": [
     "**/*.test.ts"
   ]
