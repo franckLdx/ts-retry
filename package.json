@@ -37,6 +37,8 @@
     "typescript",
     "javascript",
     "retry",
+    "repeat",
+    "replay",
     "node",
     "nodejs",
     "error",
