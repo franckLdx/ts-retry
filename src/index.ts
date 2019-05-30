@@ -3,8 +3,8 @@ export interface RetryOptions {
   delay: number;
 }
 
-export async function retry<T>(fn: () => T, retryOptions: RetryOptions) {
-  const wrapped = () => new Promise((resolve, reject) => {
+export async function retry<T>(fn: () => T, retryOptions: RetryOptions): Promise<T> {
+  const wrapped = () => new Promise<T>((resolve, reject) => {
     try {
       resolve(fn());
     } catch (err) {
