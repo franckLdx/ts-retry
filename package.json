@@ -32,5 +32,18 @@
     "lib:watch": "npm run prelib && tsc --watch",
     "lib:build": "npm run prelib && tsc",
     "test": "npm run lib:build && mocha --require ts-node/register src/**/*.test.ts"
-  }
+  },
+  "keywords": [
+    "typescript",
+    "javascript",
+    "retry",
+    "node",
+    "nodejs",
+    "error",
+    "promise",
+    "async",
+    "await",
+    "asyncawait",
+    "trycatch"
+  ]
 }
