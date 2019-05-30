@@ -1,6 +1,6 @@
 {
   "name": "ts-retry",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "repository": "https://github.com/franckLdx/ts-retry.git",
   "author": "Franck Ledoux <franck.ledoux.pro@gmail.com>",
