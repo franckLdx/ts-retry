@@ -1,13 +1,17 @@
 {
   "name": "ts-retry",
   "version": "1.0.4",
-  "main": "lib/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "browser": "lib/cjs/browser.js",
+  "typings": "lib/cjs/index.d.ts",
   "repository": "https://github.com/franckLdx/ts-retry.git",
   "author": "Franck Ledoux <franck.ledoux.pro@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
+    "@types/node": "^12.0.4",
     "@types/sinon": "^7.0.11",
     "@types/sinon-chai": "^3.2.2",
     "chai": "^4.2.0",
@@ -28,10 +32,11 @@
     "LICENSE"
   ],
   "scripts": {
-    "prelib": "rimraf lib",
-    "lib:watch": "npm run prelib && tsc --watch",
-    "lib:build": "npm run prelib && tsc",
-    "test": "npm run lib:build && mocha --require ts-node/register src/**/*.test.ts"
+    "prebuild": "rimraf lib",
+    "watch": "tsc --watch",
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "pretest": "npm run build",
+    "test": "mocha --require ts-node/register src/**/*.test.ts"
   },
   "keywords": [
     "typescript",

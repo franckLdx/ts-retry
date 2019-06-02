@@ -1,7 +1,8 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { retry, RetryOptions } from '.';
-import chai = require("chai");
-import sinonChai = require("sinon-chai");
+import * as chai from "chai";
+import *  as sinonChai from "sinon-chai";
+
 chai.should();
 chai.use(sinonChai);
 
