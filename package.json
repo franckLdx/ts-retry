@@ -51,6 +51,9 @@
     "async",
     "await",
     "asyncawait",
-    "trycatch"
+    "trycatch",
+    "react",
+    "angular",
+    "vue"
   ]
 }
