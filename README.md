@@ -1,5 +1,5 @@
 # ts-retry
-A little retry tool in javascript/typescript for node.
+A little retry tool in javascript/typescript for node and for browser.
 
 ## How to:
 * to retry something: <code>await retry(()=> {/* do something */}, {delay:100,maxTry:5})</code>

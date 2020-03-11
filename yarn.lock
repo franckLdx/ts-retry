@@ -22,24 +22,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinonjs/formatio@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "@sinonjs/formatio@npm:4.0.1"
+"@sinonjs/fake-timers@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@sinonjs/fake-timers@npm:6.0.0"
   dependencies:
-    "@sinonjs/commons": ^1
-    "@sinonjs/samsam": ^4.2.0
-  checksum: 2/0172b81ff181f7b1d73d085714a4d8c54c6731fcaf7b0f7ad25ebebe28a9453f716274867213313ecea7d48c9445ef4cb39c06fb4a73c59a3251bcdae29fe92b
+    "@sinonjs/commons": ^1.7.0
+  checksum: 2/5dad4ac09e81720ce9743a43e4a6e26d991c02e808c95a3033ec1a8d2737083bc292cd129bd79dfd97862dc1ad27c679da302e6156da33ead230a2fcfd6d5b67
   languageName: node
   linkType: hard
 
-"@sinonjs/samsam@npm:^4.2.0, @sinonjs/samsam@npm:^4.2.2":
-  version: 4.2.2
-  resolution: "@sinonjs/samsam@npm:4.2.2"
+"@sinonjs/formatio@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@sinonjs/formatio@npm:5.0.1"
+  dependencies:
+    "@sinonjs/commons": ^1
+    "@sinonjs/samsam": ^5.0.2
+  checksum: 2/88a5b635f8bf088a7610d92d242bea22b9f69fbbc8d3fdace1989995f7f78d463ef14ab834e549cee846b6d13c584496e53bbbde2ac711b0ccfee0a95440c5ae
+  languageName: node
+  linkType: hard
+
+"@sinonjs/samsam@npm:^5.0.2, @sinonjs/samsam@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "@sinonjs/samsam@npm:5.0.3"
   dependencies:
     "@sinonjs/commons": ^1.6.0
     lodash.get: ^4.4.2
     type-detect: ^4.0.8
-  checksum: 2/88361c979c3cb20b0cb8299b80a411608cb83bd998ff46176a415b4d22b4f9dd80147e4a1831e032a4c8f00739583ffd0638e0ed6537bc71f4dc73dadfef5e0b
+  checksum: 2/4d30cab4f82db7ef4b648d420f625bb5a9e260565ca604c86d9b9cbf3f358089b70d632343b1cb158de00198dbf4eaa21d832f30702a94de5c17e8f510af75ae
   languageName: node
   linkType: hard
 
@@ -78,10 +87,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:13.7.1":
-  version: 13.7.1
-  resolution: "@types/node@npm:13.7.1"
-  checksum: 2/93c5252ec2bfd0de52858cfb986695f89a4b16ad341a7885e11f650cb28e879199c620effe4d17dd68aa8944691db491ebe6ff27cd8e87989e762581514067bb
+"@types/node@npm:13.9.0":
+  version: 13.9.0
+  resolution: "@types/node@npm:13.9.0"
+  checksum: 2/54c040abe4765c9be0e50e0aa5f9fb7d7bff67e1ff98d2c2587df14239a965e6543be2c3321ed81a946d400b9ec47d4f8304648f6eb6c0617a523697e8cb2d20
   languageName: node
   linkType: hard
 
@@ -95,10 +104,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sinon@npm:*, @types/sinon@npm:7.5.1":
+"@types/sinon@npm:*":
   version: 7.5.1
   resolution: "@types/sinon@npm:7.5.1"
   checksum: 2/484fbabc1bcb9f582722fa0fc5804fb8ebdf3d530d6a91eadf7504f84cd068ba499c1989d8849578c96603ab73c6e8099fa797e8618db1bbe8c0247833f321fe
+  languageName: node
+  linkType: hard
+
+"@types/sinon@npm:7.5.2":
+  version: 7.5.2
+  resolution: "@types/sinon@npm:7.5.2"
+  checksum: 2/4cf5caefc36c0e8a9e8cfc4c4cde9000fa8eaa0d8f7d221c44f6ccce43e6521772d8c85bf417085370974527ff842fdacc56a8f374957015cb48bf887c6d13c3
   languageName: node
   linkType: hard
 
@@ -336,7 +352,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.0.1":
+"chalk@npm:^2.4.2":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -444,15 +460,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-env@npm:7.0.0":
-  version: 7.0.0
-  resolution: "cross-env@npm:7.0.0"
+"cross-env@npm:7.0.2":
+  version: 7.0.2
+  resolution: "cross-env@npm:7.0.2"
   dependencies:
     cross-spawn: ^7.0.1
   bin:
     cross-env: src/bin/cross-env.js
     cross-env-shell: src/bin/cross-env-shell.js
-  checksum: 2/2c638649830df34f69bf06f2969ce2679c86cd4e1d0422e96e40576addfbdde3a03553914b3cbfd47b9430b8cf9d9999b2c7adb99bd3b8fadd51e20e63cfd17b
+  checksum: 2/624d638db3b4b6b221f32238aeb6785b865365bf41154f01d46a23b6d78f807ca5588a3b32e9af5f17384b866fed3752d0e3ecf8c4a8cfca2935d363d27ba058
   languageName: node
   linkType: hard
 
@@ -1128,21 +1144,12 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"log-symbols@npm:2.2.0":
-  version: 2.2.0
-  resolution: "log-symbols@npm:2.2.0"
+"log-symbols@npm:3.0.0":
+  version: 3.0.0
+  resolution: "log-symbols@npm:3.0.0"
   dependencies:
-    chalk: ^2.0.1
-  checksum: 2/e2dfd255f3e3080134055597fb67bd67798d65383488683ed90f0376f7264dd21028f30d4c3a0686251dcfc4dc71172e8061cef21e89c6deabb8b375450d5166
-  languageName: node
-  linkType: hard
-
-"lolex@npm:^5.0.1, lolex@npm:^5.1.2":
-  version: 5.1.2
-  resolution: "lolex@npm:5.1.2"
-  dependencies:
-    "@sinonjs/commons": ^1.7.0
-  checksum: 2/129eb19d11bd1557fdee931f064e7ea0f1a23e9b33eaea37179f32074718b496e2b5855461d3364a65ddd113dc92a065957b957281bb5fe9caf3291a9f4db02e
+    chalk: ^2.4.2
+  checksum: 2/bfa7cceaea16d7e378b4f6a16e22c5c78bc4250350a84d653766927bdf27e5b94015f616e193bc275e80d13f882867ddf224a3c6c152e24289ed5e58d84d306e
   languageName: node
   linkType: hard
 
@@ -1222,9 +1229,9 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"mocha@npm:7.0.1":
-  version: 7.0.1
-  resolution: "mocha@npm:7.0.1"
+"mocha@npm:7.1.0":
+  version: 7.1.0
+  resolution: "mocha@npm:7.1.0"
   dependencies:
     ansi-colors: 3.2.3
     browser-stdout: 1.3.1
@@ -1237,7 +1244,7 @@ fsevents@~2.1.1:
     growl: 1.10.5
     he: 1.2.0
     js-yaml: 3.13.1
-    log-symbols: 2.2.0
+    log-symbols: 3.0.0
     minimatch: 3.0.4
     mkdirp: 0.5.1
     ms: 2.1.1
@@ -1253,7 +1260,7 @@ fsevents@~2.1.1:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha
-  checksum: 2/edaa192c219f3003643e875539b2fe5a8a122736cf4e2174c7d53bce7943d336930b4d581490a07c389eb5656ed04b160e92f3362896b96049c8ab412a4cf1e8
+  checksum: 2/4035b730f3c69018880584970b7b84b515c3d4cda5bebd3b46422d245fde96d5cf23c9764a8b945726a7296b55fcd4400bcc123332d1d11c9fdb5d6a44df7362
   languageName: node
   linkType: hard
 
@@ -1271,17 +1278,16 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"nise@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "nise@npm:3.0.1"
+"nise@npm:^4.0.1":
+  version: 4.0.3
+  resolution: "nise@npm:4.0.3"
   dependencies:
     "@sinonjs/commons": ^1.7.0
-    "@sinonjs/formatio": ^4.0.1
+    "@sinonjs/fake-timers": ^6.0.0
     "@sinonjs/text-encoding": ^0.7.1
     just-extend: ^4.0.2
-    lolex: ^5.0.1
     path-to-regexp: ^1.7.0
-  checksum: 2/72b884ac8061f218f3fea5428a113952e16a2d0d7d5616e363589b1b6fd20508cf93f21a3d9465d983a929e922f2096e0e994f129d97779896f02327582c8858
+  checksum: 2/96de87f9998f990b6b7d1ff013f9538624f226d4a054a25bf0bad8b9143cb9ea5ebb6b8c3ab3d8c29d2b2b29da79418f90d97d568b9b387c42da78410dfb34ff
   languageName: node
   linkType: hard
 
@@ -1689,28 +1695,28 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"sinon-chai@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "sinon-chai@npm:3.4.0"
+"sinon-chai@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "sinon-chai@npm:3.5.0"
   peerDependencies:
     chai: ^4.0.0
-    sinon: ">=4.0.0 <9.0.0"
-  checksum: 2/3374322f7bda85ebc327f5cf001816038f2485fb226a63e40326d2f5951825e5cacfe1feb634ac9e1b1d8dd1804d1e61d5b6eb2783d3791fb4457620aad909f7
+    sinon: ">=4.0.0 <10.0.0"
+  checksum: 2/7be5aba73ed36111064069c191af35cf5540540ed11be9da80cccc7c2a457e6dd0864e216dc8a78c5ab8d7769d6c697bbcee4cedc887d67239dcb2b9f740d7c7
   languageName: node
   linkType: hard
 
-"sinon@npm:8.1.1":
-  version: 8.1.1
-  resolution: "sinon@npm:8.1.1"
+"sinon@npm:9.0.1":
+  version: 9.0.1
+  resolution: "sinon@npm:9.0.1"
   dependencies:
     "@sinonjs/commons": ^1.7.0
-    "@sinonjs/formatio": ^4.0.1
-    "@sinonjs/samsam": ^4.2.2
+    "@sinonjs/fake-timers": ^6.0.0
+    "@sinonjs/formatio": ^5.0.1
+    "@sinonjs/samsam": ^5.0.3
     diff: ^4.0.2
-    lolex: ^5.1.2
-    nise: ^3.0.1
+    nise: ^4.0.1
     supports-color: ^7.1.0
-  checksum: 2/3eaa5d512ec989483154d7b6fd3a935306941579d9f854cd770c49d42abe0112ef935dd6edc7c1fba999f63927a676c5c50b2eca96dd5d33a83cdae98ec0e474
+  checksum: 2/8fbfe4166b8a78207df2a5acbba1d4ac121aaca49b4e78cef892dcd0a09927e93497ac5ca0118c08718f3260ef72cc5d1b6fe97723cbfcaaff8469f85a09628a
   languageName: node
   linkType: hard
 
@@ -1957,9 +1963,9 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"ts-node@npm:8.6.2":
-  version: 8.6.2
-  resolution: "ts-node@npm:8.6.2"
+"ts-node@npm:8.7.0":
+  version: 8.7.0
+  resolution: "ts-node@npm:8.7.0"
   dependencies:
     arg: ^4.1.0
     diff: ^4.0.1
@@ -1970,8 +1976,10 @@ fsevents@~2.1.1:
     typescript: ">=2.7"
   bin:
     ts-node: dist/bin.js
-    ts-script: dist/script.js
-  checksum: 2/56103b97ca6562914446af3db546c7988260d707321313d7eb9bd20b4302f73e684c920031aa618733bcdef19f881b0a8c5339fb1963908af50fec063ab34ef9
+    ts-node-script: dist/bin-script.js
+    ts-node-transpile-only: dist/bin-transpile.js
+    ts-script: dist/bin-script-deprecated.js
+  checksum: 2/3d8a83efbd18bca2520b59dadc8cb07b7f40b4d2c61230b5ce352a2d3fcb5fdb2639929d1ff50afce4faf7972d79fc49d954b7372be14d1894151ee7b8f11e53
   languageName: node
   linkType: hard
 
@@ -1981,18 +1989,18 @@ fsevents@~2.1.1:
   dependencies:
     "@types/chai": 4.2.9
     "@types/mocha": ^7.0.1
-    "@types/node": 13.7.1
-    "@types/sinon": 7.5.1
+    "@types/node": 13.9.0
+    "@types/sinon": 7.5.2
     "@types/sinon-chai": 3.2.3
     chai: ^4.2.0
-    cross-env: 7.0.0
-    mocha: 7.0.1
+    cross-env: 7.0.2
+    mocha: 7.1.0
     rimraf: 3.0.2
-    sinon: 8.1.1
-    sinon-chai: ^3.4.0
+    sinon: 9.0.1
+    sinon-chai: ^3.5.0
     ts-mocha: ^6.0.0
-    ts-node: 8.6.2
-    typescript: 3.7.5
+    ts-node: 8.7.0
+    typescript: 3.8.3
   languageName: unknown
   linkType: soft
 
@@ -2031,23 +2039,23 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-typescript@3.7.5:
-  version: 3.7.5
-  resolution: "typescript@npm:3.7.5"
+typescript@3.8.3:
+  version: 3.8.3
+  resolution: "typescript@npm:3.8.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2/48a96fb7dc48746e6b76cf0946545181b0d5013368e510768402f1374e6c6a9f29b00e8ca4f40bc7523a655473f7bc7c55d1c8458970e96b7187bcee1b47e96b
+  checksum: 2/519b11576247fe3570d89a2aa757d8f666aafc0cb9465a6cdd4df09c1dc6bf7285f0c6008d2ac7a55ea26457e767aaab819f58439d80af2cce1d9805b2be1034
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@3.7.5#builtin<compat/typescript>":
-  version: 3.7.5
-  resolution: "typescript@patch:typescript@npm%3A3.7.5#builtin<compat/typescript>::version=3.7.5&hash=273569"
+"typescript@patch:typescript@3.8.3#builtin<compat/typescript>":
+  version: 3.8.3
+  resolution: "typescript@patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=273569"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2/15c69b5cf2b7005de5cfe3120496f4ceb99c628bd69e735b65b2629b4c34cc867a9fd26de6f05d841e08a05727af6d6e2979c39220d2364b5b6c5854fd7d88ff
+  checksum: 2/345573d9ee784f75c4facb98e838d28fe1376648abd627e3bca256237965940f331bf0ed502de6068f0cca9111eac675ca26d901202547068d52d66685e42be2
   languageName: node
   linkType: hard
 
