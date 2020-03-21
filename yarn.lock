@@ -66,10 +66,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:4.2.9":
-  version: 4.2.9
-  resolution: "@types/chai@npm:4.2.9"
-  checksum: 2/2c18a3386cf431e3c847e66de277e4e57e24666d73b2049c74078480ea87bfbb855e01b480386635d35c34841f4149d8896856670afe36ef525275e2780cc4d7
+"@types/chai@npm:4.2.11":
+  version: 4.2.11
+  resolution: "@types/chai@npm:4.2.11"
+  checksum: 2/f86ca92ea04c20c4b2520a254686674d53554958621672a06d3f1568122d0be9f77ffe7445e62b85b6b87d194110690be120d9161a9934c8beeee141f2c024cc
   languageName: node
   linkType: hard
 
@@ -80,17 +80,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mocha@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@types/mocha@npm:7.0.1"
-  checksum: 2/b13cdfcc56cd96b21c399849080906dffd55d0e94766323cc8521c8669b52278631182ab0054fe2c11758173b1aec3570f1b9b45900e422de1bb5eb3d8320629
+"@types/mocha@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@types/mocha@npm:7.0.2"
+  checksum: 2/a3b2b5b2ed45e417c6292de33678408093a96bc26dc78d4f28446baa7f629e0945557325ada9f3f56efc44e1cee5f4f04e950da4ff316f2bea58106892de96da
   languageName: node
   linkType: hard
 
-"@types/node@npm:13.9.0":
-  version: 13.9.0
-  resolution: "@types/node@npm:13.9.0"
-  checksum: 2/54c040abe4765c9be0e50e0aa5f9fb7d7bff67e1ff98d2c2587df14239a965e6543be2c3321ed81a946d400b9ec47d4f8304648f6eb6c0617a523697e8cb2d20
+"@types/node@npm:13.9.2":
+  version: 13.9.2
+  resolution: "@types/node@npm:13.9.2"
+  checksum: 2/d462ab643ff00eb7b64883cd9a42b2318e5283b397afbe96310cac62e4f48ec97983ee99aa59c6a63c3e302fcd004d30d549889dbc6c712abb566572d92fa533
   languageName: node
   linkType: hard
 
@@ -1199,6 +1199,13 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
+"minimist@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "minimist@npm:1.2.5"
+  checksum: 2/b77b8590147a4e217ff34266236bc39de23b52e6e33054076991ff674c7397a1380a7bde11111916f16f003a94aaa7e4f3d92595a32189644ff607fabc65a5b6
+  languageName: node
+  linkType: hard
+
 "minipass@npm:^2.6.0, minipass@npm:^2.8.6, minipass@npm:^2.9.0":
   version: 2.9.0
   resolution: "minipass@npm:2.9.0"
@@ -1218,7 +1225,18 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:0.5.1, mkdirp@npm:^0.5.0, mkdirp@npm:^0.5.1":
+"mkdirp@npm:0.5.3":
+  version: 0.5.3
+  resolution: "mkdirp@npm:0.5.3"
+  dependencies:
+    minimist: ^1.2.5
+  bin:
+    mkdirp: bin/cmd.js
+  checksum: 2/92d96ba83ca6013b7077c3fe776766c823c468de845a4965f5df483c38ad4d12829aab5a7a4e88e9defc4041f18a7cef2172e7bb19f946ae09a3821174b95256
+  languageName: node
+  linkType: hard
+
+"mkdirp@npm:^0.5.0, mkdirp@npm:^0.5.1":
   version: 0.5.1
   resolution: "mkdirp@npm:0.5.1"
   dependencies:
@@ -1229,9 +1247,9 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"mocha@npm:7.1.0":
-  version: 7.1.0
-  resolution: "mocha@npm:7.1.0"
+"mocha@npm:7.1.1":
+  version: 7.1.1
+  resolution: "mocha@npm:7.1.1"
   dependencies:
     ansi-colors: 3.2.3
     browser-stdout: 1.3.1
@@ -1246,7 +1264,7 @@ fsevents@~2.1.1:
     js-yaml: 3.13.1
     log-symbols: 3.0.0
     minimatch: 3.0.4
-    mkdirp: 0.5.1
+    mkdirp: 0.5.3
     ms: 2.1.1
     node-environment-flags: 1.0.6
     object.assign: 4.1.0
@@ -1254,13 +1272,13 @@ fsevents@~2.1.1:
     supports-color: 6.0.0
     which: 1.3.1
     wide-align: 1.1.3
-    yargs: 13.3.0
-    yargs-parser: 13.1.1
+    yargs: 13.3.2
+    yargs-parser: 13.1.2
     yargs-unparser: 1.6.0
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha
-  checksum: 2/4035b730f3c69018880584970b7b84b515c3d4cda5bebd3b46422d245fde96d5cf23c9764a8b945726a7296b55fcd4400bcc123332d1d11c9fdb5d6a44df7362
+  checksum: 2/b0edc7d982b29d0ed2592ef5f629fdad9f06b75972c1bf6fd5dd2bef6845bcfeac8c874e7ab885a73388e8f940ce9ed5b22947e08fdb0412b08612c67fc6dcd9
   languageName: node
   linkType: hard
 
@@ -1928,20 +1946,20 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"ts-mocha@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "ts-mocha@npm:6.0.0"
+"ts-mocha@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "ts-mocha@npm:7.0.0"
   dependencies:
     ts-node: 7.0.1
     tsconfig-paths: ^3.5.0
   peerDependencies:
-    mocha: ^3.X.X || ^4.X.X || ^5.X.X || ^6.X.X
+    mocha: ^3.X.X || ^4.X.X || ^5.X.X || ^6.X.X || ^7.X.X
   dependenciesMeta:
     tsconfig-paths:
       optional: true
   bin:
     ts-mocha: ./bin/ts-mocha
-  checksum: 2/cd792f623354cc0e10cebec8e4bfd67434e53318ec0028646f7044c27cb1430008eacbb24c06007c82a23c365b749e035a767ac62baef06b1f69ac8e3a5b5d52
+  checksum: 2/578d1c5e7addbc8c446cfe2d23ab40793a146fb72e028306e6c16b58f51c2912def8fd05d500908ddeb0b5816a86c544053f318d068997caea5e8f1682424006
   languageName: node
   linkType: hard
 
@@ -1987,18 +2005,18 @@ fsevents@~2.1.1:
   version: 0.0.0-use.local
   resolution: "ts-retry@workspace:."
   dependencies:
-    "@types/chai": 4.2.9
-    "@types/mocha": ^7.0.1
-    "@types/node": 13.9.0
+    "@types/chai": 4.2.11
+    "@types/mocha": ^7.0.2
+    "@types/node": 13.9.2
     "@types/sinon": 7.5.2
     "@types/sinon-chai": 3.2.3
     chai: ^4.2.0
     cross-env: 7.0.2
-    mocha: 7.1.0
+    mocha: 7.1.1
     rimraf: 3.0.2
     sinon: 9.0.1
     sinon-chai: ^3.5.0
-    ts-mocha: ^6.0.0
+    ts-mocha: ^7.0.0
     ts-node: 8.7.0
     typescript: 3.8.3
   languageName: unknown
@@ -2165,7 +2183,17 @@ typescript@3.8.3:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:13.1.1, yargs-parser@npm:^13.1.1":
+"yargs-parser@npm:13.1.2, yargs-parser@npm:^13.1.2":
+  version: 13.1.2
+  resolution: "yargs-parser@npm:13.1.2"
+  dependencies:
+    camelcase: ^5.0.0
+    decamelize: ^1.2.0
+  checksum: 2/82d3b7ab99085d70a5121399ad407d2b98d296538bf7012ac2ce044a61160ca891ea617de6374699d81955d9a61c36a3b2a6a51588e38f710bd211ce2e63c33c
+  languageName: node
+  linkType: hard
+
+"yargs-parser@npm:^13.1.1":
   version: 13.1.1
   resolution: "yargs-parser@npm:13.1.1"
   dependencies:
@@ -2186,7 +2214,25 @@ typescript@3.8.3:
   languageName: node
   linkType: hard
 
-"yargs@npm:13.3.0, yargs@npm:^13.3.0":
+"yargs@npm:13.3.2":
+  version: 13.3.2
+  resolution: "yargs@npm:13.3.2"
+  dependencies:
+    cliui: ^5.0.0
+    find-up: ^3.0.0
+    get-caller-file: ^2.0.1
+    require-directory: ^2.1.1
+    require-main-filename: ^2.0.0
+    set-blocking: ^2.0.0
+    string-width: ^3.0.0
+    which-module: ^2.0.0
+    y18n: ^4.0.0
+    yargs-parser: ^13.1.2
+  checksum: 2/92c612cd14a9217d7421ae4f42bc7c460472633bfc2e45f7f86cd614a61a845670d3bac7c2228c39df7fcecce0b8c12b2af65c785b1f757de974dcf84b5074f9
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^13.3.0":
   version: 13.3.0
   resolution: "yargs@npm:13.3.0"
   dependencies:
