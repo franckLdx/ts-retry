@@ -26,6 +26,6 @@ export async function retryAsync<T>(fn: () => Promise<T>, { maxTry, delay }: Ret
   }
 }
 
-function wait(duration: number) {
+export function wait(duration: number) {
   return new Promise((resolve) => setTimeout(resolve, duration));
 }
