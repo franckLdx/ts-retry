@@ -1,5 +1,14 @@
 # ts-retry
 A little retry tool in javascript/typescript for node and for browser.
+Ex:
+<code>
+const result = await retryAsync(
+  async ()=> {/* get some data if ready, throw an expection otherwise */}, 
+  {delay:100,maxTry:5})
+</code>
+This will try 5 times to get the data. If data is not ready after the 5 attempts,
+an exception is thrown. If data are obtained, retryAsync stop immediatly and returns
+the data. 
 
 ## How to:
 * to retry something: <code>await retry(()=> {/* do something */}, {delay:100,maxTry:5})</code>
