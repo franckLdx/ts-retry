@@ -22,7 +22,8 @@ the data.
 Above examples make up to 5 attempts, waiting 100ms between each try.
 
 You can also wait for a number of seconds
-* to wait 1OOms of milliseconds: <br/><code>await wait(100)</code> 
+* to wait 1OO 
+ms of milliseconds: <br/><code>await wait(100)</code> 
 
 
 ## API
@@ -39,4 +40,11 @@ The library comes with it's own .d.ts file.
 The retry function is generic: you can specify the return type:
 ```javascript
   const result = await retryAsync<string>(async ()=> {/* do something */}, {delay:100,maxTry:5})
+```
+
+# Deno
+I'm currently working on a specific port to deno, meanwhile you can use this lib in deno, it works: you just have to use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts` into to deps.ts file. Ex:
+```javascript
+  export { retry, retryAsync, wait } from "https://raw.githubusercontent.com/franckLdx/ts-retry/v1.1.2/src/index.ts";
+
 ```
