@@ -54,6 +54,7 @@
     "trycatch",
     "react",
     "angular",
-    "vue"
+    "vue",
+    "deno"
   ]
 }
