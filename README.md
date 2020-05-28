@@ -37,14 +37,11 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
 ## Typescript:
 The library comes with it's own .d.ts file. 
 
-The retry function is generic: you can specify the return type:
+retry and retryAsync return type is the return type of the callback 
 ```javascript
-  const result = await retryAsync<string>(async ()=> {/* do something */}, {delay:100,maxTry:5})
+  const get = (); boolean => /* do something that return a boolean */
+  const result = await retryAsync>(get, {delay:100,maxTry:5}) /* result is a boolean */
 ```
 
 # Deno
-I'm currently working on a specific port to deno, meanwhile you can use this lib in deno, it works: you just have to use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts` into to deps.ts file. Ex:
-```javascript
-  export { retry, retryAsync, wait } from "https://raw.githubusercontent.com/franckLdx/ts-retry/v1.1.2/src/index.ts";
-
-```
+This lib works with Deno (to import it,use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`
