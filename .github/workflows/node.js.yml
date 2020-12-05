@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: [ubuntu-latest, windows-latest, macos-latest] # runs a test on Ubuntu, Windows and macOS
+    runs-on: ubuntu-latest, windows-latest, macos-latest # runs a test on Ubuntu, Windows and macOS
 
     strategy:
       matrix:
