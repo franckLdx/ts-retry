@@ -1,4 +1,4 @@
-import { waitUntil } from "./wait";
+import { waitUntil, waitUntilAsync } from "./wait";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
 const should = require("chai").should();
@@ -6,7 +6,7 @@ const should = require("chai").should();
 chai.should();
 chai.use(sinonChai);
 
-describe("WaitUntil", () => {
+describe("Wait", () => {
   it("wait should return function return code", async () => {
     const delay = 1000;
     const result = Symbol("OK");
@@ -18,7 +18,7 @@ describe("WaitUntil", () => {
   it("wait should throw function exception", async () => {
     const delay = 1000;
     const errorMsg = "BOOM";
-    const fn = async () => {
+    const fn = () => {
       throw new Error(errorMsg);
     };
     let actualErr = undefined;
@@ -35,7 +35,7 @@ describe("WaitUntil", () => {
 
   it("wait should throw TimeoutError exception", async () => {
     const delay = 1000;
-    const fn = async () => {
+    const fn = () => {
       return new Promise((resolve) =>
         setTimeout(
           () => resolve(1),
@@ -58,7 +58,7 @@ describe("WaitUntil", () => {
   it("wait should throw a custom exception", async () => {
     const delay = 1000;
     const errMsg = "Boom";
-    const fn = async () => {
+    const fn = () => {
       return new Promise((resolve) =>
         setTimeout(
           () => resolve(1),

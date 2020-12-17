@@ -1,3 +1,4 @@
+import { asyncDecorator } from "./misc";
 import { wait } from "./wait";
 
 export interface RetryOptions {
@@ -9,15 +10,8 @@ export async function retry<T>(
   fn: () => T,
   retryOptions: RetryOptions,
 ): Promise<T> {
-  const wrapped = () =>
-    new Promise<T>((resolve, reject) => {
-      try {
-        resolve(fn());
-      } catch (err) {
-        reject(err);
-      }
-    });
-  return retryAsync(wrapped, retryOptions);
+  const fnAsync = asyncDecorator(fn);
+  return retryAsync(fnAsync, retryOptions);
 }
 
 export async function retryAsync<T>(
