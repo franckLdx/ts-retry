@@ -33,10 +33,6 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf lib",
-    "watch": "tsc --watch",
-    "build": "tsc && tsc -p tsconfig.esm.json",
-    "pretest": "npm run build",
     "test": "mocha --require ts-node/register src/**/*.test.ts",
     "test-coverage": "nyc --reporter=text mocha --require ts-node/register src/**/*.test.ts"
   },

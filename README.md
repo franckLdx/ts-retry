@@ -75,5 +75,4 @@ Each function return type is the return type of the callback
 ```
 
 ## Compatilibity
-This libaray is provided in ESM and commomJS (see /lib).
 This lib works with Deno (to import it,use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`
