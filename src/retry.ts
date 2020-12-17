@@ -8,7 +8,7 @@ export interface RetryOptions {
 
 export async function retry<T>(
   fn: () => T,
-  retryOptions: RetryOptions,
+  retryOptions?: RetryOptions,
 ): Promise<T> {
   const fnAsync = asyncDecorator(fn);
   return retryAsync(fnAsync, retryOptions);
@@ -16,7 +16,7 @@ export async function retry<T>(
 
 export async function retryAsync<T>(
   fn: () => Promise<T>,
-  { maxTry, delay }: RetryOptions,
+  { maxTry, delay }: RetryOptions = defaulRetryOptions,
 ): Promise<T> {
   try {
     return await fn();
@@ -27,4 +27,20 @@ export async function retryAsync<T>(
     }
     throw err;
   }
+}
+
+let defaulRetryOptions: RetryOptions = {
+  delay: 250,
+  maxTry: 250 * 4 * 60,
+};
+
+export function setDefaulRetryOptions(
+  retryOptions: Partial<RetryOptions>,
+): RetryOptions {
+  defaulRetryOptions = { ...defaulRetryOptions, ...retryOptions };
+  return getDefaulRetryOptions();
+}
+
+export function getDefaulRetryOptions(): Readonly<RetryOptions> {
+  return { ...defaulRetryOptions };
 }
