@@ -8,22 +8,22 @@ chai.use(sinonChai);
 
 describe("Wait", () => {
   it("wait should return function return code", async () => {
-    const delay = 1000;
+    const duration = 1000;
     const result = Symbol("OK");
     const fn = async () => result;
-    const actualResult = await waitUntil(fn, delay);
+    const actualResult = await waitUntil(fn, duration);
     actualResult.should.equal(result);
   });
 
   it("wait should throw function exception", async () => {
-    const delay = 1000;
+    const duration = 1000;
     const errorMsg = "BOOM";
     const fn = () => {
       throw new Error(errorMsg);
     };
     let actualErr = undefined;
     try {
-      await waitUntil(fn, delay);
+      await waitUntil(fn, duration);
     } catch (err) {
       actualErr = err;
     }
@@ -34,18 +34,18 @@ describe("Wait", () => {
   });
 
   it("wait should throw TimeoutError exception", async () => {
-    const delay = 1000;
+    const duration = 1000;
     const fn = () => {
       return new Promise((resolve) =>
         setTimeout(
           () => resolve(1),
-          delay * 2,
+          duration * 2,
         )
       );
     };
     let actualErr = undefined;
     try {
-      await waitUntil(fn, delay);
+      await waitUntil(fn, duration);
     } catch (err) {
       actualErr = err;
     }
@@ -56,19 +56,19 @@ describe("Wait", () => {
   });
 
   it("wait should throw a custom exception", async () => {
-    const delay = 1000;
+    const duration = 1000;
     const errMsg = "Boom";
     const fn = () => {
       return new Promise((resolve) =>
         setTimeout(
           () => resolve(1),
-          delay * 2,
+          duration * 2,
         )
       );
     };
     let actualErr = undefined;
     try {
-      await waitUntil(fn, delay, new Error(errMsg));
+      await waitUntil(fn, duration, new Error(errMsg));
     } catch (err) {
       actualErr = err;
     }

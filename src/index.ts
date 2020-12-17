@@ -6,4 +6,11 @@ export {
   setDefaultRetryOptions,
 } from "./retry";
 
-export { TimeoutError, wait, waitUntil, waitUntilAsync } from "./wait";
+export {
+  getDefaultDuration,
+  setDefaultDuration,
+  TimeoutError,
+  wait,
+  waitUntil,
+  waitUntilAsync,
+} from "./wait";
