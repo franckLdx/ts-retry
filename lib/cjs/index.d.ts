@@ -1,3 +1,3 @@
 export type { RetryOptions } from "./retry";
-export { retry, retryAsync } from "./retry";
-export { TimeoutError, wait, waitUntilAsync as waitUntil } from "./wait";
+export { getDefaulRetryOptions, retry, retryAsync, setDefaulRetryOptions, } from "./retry";
+export { TimeoutError, wait, waitUntil, waitUntilAsync } from "./wait";
