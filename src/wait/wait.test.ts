@@ -1,4 +1,4 @@
-import { waitUntil } from ".";
+import { waitUntil } from "..";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
 const should = require("chai").should();

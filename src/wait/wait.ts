@@ -1,4 +1,4 @@
-import { asyncDecorator } from "./misc";
+import { asyncDecorator } from "../misc";
 
 export function wait(duration: number) {
   return new Promise((resolve) => setTimeout(resolve, duration));

@@ -1,9 +1,9 @@
 export type { RetryOptions } from "./retry";
 export {
-  getDefaulRetryOptions,
+  getDefaultRetryOptions,
   retry,
   retryAsync,
-  setDefaulRetryOptions,
+  setDefaultRetryOptions,
 } from "./retry";
 
 export { TimeoutError, wait, waitUntil, waitUntilAsync } from "./wait";
