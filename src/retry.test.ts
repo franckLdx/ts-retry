@@ -1,5 +1,5 @@
 import * as sinon from "sinon";
-import { retry, RetryOptions, waitUntil } from ".";
+import { retry, RetryOptions } from ".";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
 const should = require("chai").should();
