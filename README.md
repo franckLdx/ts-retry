@@ -69,10 +69,11 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
     maxTry: 4 * 60, 
   ```
 * `setDefaultRetryOptions(retryOptions: Partial<RetryOptions>)`: change the default retryOptions, or only the default maxTry or only the default delay). It always returns the full default retryOptions.
-* `getDefaultRetryOptions()`: returns the current default retry options;
+* `getDefaultRetryOptions()`: returns the current default retry options.
 ## Wait
-* `waitUntil<T>(fn<T>, delay, error?)`: waitUntil call asynchronously fn once. If fn complete within the delay (express in miliseconds), waitUntil returns the fn result. Otherwhise it thows the given error (if any) or a TimeoutError exception.
-* `waitUntilAsync<T>(fn<T>, delay, error?)`: same as waitUntil, except fn is an asynchronous function.
+* `wait(duration?)`: Do nothing during "duration" milliseconds
+* `waitUntil<T>(fn<T>, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in miliseconds), waitUntil returns the fn result. Otherwhise it thows the given error (if any) or a TimeoutError exception.
+* `waitUntilAsync<T>(fn<T>, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
 * `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It has a property isTimeout set to true: therefore there's two means to check os fn timeout:
 ```typescript
   error instanceof TimeoutError
@@ -80,13 +81,10 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
   (error as any).isTimeout
 ```
 In case of timeout fn is still executing. It is advise to add a mean to abort it.
-Note: retry, retryAsync and waitUntil return type is the return type of the given fn.
+* When duration is not provided, the default one is applyed. The default default is 60000ms.
+* `setDefaultDuration(duration: number)`: change the default duration.
+* `getDefaultDuration()`: returns the current default duration.
 
-Each function return type is the return type of the callback 
-```javascript
-  const get = (); boolean => /* do something that return a boolean */
-  const result = await retryAsync>(get, {delay:100,maxTry:5}) /* result is a boolean */
-```
 
 ---
 ## Compatilibity
