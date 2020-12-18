@@ -40,7 +40,7 @@ Above examples make up to 5 attempts, waiting 100ms between each try.
   }
   ```
 
-* to set a timeout on something async:  
+* to set a timeout on something async:   
   ```typescript
   try {
     const result = await waitUntilAsync(async ()=> {/* do something */}, 10000);
@@ -65,7 +65,7 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
   - delay: delay between each call (in milliseconds).
   When retryOptions is not provided, the default one is applyed. The default retry option is
   ```typescript
-    delay: 250,  // call fn eveyr 250 ms during one minute 
+    delay: 250,  // call fn every 250 ms during one minute 
     maxTry: 4 * 60, 
   ```
 * `setDefaultRetryOptions(retryOptions: Partial<RetryOptions>)`: change the default retryOptions, or only the default maxTry or only the default delay). It always returns the full default retryOptions.
