@@ -40,7 +40,7 @@ Above examples make up to 5 attempts, waiting 100ms between each try.
   }
   ```
 
-  * to set a timeout on something async : 
+* to set a timeout on something async:  
   ```typescript
   try {
     const result = await waitUntilAsync(async ()=> {/* do something */}, 10000);
@@ -56,6 +56,7 @@ Above examples fn has 10 seconds to complete, otherwhise an exception is thrown.
 
 ___
 ## API
+### Retry
 * `retry(fn, retryOptions?)`: call repeteadly fn until fn does not throw and exception. Stop after retryOptions.maxTry count. Between each call wait retryOptions.delay milliseconds.
 if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise returns fn return value.
 * `retryAsync(fn, retryOptions?)`: same as retry, except fn is an asynchronous function.
@@ -69,6 +70,7 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
   ```
 * `setDefaultRetryOptions(retryOptions: Partial<RetryOptions>)`: change the default retryOptions, or only the default maxTry or only the default delay). It always returns the full default retryOptions.
 * `getDefaultRetryOptions()`: returns the current default retry options;
+## Wait
 * `waitUntil<T>(fn<T>, delay, error?)`: waitUntil call asynchronously fn once. If fn complete within the delay (express in miliseconds), waitUntil returns the fn result. Otherwhise it thows the given error (if any) or a TimeoutError exception.
 * `waitUntilAsync<T>(fn<T>, delay, error?)`: same as waitUntil, except fn is an asynchronous function.
 * `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It has a property isTimeout set to true: therefore there's two means to check os fn timeout:
