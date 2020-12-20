@@ -69,7 +69,6 @@ describe("RetryDefaultOption", () => {
   });
 
   it("defaultOptions can be changed", async () => {
-    const initialOptions = getDefaultRetryOptions();
     const newOptions: RetryOptions = { maxTry: 10, delay: 10 };
     const defaultOptions = setDefaultRetryOptions(newOptions);
     defaultOptions.should.deep.equals(newOptions);
