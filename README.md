@@ -46,7 +46,7 @@ Above examples fn has 10 seconds to complete, otherwhise an exception is thrown.
 
 ___
 ## API
-### Retry
+### Retry familly
 * `retry(fn, retryOptions?)`: call repeteadly fn until fn does not throw and exception. Stop after retryOptions.maxTry count. Between each call wait retryOptions.delay milliseconds.
 if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise returns fn return value.
 * `retryAsync(fn, retryOptions?)`: same as retry, except fn is an asynchronous function.
@@ -60,7 +60,7 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
   ```
 * `setDefaultRetryOptions(retryOptions: Partial<RetryOptions>)`: change the default retryOptions, or only the default maxTry or only the default delay). It always returns the full default retryOptions.
 * `getDefaultRetryOptions()`: returns the current default retry options.
-## Wait
+## Wait familly
 * `wait(duration?)`: Do nothing during "duration" milliseconds
 * `waitUntil<T>(fn<T>, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in miliseconds), waitUntil returns the fn result. Otherwhise it thows the given error (if any) or a TimeoutError exception.
 * `waitUntilAsync<T>(fn<T>, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
