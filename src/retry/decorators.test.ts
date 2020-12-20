@@ -20,9 +20,9 @@ describe("Retry decorator", () => {
   it("async decorator should throw an exception", async () => {
     const param = "Question";
     const errorMsg = "BOOM";
-    const callback = sinon.stub();
     const error = new Error(errorMsg);
     const maxTry = 2;
+    const callback = sinon.stub();
     callback.rejects(error);
     const decorated = retryAsyncDecorator(callback, { maxTry, delay: 50 });
     try {
