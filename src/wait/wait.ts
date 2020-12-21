@@ -40,3 +40,7 @@ const timeout = async <T>(duration: number, result: T) => {
 export class TimeoutError extends Error {
   isTimeout = true;
 }
+
+export function isTimeoutError(error: Error): error is TimeoutError {
+  return (error as TimeoutError).isTimeout === true;
+}

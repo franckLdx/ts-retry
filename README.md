@@ -30,7 +30,7 @@ A little retry tool in javascript/typescript for node and for browser. Can also 
   try {
     const result = await waitUntil(async ()=> {/* do something */}, 10000);
   } catch (err) {
-    if (error instanceof TimeoutError) {
+    if (isTimeoutError(error)) { {
       // fn does not complete after 10 seconds
     } else {
       // fn throws an exception
@@ -42,7 +42,7 @@ A little retry tool in javascript/typescript for node and for browser. Can also 
   try {
     const result = await waitUntilAsync(async ()=> {/* do something */}, 10000);
   } catch (err) {
-    if (error instanceof TimeoutError) {
+    if (isTimeoutError(error)) {
       // fn does not complete after 10 seconds
     } else {
       // fn throws an exception
@@ -83,11 +83,11 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
 * `wait(duration?)`: Do nothing during "duration" milliseconds
 * `waitUntil<T>(fn<T>, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in miliseconds), waitUntil returns the fn result. Otherwhise it thows the given error (if any) or a TimeoutError exception.
 * `waitUntilAsync<T>(fn<T>, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
-* `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It has a property isTimeout set to true: therefore there's two means to check os fn timeout:
+* `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
 ```typescript
-  error instanceof TimeoutError
-  or
-  (error as any).isTimeout
+  if (isTimeoutError(error)) {
+    // fn does not complete within 10 seconds
+  }
 ```
 In case of timeout fn is still executing. It is advise to add a mean to abort it.
 * When duration is not provided, the default one is applyed. The default default is 60000ms.

@@ -1,6 +1,7 @@
 import { waitUntil } from "..";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
+import { isTimeoutError } from "./wait";
 const should = require("chai").should();
 
 chai.should();
@@ -53,6 +54,7 @@ describe("Wait", () => {
       throw new Error("Should have thrown an exception");
     }
     actualErr.isTimeout.should.equal(true);
+    isTimeoutError(actualErr).should.equal(true);
   });
 
   it("wait should throw a custom exception", async () => {
@@ -76,6 +78,7 @@ describe("Wait", () => {
       throw new Error("Should have thrown an exception");
     }
     should.not.exist(actualErr.isTimeout);
+    isTimeoutError(actualErr).should.equal(false);
     (actualErr).message.should.equal(errMsg);
   });
 });

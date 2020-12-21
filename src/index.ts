@@ -8,6 +8,7 @@ export {
 
 export {
   getDefaultDuration,
+  isTimeoutError,
   setDefaultDuration,
   TimeoutError,
   wait,
