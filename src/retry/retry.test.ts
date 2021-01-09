@@ -48,7 +48,7 @@ describe("Retry", () => {
     callback.should.have.been.callCount(getDefaultRetryOptions().maxTry!);
   });
 
-  it('always failed, retry should give up after custom "maxTry"', async () => {
+  it("always failed, retry should give up after given maxTry", async () => {
     const callback = sinon.stub();
     callback.throws("BOOM");
     const options: RetryOptions = { delay: 3, maxTry: 100 };
