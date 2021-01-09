@@ -1,9 +1,11 @@
 export type { RetryOptions } from "./retry";
 export {
   getDefaultRetryOptions,
+  isTooManyTries,
   retry,
   retryAsync,
   setDefaultRetryOptions,
+  TooManyTries,
 } from "./retry";
 
 export {

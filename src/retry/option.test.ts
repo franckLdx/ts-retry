@@ -20,12 +20,18 @@ describe("RetryDefaultOption", () => {
   });
 
   it("Should have the expected default value", () => {
-    getDefaultRetryOptions().should.deep.equals({ delay: 250, maxTry: 4 * 60 });
+    getDefaultRetryOptions().should.deep.equals(
+      { delay: 250, maxTry: 4 * 60, until: null },
+    );
   });
 
   it("defaultOptions can be changed", async () => {
     const initialOptions = getDefaultRetryOptions();
-    const newOptions: RetryOptions = { maxTry: 10, delay: 10 };
+    const newOptions: RetryOptions = {
+      maxTry: 10,
+      delay: 10,
+      until: () => false,
+    };
     const defaultOptions = setDefaultRetryOptions(newOptions);
     defaultOptions.should.deep.equals(newOptions);
     getDefaultRetryOptions().should.deep.equals(newOptions);
@@ -33,7 +39,7 @@ describe("RetryDefaultOption", () => {
 
   it("default maxTry can be changed", async () => {
     const initialOptions = getDefaultRetryOptions();
-    const newMaxTry = initialOptions.maxTry * 2;
+    const newMaxTry = initialOptions.maxTry! * 2;
     const expectedOptions: RetryOptions = {
       ...initialOptions,
       maxTry: newMaxTry,
@@ -48,12 +54,27 @@ describe("RetryDefaultOption", () => {
 
   it("default delay can be changed", async () => {
     const initialOptions = getDefaultRetryOptions();
-    const newDelay = initialOptions.delay * 2;
+    const newDelay = initialOptions.delay! * 2;
     const expectedOptions: RetryOptions = {
       ...initialOptions,
       delay: newDelay,
     };
     setDefaultRetryOptions({ delay: newDelay }).should.deep.equals(
+      expectedOptions,
+    );
+    getDefaultRetryOptions().should.deep.equals(
+      expectedOptions,
+    );
+  });
+
+  it("default until can be changed", async () => {
+    const initialOptions = getDefaultRetryOptions();
+    const newUntil = (result: string) => true;
+    const expectedOptions: RetryOptions = {
+      ...initialOptions,
+      until: newUntil,
+    };
+    setDefaultRetryOptions({ until: newUntil }).should.deep.equals(
       expectedOptions,
     );
     getDefaultRetryOptions().should.deep.equals(
