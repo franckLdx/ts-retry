@@ -4,3 +4,4 @@ node_modules
 yarn-error.log
 .yarn
 .nyc_output
+coverage

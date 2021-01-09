@@ -3,8 +3,8 @@ import { retryAsyncDecorator, retryDecorator } from "./decorators";
 import sinon = require("sinon");
 const should = require("chai").should();
 
-describe("Retry decorator", () => {
-  it("async decorator should return the valid result", async () => {
+describe("Retry decorator", function () {
+  it("async decorator should return the valid result", async function () {
     const param = "Question";
     const answer = 42;
     const callback = sinon.stub();
@@ -17,7 +17,7 @@ describe("Retry decorator", () => {
     callback.should.have.been.callCount(1);
   });
 
-  it("async decorator should throw an exception", async () => {
+  it("async decorator should throw an exception", async function () {
     const param = "Question";
     const errorMsg = "BOOM";
     const error = new Error(errorMsg);
@@ -34,7 +34,7 @@ describe("Retry decorator", () => {
     }
   });
 
-  it("decorator should return the valid result", async () => {
+  it("decorator should return the valid result", async function () {
     const param = "Question";
     const answer = 42;
     const callback = sinon.stub();
@@ -47,7 +47,7 @@ describe("Retry decorator", () => {
     callback.should.have.been.callCount(1);
   });
 
-  it("decorator should throw an exception", async () => {
+  it("decorator should throw an exception", async function () {
     const param = "Question";
     const errorMsg = "BOOM";
     const callback = sinon.stub();

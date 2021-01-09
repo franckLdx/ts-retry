@@ -12,26 +12,23 @@ const should = require("chai").should();
 chai.should();
 chai.use(sinonChai);
 
-describe("Retry", () => {
-  let realDefaultRetryOptions: RetryOptions;
-  before(() => {
-    realDefaultRetryOptions = getDefaultRetryOptions();
-  });
-  after(() => {
+describe("Retry", function () {
+  const realDefaultRetryOptions = getDefaultRetryOptions();
+  after(function () {
     setDefaultRetryOptions(realDefaultRetryOptions);
   });
 
-  beforeEach(() => {
+  beforeEach(function () {
     setDefaultRetryOptions({ delay: 10, maxTry: 10 });
   });
 
-  it("cb works the first time, retry should not re-call it", async () => {
+  it("cb works the first time, retry should not re-call it", async function () {
     const callback = sinon.stub();
     await retry(callback);
     callback.should.have.been.calledOnce;
   });
 
-  it("work after three times, retry should call it while cb throws exception", async () => {
+  it("work after three times, retry should call it while cb throws exception", async function () {
     const callback = sinon.stub();
     callback.onFirstCall().throws("BOOM");
     callback.onSecondCall().throws("BOOM");
@@ -39,7 +36,7 @@ describe("Retry", () => {
     callback.should.have.been.calledThrice;
   });
 
-  it('always failed, retry should give up after default "maxTry"', async () => {
+  it('always failed, retry should give up after default "maxTry"', async function () {
     const callback = sinon.stub();
     callback.throws("BOOM");
     try {
@@ -48,7 +45,7 @@ describe("Retry", () => {
     callback.should.have.been.callCount(getDefaultRetryOptions().maxTry!);
   });
 
-  it("always failed, retry should give up after given maxTry", async () => {
+  it("always failed, retry should give up after given maxTry", async function () {
     const callback = sinon.stub();
     callback.throws("BOOM");
     const options: RetryOptions = { delay: 3, maxTry: 100 };

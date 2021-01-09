@@ -1,8 +1,8 @@
 import sinon = require("sinon");
 import { waitUntilAsyncDecorator, waitUntilDecorator } from "./decorators";
 
-describe("Wait decorators", () => {
-  it("waitUntilAsyncDecorator should execute the function", async () => {
+describe("Wait decorators", function () {
+  it("waitUntilAsyncDecorator should execute the function", async function () {
     const timeout = 100;
     const param = "Question";
     const answer = 42;
@@ -15,7 +15,7 @@ describe("Wait decorators", () => {
     (await decorated(param)).should.be.equals(answer);
   });
 
-  it("waitUntilAsyncDecorator should throw the function error", async () => {
+  it("waitUntilAsyncDecorator should throw the function error", async function () {
     const timeout = 100;
     const errorMsg = "BOOM";
     const error = new Error(errorMsg);
@@ -31,7 +31,7 @@ describe("Wait decorators", () => {
 
   it(
     "waitUntilAsyncDecorator should throw an error in case of timeout",
-    async () => {
+    async function () {
       const timeout = 50;
       const answer = 42;
       const callback = () => {
@@ -54,7 +54,7 @@ describe("Wait decorators", () => {
 
   it(
     "waitUntilAsyncDecorator should throw a custom error in case of timeout",
-    async () => {
+    async function () {
       const timeout = 50;
       const errorMsg = "BOOM";
       const callback = () => {
@@ -79,7 +79,7 @@ describe("Wait decorators", () => {
     },
   );
 
-  it("waitUntilDecorator should execute the function", async () => {
+  it("waitUntilDecorator should execute the function", async function () {
     const timeout = 100;
     const param = "Question";
     const answer = 42;
@@ -92,7 +92,7 @@ describe("Wait decorators", () => {
     (await decorated(param)).should.be.equals(answer);
   });
 
-  it("waitUntilDecorator should throw the function error", async () => {
+  it("waitUntilDecorator should throw the function error", async function () {
     const timeout = 100;
     const errorMsg = "BOOM";
     const error = new Error(errorMsg);
@@ -108,7 +108,7 @@ describe("Wait decorators", () => {
 
   it(
     "waitUntilDecorator should throw an error in case of timeout",
-    async () => {
+    async function () {
       const timeout = 50;
       const answer = 42;
       const callback = () => {
@@ -131,7 +131,7 @@ describe("Wait decorators", () => {
 
   it(
     "waitUntilDecorator should throw a custom error in case of timeout",
-    async () => {
+    async function () {
       const timeout = 50;
       const errorMsg = "BOOM";
       const callback = () => {

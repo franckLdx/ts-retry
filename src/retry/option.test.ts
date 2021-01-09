@@ -10,22 +10,22 @@ const should = require("chai").should();
 chai.should();
 chai.use(sinonChai);
 
-describe("RetryDefaultOption", () => {
+describe("RetryDefaultOption", function () {
   let realDefaultRetryOptions: RetryOptions;
-  before(() => {
+  before(function () {
     realDefaultRetryOptions = getDefaultRetryOptions();
   });
-  after(() => {
+  after(function () {
     setDefaultRetryOptions(realDefaultRetryOptions);
   });
 
-  it("Should have the expected default value", () => {
+  it("Should have the expected default value", function () {
     getDefaultRetryOptions().should.deep.equals(
       { delay: 250, maxTry: 4 * 60, until: null },
     );
   });
 
-  it("defaultOptions can be changed", async () => {
+  it("defaultOptions can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
     const newOptions: RetryOptions = {
       maxTry: 10,
@@ -37,7 +37,7 @@ describe("RetryDefaultOption", () => {
     getDefaultRetryOptions().should.deep.equals(newOptions);
   });
 
-  it("default maxTry can be changed", async () => {
+  it("default maxTry can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
     const newMaxTry = initialOptions.maxTry! * 2;
     const expectedOptions: RetryOptions = {
@@ -52,7 +52,7 @@ describe("RetryDefaultOption", () => {
     );
   });
 
-  it("default delay can be changed", async () => {
+  it("default delay can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
     const newDelay = initialOptions.delay! * 2;
     const expectedOptions: RetryOptions = {
@@ -67,7 +67,7 @@ describe("RetryDefaultOption", () => {
     );
   });
 
-  it("default until can be changed", async () => {
+  it("default until can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
     const newUntil = (result: string) => true;
     const expectedOptions: RetryOptions = {

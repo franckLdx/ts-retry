@@ -1,4 +1,5 @@
 module.exports = {
+  reporter: ["lcov", "text"],
   "include": [
     "src/**/*.ts"
   ],

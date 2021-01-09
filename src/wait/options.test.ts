@@ -6,20 +6,17 @@ const should = require("chai").should();
 chai.should();
 chai.use(sinonChai);
 
-describe("wait option", () => {
-  let defaultDuration: number;
-  before(() => {
-    defaultDuration = getDefaultDuration();
-  });
-  after(() => {
+describe("wait option", function () {
+  const defaultDuration = getDefaultDuration();
+  after(function () {
     setDefaultDuration(defaultDuration);
   });
 
-  it("default duration should be the good one", () => {
+  it("default duration should be the good one", function () {
     getDefaultDuration().should.be.equals(60 * 1000);
   });
 
-  it("should change default duration", () => {
+  it("should change default duration", function () {
     const duration = 5000;
     setDefaultDuration(duration);
     getDefaultDuration().should.be.equals(duration);

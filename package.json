@@ -37,7 +37,7 @@
     "watch": "tsc --watch",
     "build": "tsc && tsc -p tsconfig.esm.json",
     "test": "mocha --require ts-node/register src/**/*.test.ts",
-    "test-coverage": "nyc --reporter=text mocha --require ts-node/register src/**/*.test.ts"
+    "test-coverage": "nyc mocha --require ts-node/register src/**/*.test.ts"
   },
   "keywords": [
     "typescript",
