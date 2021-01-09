@@ -1,6 +1,6 @@
 # ts-retry
-A little retry tool in javascript/typescript for node and for browser. Can also bind a timeout to a function.
-
+A little retry tool to execute a function until the function is sucessfull. Can also bind a timeout to a function.
+This lib is usable in typescript, in javascript, in node, SPA tools (rest, Vue, Svelte...) and browser (available in ESM and common js format). 
 
 ## How to:
 * to retry something: 
