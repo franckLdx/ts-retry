@@ -7,6 +7,7 @@ import {
   RetryOptions,
   setDefaultRetryOptions,
 } from ".";
+import { isTooManyTries } from "./tooManyTries";
 const should = require("chai").should();
 
 chai.should();
@@ -53,5 +54,64 @@ describe("Retry", function () {
       await retry(callback, options);
     } catch (err) {}
     callback.should.have.been.callCount(options.maxTry!);
+  });
+
+  describe("Retry with until", function () {
+    it("Returns immediatly when until is ok", async function () {
+      const result = 1;
+      const callback = sinon.stub();
+      callback.returns(result);
+      const until = sinon.stub();
+      until.withArgs(result).returns(true);
+      await retry(callback, { until });
+      callback.should.have.been.calledOnce;
+      until.should.have.been.calledOnce;
+    });
+    it("Fails: result is always rejected by until", async function () {
+      const result = 1;
+      const callback = sinon.stub();
+      callback.returns(result);
+      const until = sinon.stub();
+      until.withArgs(result).returns(false);
+      const maxTry = 3;
+      try {
+        await retry(callback, { maxTry, until });
+      } catch (err) {
+        callback.should.have.been.callCount(maxTry);
+        until.should.have.been.callCount(maxTry);
+        isTooManyTries(err).should.be.true;
+      }
+    });
+    it("Call the callback until the result is accepted", async function () {
+      const result = 1;
+      const callback = sinon.stub();
+      callback.returns(result);
+      const until = sinon.stub();
+      until.withArgs(result).returns(false).returns(true);
+      const maxTry = 3;
+      try {
+        await retry(callback, { maxTry, until });
+      } catch (err) {
+        callback.should.have.been.callCount(2);
+        until.should.have.been.callCount(2);
+      }
+    });
+    it("Fails: result is always rejected by until", async function () {
+      const result = 1;
+      const errMsg = "BOOM";
+      const callback = sinon.stub();
+      callback.throws(new Error(errMsg));
+      const until = sinon.stub();
+      until.withArgs(result).returns(false);
+      const maxTry = 3;
+      try {
+        await retry(callback, { maxTry, until });
+      } catch (err) {
+        callback.should.have.been.callCount(maxTry);
+        until.should.have.been.callCount(0);
+        isTooManyTries(err).should.be.false;
+        (err as Error).message.should.equals(errMsg);
+      }
+    });
   });
 });

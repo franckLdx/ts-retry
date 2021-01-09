@@ -1,7 +1,7 @@
-import { asyncDecorator } from "../misc";
+import { assertDefined, asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
 import { defaultRetryOptions, RetryOptions } from "./options";
-import { TooManyTries } from "./tooManyTries";
+import { isTooManyTries, TooManyTries } from "./tooManyTries";
 
 export async function retry<T>(
   fn: () => T,
@@ -16,19 +16,25 @@ export async function retryAsync<T>(
   retryOptions?: RetryOptions<T>,
 ): Promise<T> {
   const { maxTry, delay, until } = { ...defaultRetryOptions, ...retryOptions };
-  if (maxTry === undefined || maxTry <= 0) {
-    throw new TooManyTries();
-  }
+  assertDefined(maxTry, `maxTry must be defined`);
+  assertDefined(delay, `maxTry must be defined`);
+  const canRecall = () => maxTry! > 1;
   const recall = async () => {
     await wait(delay);
-    return await retryAsync(fn, { delay, maxTry: maxTry - 1, until });
+    return await retryAsync(fn, { delay, maxTry: maxTry! - 1, until });
   };
   try {
     const result = await fn();
     const done = until ? until(result) : true;
-    return done ? result : await recall();
+    if (done) {
+      return result;
+    } else if (canRecall()) {
+      return await recall();
+    } else {
+      throw new TooManyTries();
+    }
   } catch (err) {
-    if (maxTry > 1) {
+    if (!isTooManyTries(err) && canRecall()) {
       return await recall();
     } else {
       throw err;

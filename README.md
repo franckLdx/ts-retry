@@ -1,5 +1,7 @@
 # ts-retry
 A little retry tool in javascript/typescript for node and for browser. Can also bind a timeout to a function.
+
+
 ## How to:
 * to retry something: 
   ```javascript
@@ -9,7 +11,7 @@ A little retry tool in javascript/typescript for node and for browser. Can also 
   ```javascript
   const result = await retryAsync(async ()=> {/* do something */}, { delay:100, maxTry:5 );
   ```
-  * Need to call a function at multiple place with same retryOptions ? Use decorators:
+* Need to call a function at multiple place with same retryOptions ? Use decorators:
   ```typescript
   const fn = (title: string, count:number) => return `${count}. ${title}`; 
   const decoratedFn = retryDecorator(fn, { delay:100, maxTry:5 });
@@ -69,7 +71,7 @@ ___
 if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise returns fn return value.
 * `retryAsync(fn, retryOptions?)`: same as retry, except fn is an asynchronous function.
 * `retryOptions`:
-  - maxTry maximum calls to fn.
+  - maxTry: maximum calls to fn.
   - delay: delay between each call (in milliseconds).
   When retryOptions is not provided, the default one is applyed. The default retry option is
   ```typescript
