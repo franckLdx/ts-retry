@@ -36,7 +36,7 @@ This lib is usable in javascript, in javascript, in node, SPA tools (rest, Vue, 
     }
   }
   ```
-* Need to call a function at multiple place with same retryOptions ? Use decorators:
+* Need to call a function at multiple locations with same retryOptions ? Use decorators:
   ```javascript
   const fn = (param1: string, param2:number) => /* do something */; 
   const decoratedFn = retryDecorator(
@@ -88,7 +88,7 @@ This lib is usable in javascript, in javascript, in node, SPA tools (rest, Vue, 
     }
   }
   ```
-* Need to call a function at multiple place with same retryOptions ? Use decorators:
+* Need to call a function at multiple locations with same retryOptions ? Use decorators:
   ```javascript
     const fn = (title: string, count:number) => /* a long task */; 
     const decoratedFn = waitUntilDecorator(
@@ -127,16 +127,17 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
 * `getDefaultRetryOptions()`: returns the current default retry options.
 * `retryAsyncDecorator(fn: T, retryOptions?: RetryOptions)` and  `retryDecorator(fn: T, retryOptions?: RetryOptions)`: decorators that return a function with same signature than the given function. On decorated call, fn is called repeteadly it does not throw an exception or until retryOptions.maxTry. 
 * `TooManyTries`: an error thrown by retry functions when `until` returns false after `maxTry` calls. 
-```
+```javascript
   if (isTooManyTries(error)) {
     // fn does not complete within 10 seconds
   }
+````
 ## Wait familly
 * `wait(duration?)`: Do nothing during "duration" milliseconds
 * `waitUntil(fn, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in miliseconds), waitUntil returns the fn result. Otherwhise it thows the given error (if any) or a TimeoutError exception.
 * `waitUntilAsync(fn, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
 * `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
-```
+```javascript
   if (isTimeoutError(error)) {
     // fn does not complete within 10 seconds
   }
