@@ -1,6 +1,10 @@
 import { assertDefined, asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
-import { defaultRetryOptions, RetryOptions } from "./options";
+import {
+  defaultRetryOptions,
+  getDefaultRetryOptions,
+  RetryOptions,
+} from "./options";
 import { isTooManyTries, TooManyTries } from "./tooManyTries";
 
 export async function retry<T>(
@@ -15,7 +19,10 @@ export async function retryAsync<T>(
   fn: () => Promise<T>,
   retryOptions?: RetryOptions<T>,
 ): Promise<T> {
-  const { maxTry, delay, until } = { ...defaultRetryOptions, ...retryOptions };
+  const { maxTry, delay, until } = {
+    ...getDefaultRetryOptions(),
+    ...retryOptions,
+  };
   assertDefined(maxTry, `maxTry must be defined`);
   assertDefined(delay, `delay must be defined`);
   const canRecall = () => maxTry! > 1;
