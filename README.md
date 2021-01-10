@@ -9,6 +9,8 @@ the new `until`function. This type is the called function returns type.
 
 ---
 
+
+
 ## How to:
 * to retry something: 
   ```javascript
@@ -21,7 +23,7 @@ the new `until`function. This type is the called function returns type.
   ```javascript
   const result = await retryAsync(
     async () => {/* do something */}, 
-    { delay:100, maxTry:5}
+    { delay:100, maxTry:5 }
   );
   ```
 * to retry until the answer is 42 : 
@@ -124,15 +126,15 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
   - maxTry: [optional] maximum calls to fn.
   - delay: [optional] delay between each call (in milliseconds).
   - until: [optional] (lastResult) => boolean: return false if last fn results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn; 
-  When any option is not provided, the default one is applyed. The default options are
+  When any option is not provided, the default one is applyed. The default options are:
   ```
-    delay: 250,  // call fn every 250 ms during one minute 
+    delay: 250,   
     maxTry: 4 * 60, 
     until: null
   ```
-* `setDefaultRetryOptions(retryOptions: Partial<RetryOptions>)`: change the default retryOptions.
-* `getDefaultRetryOptions()`: returns the current default retry options.
-* `retryAsyncDecorator(fn: T, retryOptions?: RetryOptions)` and  `retryDecorator(fn: T, retryOptions?: RetryOptions)`: decorators that return a function with same signature than the given function. On decorated call, fn is called repeteadly it does not throw an exception or until retryOptions.maxTry. 
+* `setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>)`: change the default retryOptions.
+* `getDefaultRetryOptions<T>()`: returns the current default retry options.
+* `retryAsyncDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)` and  `retryDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)`: decorators that return a function with same signature than the given function. On decorated call, fn is called repeteadly it does not throw an exception or until retryOptions.maxTry. 
 * `TooManyTries`: an error thrown by retry functions when `until` returns false after `maxTry` calls. It comes with a type guard: 
 ```javascript
   if (isTooManyTries(error)) {
