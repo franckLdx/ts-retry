@@ -17,7 +17,7 @@ export async function retryAsync<T>(
 ): Promise<T> {
   const { maxTry, delay, until } = { ...defaultRetryOptions, ...retryOptions };
   assertDefined(maxTry, `maxTry must be defined`);
-  assertDefined(delay, `maxTry must be defined`);
+  assertDefined(delay, `delay must be defined`);
   const canRecall = () => maxTry! > 1;
   const recall = async () => {
     await wait(delay);

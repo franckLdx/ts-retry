@@ -1,6 +1,7 @@
 import { retryAsyncDecorator, retryDecorator } from "./decorators";
 
 import sinon = require("sinon");
+import { isTooManyTries } from "./tooManyTries";
 const should = require("chai").should();
 
 describe("Retry decorator", function () {
@@ -62,5 +63,79 @@ describe("Retry decorator", function () {
       error.message.should.be.equals(errorMsg);
       callback.should.have.been.callCount(maxTry);
     }
+  });
+
+  describe("Decorator should use 'until' callback", async function () {
+    it("should return a valid result", async function () {
+      const param = "Question";
+      const answer = 42;
+      const callback = sinon.stub();
+      callback
+        .withArgs(param)
+        .onFirstCall()
+        .returns(answer);
+      const until = sinon.stub();
+      until.withArgs(answer).returns(true);
+      const decorated = retryDecorator(callback, { until });
+      (await decorated(param)).should.be.equals(answer);
+      callback.should.have.been.callCount(1);
+      until.should.have.been.callCount(1);
+    });
+    it("should return a valid result when until returs true", async function () {
+      const param = "Question";
+      const answer = 42;
+      const callback = sinon.stub();
+      callback
+        .withArgs(param)
+        .returns(answer);
+      const until = sinon.stub();
+      until.onCall(0).returns(false);
+      until.onCall(1).returns(true);
+      const decorated = retryDecorator(callback, { delay: 5, until });
+      (await decorated(param)).should.be.equals(answer);
+      callback.should.have.been.callCount(2);
+      until.should.have.been.callCount(2);
+    });
+    it("should throw an error when callback fails", async function () {
+      const param = "Question";
+      const errorMsg = "BOOM";
+      const callback = sinon.stub();
+      const error = new Error(errorMsg);
+      const maxTry = 2;
+      const until = sinon.stub();
+      callback.throws(error);
+      const decorated = retryDecorator(callback, { maxTry, delay: 50, until });
+      try {
+        await decorated(param);
+        throw new Error("Expected error not thrown");
+      } catch (error) {
+        error.message.should.be.equals(errorMsg);
+        callback.should.have.been.callCount(maxTry);
+        until.should.have.been.callCount(0);
+      }
+    });
+    it("should throw a TooManyTries when 'until' always return false", async function () {
+      const maxTry = 3;
+      const param = "Question";
+      const answer = 42;
+      const callback = sinon.stub();
+      callback
+        .withArgs(param)
+        .returns(answer);
+      const until = sinon.stub();
+      until.withArgs(answer).returns(false);
+      const decorated = retryDecorator(
+        callback,
+        { maxTry: 3, delay: 10, until },
+      );
+      try {
+        await decorated(param);
+        throw new Error("Expected error not thrown");
+      } catch (error) {
+        isTooManyTries(error).should.be.true;
+        callback.should.have.been.callCount(maxTry);
+        until.should.have.been.callCount(maxTry);
+      }
+    });
   });
 });
