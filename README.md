@@ -2,6 +2,13 @@
 A little retry tool to execute a function until the function is sucessfull. Can also bind a timeout to a function.
 This lib is usable in javascript, in javascript, in node, SPA tools (rest, Vue, Svelte...) and browser (available in ESM and common js format). 
 
+
+---
+__Breaking change__: For those who are using 1.x in __typescript__, you may have to add a type to RetryOptions if you want to use
+the new `until`function. This type is the called function returns type.
+
+---
+
 ## How to:
 * to retry something: 
   ```javascript
