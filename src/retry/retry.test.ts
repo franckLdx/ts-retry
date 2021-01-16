@@ -57,7 +57,7 @@ describe("Retry", function () {
   });
 
   describe("Retry with until", function () {
-    it("Returns immediatly when until is ok", async function () {
+    it("Returns immediatly: until is ok", async function () {
       const result = 1;
       const callback = sinon.stub();
       callback.returns(result);
