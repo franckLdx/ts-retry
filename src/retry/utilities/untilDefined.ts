@@ -14,10 +14,9 @@ const getOptions = <RETURN_TYPE>(
 });
 
 export async function retryUntilDefined<
-  PARAMS_TYPE extends any[],
   RETURN_TYPE,
 >(
-  fn: (...args: PARAMS_TYPE) => RETURN_TYPE | undefined | null,
+  fn: () => RETURN_TYPE | undefined | null,
   retryOptions?: RetryUtilsOptions,
 ): Promise<RETURN_TYPE> {
   const options = getOptions<RETURN_TYPE>(retryOptions);
@@ -25,10 +24,9 @@ export async function retryUntilDefined<
 }
 
 export async function retryAsyncUntilDefined<
-  PARAMS_TYPE extends any[],
   RETURN_TYPE,
 >(
-  fn: (...args: PARAMS_TYPE) => Promise<RETURN_TYPE | undefined | null>,
+  fn: () => Promise<RETURN_TYPE | undefined | null>,
   retryOptions?: RetryUtilsOptions,
 ): Promise<RETURN_TYPE> {
   const options = getOptions<RETURN_TYPE>(retryOptions);
