@@ -1,6 +1,6 @@
-import { RetryOptions } from "../options";
-import { retry, retryAsync } from "../retry";
-import { RetryUtilsOptions } from "./options";
+import { RetryOptions } from "../../options";
+import { retry, retryAsync } from "../../retry";
+import { RetryUtilsOptions } from "../options";
 
 const until = <RETURN_TYPE>(
   lastResult: RETURN_TYPE | undefined | null,
@@ -21,19 +21,6 @@ export async function retryUntilDefined<
 ): Promise<RETURN_TYPE> {
   const options = getOptions<RETURN_TYPE>(retryOptions);
   return (await retry(fn, options))!;
-}
-
-export function retryUntilDefinedDecorator<
-  PARAMETERS_TYPE extends any[],
-  RETURN_TYPE,
->(
-  fn: (...args: PARAMETERS_TYPE) => RETURN_TYPE | null | undefined,
-  retryOptions?: RetryUtilsOptions,
-) {
-  return async (...args: PARAMETERS_TYPE): Promise<RETURN_TYPE> => {
-    const wrappedFn = () => fn(...args);
-    return await retryUntilDefined(wrappedFn, retryOptions);
-  };
 }
 
 export async function retryAsyncUntilDefined<
