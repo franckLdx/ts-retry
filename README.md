@@ -1,6 +1,6 @@
 # ts-retry
 A little retry tool to execute a function until the function is sucessfull. Can also bind a timeout to a function.
-This lib is usable in javascript, in javascript, in node, SPA tools (rest, Vue, Svelte...) and browser (available in ESM and common js format). 
+This lib is usable in typescript, in javascript, in node, in SPA tools (rest, Vue, Svelte...) and browser (available in ESM and common js format). 
 
 
 ---
@@ -115,6 +115,22 @@ the new `until`function. This type is the called function returns type.
     const result1 = await decoratedFn("John");
     const result2 = await decoratedFn("Doe");
   ```
+___
+## Utils
+`retry` comes with handy utilities function for common use case:
+* to retry until a function returns something defined (aka not null neither not undefined):
+```typescript
+  // in all cases results is a string and cannot be null or undefined
+  const result = await retryUntilDefined( (): string|undefined => { ... } ) );
+  
+  const result = await retryUntilAsyncDefined( (): Promise<string|null> => { ... } );
+  
+  const decorated = retryUntilDefinedDecorator( (p1: string): string|undefined => { ... } );
+  const result = await decorated('hello world');
+  
+  const decorated = retryAsyncUntilDefinedDecorator( (p1: string): Promise<string|undefined> => { ... } );
+  const result = await decorated('hello world');
+```
 
 ___
 ## API
@@ -156,6 +172,51 @@ In case of timeout fn is still executing. It is advise to add a mean to abort it
 * `setDefaultDuration(duration: number)`: change the default duration.
 * `getDefaultDuration()`: returns the current default duration.
 * `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with same signature than the given function. On decorated call, fn is called bounded to the duration.
+
+## Utils familly
+`retry` comes with handy utilities function for common use case:
+
+__UntilDefined :__
+To retry until we get a value which is neither null nor undefined.
+
+For calling sync function:
+
+```typescript
+retryUntilDefined<RETURN_TYPE>(
+  fn: () => RETURN_TYPE | undefined | null,
+  retryOptions?: RetryUtilsOptions,
+): Promise<RETURN_TYPE>
+```
+
+```typescript
+retryUntilDefinedDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => RETURN_TYPE | undefined | null,
+  retryOptions?: RetryUtilsOptions,
+): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
+```
+
+For calling async function:
+
+```typescript
+retryAsyncUntilDefined<RETURN_TYPE>(
+  fn: () => Promise<RETURN_TYPE | undefined | null>,
+  options?: RetryUtilsOptions,
+): Promise<RETURN_TYPE>
+```
+
+```typescript
+retryAsyncUntilDefinedDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE | undefined | null>,
+  retryOptions?: RetryUtilsOptions,
+): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
+```
+
+`RetryUtilsOptions` type is: 
+  - maxTry [optional] maximum calls to fn.
+  - delay: [optional] delay between each call (in milliseconds).
+
+When not provided, maxTry and delay of global options are applied.  
+
 
 
 ---
