@@ -23,6 +23,19 @@ export async function retryUntilDefined<
   return (await retry(fn, options))!;
 }
 
+export function retryUntilDefinedDecorator<
+  PARAMETERS_TYPE extends any[],
+  RETURN_TYPE,
+>(
+  fn: (...args: PARAMETERS_TYPE) => RETURN_TYPE | null | undefined,
+  retryOptions?: RetryUtilsOptions,
+) {
+  return async (...args: PARAMETERS_TYPE): Promise<RETURN_TYPE> => {
+    const wrappedFn = () => fn(...args);
+    return await retryUntilDefined(wrappedFn, retryOptions);
+  };
+}
+
 export async function retryAsyncUntilDefined<
   RETURN_TYPE,
 >(
