@@ -1,3 +1,3 @@
 import { RetryOptions } from ".";
-export declare function retryAsyncDecorator<T extends (...args: any[]) => Promise<any>>(fn: T, retryOptions?: RetryOptions<ReturnType<T>>): (...args: Parameters<T>) => ReturnType<T>;
-export declare function retryDecorator<T extends (...args: any[]) => any>(fn: T, retryOptions?: RetryOptions<ReturnType<T>>): (...args: Parameters<T>) => Promise<ReturnType<T>>;
+export declare function retryAsyncDecorator<RETURN_TYPE extends (...args: any[]) => Promise<any>>(fn: RETURN_TYPE, retryOptions?: RetryOptions<ReturnType<RETURN_TYPE>>): (...args: Parameters<RETURN_TYPE>) => ReturnType<RETURN_TYPE>;
+export declare function retryDecorator<RETURN_TYPE extends (...args: any[]) => any>(fn: RETURN_TYPE, retryOptions?: RetryOptions<ReturnType<RETURN_TYPE>>): (...args: Parameters<RETURN_TYPE>) => Promise<ReturnType<RETURN_TYPE>>;

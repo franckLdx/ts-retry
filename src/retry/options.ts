@@ -1,7 +1,9 @@
-export interface RetryOptions<T = any> {
+export type UNTIL<RETURN_TYPE> = (result: RETURN_TYPE) => boolean;
+
+export interface RetryOptions<RETURN_TYPE = any> {
   maxTry?: number;
   delay?: number;
-  until?: ((result: T) => boolean) | null;
+  until?: UNTIL<RETURN_TYPE> | null;
 }
 
 export let defaultRetryOptions: RetryOptions<any> = {
@@ -10,13 +12,15 @@ export let defaultRetryOptions: RetryOptions<any> = {
   until: null,
 };
 
-export function setDefaultRetryOptions<T>(
-  retryOptions: RetryOptions<T>,
-): RetryOptions<T> {
+export function setDefaultRetryOptions<RETURN_TYPE>(
+  retryOptions: RetryOptions<RETURN_TYPE>,
+): RetryOptions<RETURN_TYPE> {
   defaultRetryOptions = { ...defaultRetryOptions, ...retryOptions };
-  return getDefaultRetryOptions<T>();
+  return getDefaultRetryOptions<RETURN_TYPE>();
 }
 
-export function getDefaultRetryOptions<T = any>(): Readonly<RetryOptions<T>> {
+export function getDefaultRetryOptions<RETURN_TYPE = any>(): Readonly<
+  RetryOptions<RETURN_TYPE>
+> {
   return { ...defaultRetryOptions };
 }

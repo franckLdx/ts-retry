@@ -1,24 +1,20 @@
 import { assertDefined, asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
-import {
-  defaultRetryOptions,
-  getDefaultRetryOptions,
-  RetryOptions,
-} from "./options";
+import { getDefaultRetryOptions, RetryOptions } from "./options";
 import { isTooManyTries, TooManyTries } from "./tooManyTries";
 
-export async function retry<T>(
-  fn: () => T,
-  retryOptions?: RetryOptions<T>,
-): Promise<T> {
+export async function retry<RETURN_TYPE>(
+  fn: () => RETURN_TYPE,
+  retryOptions?: RetryOptions<RETURN_TYPE>,
+): Promise<RETURN_TYPE> {
   const fnAsync = asyncDecorator(fn);
   return await retryAsync(fnAsync, retryOptions);
 }
 
-export async function retryAsync<T>(
-  fn: () => Promise<T>,
-  retryOptions?: RetryOptions<T>,
-): Promise<T> {
+export async function retryAsync<RETURN_TYPE>(
+  fn: () => Promise<RETURN_TYPE>,
+  retryOptions?: RetryOptions<RETURN_TYPE>,
+): Promise<RETURN_TYPE> {
   const { maxTry, delay, until } = {
     ...getDefaultRetryOptions(),
     ...retryOptions,

@@ -49,7 +49,7 @@ describe("Retry", function () {
   it("always failed, retry should give up after given maxTry", async function () {
     const callback = sinon.stub();
     callback.throws("BOOM");
-    const options: RetryOptions = { delay: 3, maxTry: 100 };
+    const options: RetryOptions<void> = { delay: 3, maxTry: 100 };
     try {
       await retry(callback, options);
     } catch (err) {}

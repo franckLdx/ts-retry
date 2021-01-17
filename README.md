@@ -106,7 +106,8 @@ the new `until`function. This type is the called function returns type.
     );
     const title1 = await decoratedFn("Intro", 1);
     const title2 = await decoratedFn("A chapter", 2);
-
+  ```
+  ```javascript
     const fn = async (name: string): Promise<any> => { /* a long task */ }; 
     const decoratedFn = waitUntilAsyncDecorator(
       fn, 

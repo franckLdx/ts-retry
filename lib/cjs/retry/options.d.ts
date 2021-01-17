@@ -1,8 +1,9 @@
-export interface RetryOptions<T = any> {
+export declare type UNTIL<RETURN_TYPE> = <RETURN_TYPE>(result: RETURN_TYPE) => boolean;
+export interface RetryOptions<RETURN_TYPE = any> {
     maxTry?: number;
     delay?: number;
-    until?: ((result: T) => boolean) | null;
+    until?: UNTIL<RETURN_TYPE> | null;
 }
 export declare let defaultRetryOptions: RetryOptions<any>;
-export declare function setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>): RetryOptions<T>;
-export declare function getDefaultRetryOptions<T = any>(): Readonly<RetryOptions<T>>;
+export declare function setDefaultRetryOptions<RETURN_TYPE>(retryOptions: RetryOptions<RETURN_TYPE>): RetryOptions<RETURN_TYPE>;
+export declare function getDefaultRetryOptions<RETURN_TYPE = any>(): Readonly<RetryOptions<RETURN_TYPE>>;

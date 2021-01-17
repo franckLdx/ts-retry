@@ -27,7 +27,7 @@ describe("RetryDefaultOption", function () {
 
   it("defaultOptions can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
-    const newOptions: RetryOptions = {
+    const newOptions: RetryOptions<void> = {
       maxTry: 10,
       delay: 10,
       until: () => false,
@@ -40,7 +40,7 @@ describe("RetryDefaultOption", function () {
   it("default maxTry can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
     const newMaxTry = initialOptions.maxTry! * 2;
-    const expectedOptions: RetryOptions = {
+    const expectedOptions: RetryOptions<void> = {
       ...initialOptions,
       maxTry: newMaxTry,
     };
@@ -55,7 +55,7 @@ describe("RetryDefaultOption", function () {
   it("default delay can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
     const newDelay = initialOptions.delay! * 2;
-    const expectedOptions: RetryOptions = {
+    const expectedOptions: RetryOptions<void> = {
       ...initialOptions,
       delay: newDelay,
     };
@@ -70,7 +70,7 @@ describe("RetryDefaultOption", function () {
   it("default until can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
     const newUntil = (result: string) => true;
-    const expectedOptions: RetryOptions = {
+    const expectedOptions: RetryOptions<string> = {
       ...initialOptions,
       until: newUntil,
     };
