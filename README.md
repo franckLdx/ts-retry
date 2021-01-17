@@ -132,6 +132,18 @@ ___
   const decorated = retryAsyncUntilDefinedDecorator( (p1: string): Promise<string|undefined> => { ... } );
   const result = await decorated('hello world');
 ```
+* to retry until a function returns something truthy:
+```typescript
+  // in all cases results is a string and cannot be null or undefined
+  const result = await retryUntilTruthy( (): boolean|undefined => { ... } ) );
+  
+  const result = await retryAsyncUntilTruthy( (): Promise<number|null> => { ... } );
+  const decorated = retryUntilTruthyDecorator( (p1: string): boolean|undefined => { ... } );
+  const result = await decorated('hello world');
+  
+  const decorated = retryAsyncUntilTruthyDecorator( (p1: string): Promise<boolean|null> => { ... } );
+  const result = await decorated('hello world');
+```
 
 ___
 ## API
@@ -211,6 +223,43 @@ retryAsyncUntilDefinedDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
   retryOptions?: RetryUtilsOptions,
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
+
+
+__UntilTruthy :__
+To retry until we get a value which javascript consider as truthy.
+
+For calling sync function:
+
+```typescript
+retryUntilTruthy<PARAMETERS_TYPE, RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => RETURN_TYPE,
+  retryOptions?: RetryUtilsOptions,
+): Promise<RETURN_TYPE>
+```
+
+```typescript
+retryUntilTruthyDecorator<PARAMETERS_TYPE,  RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => RETURN_TYPE,
+  retryOptions?: RetryUtilsOptions,
+): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
+```
+
+For calling async function:
+
+```typescript
+retryAsyncUntilTruthy<PARAMETERS_TYPE, RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>,
+  retryOptions?: RetryUtilsOptions,
+): Promise<RETURN_TYPE>
+```
+
+```typescript
+retryAsyncUntilTruthyDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>,
+  retryOptions?: RetryUtilsOptions,
+): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
+```
+
 
 `RetryUtilsOptions` type is: 
   - maxTry [optional] maximum calls to fn.

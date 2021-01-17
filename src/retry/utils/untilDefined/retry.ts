@@ -1,17 +1,14 @@
-import { RetryOptions } from "../../options";
 import { retry, retryAsync } from "../../retry";
-import { RetryUtilsOptions } from "../options";
+import {
+  retryUntilOptionsToRetryOptionsHof,
+  RetryUtilsOptions,
+} from "../options";
 
 const until = <RETURN_TYPE>(
   lastResult: RETURN_TYPE | undefined | null,
 ): boolean => lastResult !== undefined && lastResult !== null;
 
-const getOptions = <RETURN_TYPE>(
-  retryOptions?: RetryUtilsOptions,
-): RetryOptions<RETURN_TYPE | undefined | null> => ({
-  ...retryOptions,
-  until,
-});
+const getOptions = retryUntilOptionsToRetryOptionsHof(until);
 
 export async function retryUntilDefined<
   RETURN_TYPE,
