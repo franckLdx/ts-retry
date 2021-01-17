@@ -1,3 +1,5 @@
 export type { RetryOptions } from "./retry";
-export { getDefaultRetryOptions, isTooManyTries, retry, retryAsync, setDefaultRetryOptions, TooManyTries, } from "./retry";
-export { getDefaultDuration, isTimeoutError, setDefaultDuration, TimeoutError, wait, waitUntil, waitUntilAsync, } from "./wait";
+export type { TooManyTries } from "./retry";
+export { getDefaultRetryOptions, isTooManyTries, retry, retryAsync, retryAsyncUntilTruthy, retryAsyncUntilTruthyDecorator, retryUntilTruthy, retryUntilTruthyDecorator, setDefaultRetryOptions, } from "./retry";
+export type { TimeoutError } from "./wait";
+export { getDefaultDuration, isTimeoutError, setDefaultDuration, wait, waitUntil, waitUntilAsync, } from "./wait";
