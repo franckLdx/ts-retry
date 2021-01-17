@@ -1,4 +1,4 @@
-export declare type UNTIL<RETURN_TYPE> = <RETURN_TYPE>(result: RETURN_TYPE) => boolean;
+export declare type UNTIL<RETURN_TYPE> = (result: RETURN_TYPE) => boolean;
 export interface RetryOptions<RETURN_TYPE = any> {
     maxTry?: number;
     delay?: number;
