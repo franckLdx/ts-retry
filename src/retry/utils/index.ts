@@ -20,7 +20,3 @@ export {
   retryAsyncUntilResponse,
   retryAsyncUntilResponseDecorator,
 } from "./untilResponse";
-
-async function foo() {
-  await retryAsyncUntilResponse(() => fetch(";/"));
-}
