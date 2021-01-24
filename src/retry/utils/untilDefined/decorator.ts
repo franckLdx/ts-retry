@@ -13,6 +13,7 @@ export function retryUntilDefinedDecorator<
     return await retryUntilDefined(wrappedFn, retryOptions);
   };
 }
+
 export function retryAsyncUntilDefinedDecorator<
   PARAMETERS_TYPE extends any[],
   RETURN_TYPE,

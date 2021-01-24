@@ -1,3 +1,5 @@
+import { retryAsyncUntilResponse } from "./untilResponse";
+
 export { RetryUtilsOptions } from "./options";
 
 export {
@@ -13,3 +15,12 @@ export {
   retryUntilTruthy,
   retryUntilTruthyDecorator,
 } from "./untilTruthy";
+
+export {
+  retryAsyncUntilResponse,
+  retryAsyncUntilResponseDecorator,
+} from "./untilResponse";
+
+async function foo() {
+  await retryAsyncUntilResponse(() => fetch(";/"));
+}
