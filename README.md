@@ -270,14 +270,14 @@ __Untilresponse :__
 To retry until fetch is sucessfull.
 
 ```typescript
-retryAsyncUntilResponse<PARAMETERS_TYPE, RETURN_TYPE>(
-  fn: (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>,
+retryAsyncUntilResponse<PARAMETERS_TYPE, RETURN_TYPE extends { ok: boolean }>(
+  fn: () => Promise<RETURN_TYPE>,
   retryOptions?: RetryUtilsOptions,
 ): Promise<RETURN_TYPE>
 ```
 
 ```typescript
-retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
+retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: boolean }>(
   fn: (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>,
   retryOptions?: RetryUtilsOptions,
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
