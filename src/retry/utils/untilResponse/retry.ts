@@ -1,4 +1,4 @@
-import { retryAsyncHof, retryAsyncUntiDecoratorHof } from "../hof";
+import { retryAsyncHof } from "../hof";
 import { OK_TYPE } from "./type";
 
 const until = <RETURN_TYPE extends OK_TYPE>(
@@ -6,7 +6,3 @@ const until = <RETURN_TYPE extends OK_TYPE>(
 ): boolean => lastResult.ok;
 
 export const retryAsyncUntilResponse = retryAsyncHof(until);
-
-export const retryAsyncUntilResponseDecorator = retryAsyncUntiDecoratorHof(
-  retryAsyncUntilResponse,
-);

@@ -144,6 +144,12 @@ ___
   const decorated = retryAsyncUntilTruthyDecorator( (p1: string): Promise<boolean|null> => { ... } );
   const result = await decorated('hello world');
 ```
+* to retry until fetch is successfull:
+```typescript
+  const result = await retryAsyncUntilResponse( () => fetch(...) );
+  const decorated = retryAsyncUntilResponseDecorator( (param) => fetch(...) );
+  const result = await decorated('q=1');
+```
 
 ___
 ## API
@@ -260,6 +266,22 @@ retryAsyncUntilTruthyDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
 
+__Untilresponse :__
+To retry until fetch is sucessfull.
+
+```typescript
+retryAsyncUntilResponse<PARAMETERS_TYPE, RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>,
+  retryOptions?: RetryUtilsOptions,
+): Promise<RETURN_TYPE>
+```
+
+```typescript
+retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
+  fn: (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>,
+  retryOptions?: RetryUtilsOptions,
+): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
+```
 
 `RetryUtilsOptions` type is: 
   - maxTry [optional] maximum calls to fn.
