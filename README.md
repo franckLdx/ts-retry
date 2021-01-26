@@ -138,6 +138,7 @@ ___
   const result = await retryUntilTruthy( (): boolean|undefined => { ... } ) );
   
   const result = await retryAsyncUntilTruthy( (): Promise<number|null> => { ... } );
+
   const decorated = retryUntilTruthyDecorator( (p1: string): boolean|undefined => { ... } );
   const result = await decorated('hello world');
   
@@ -147,6 +148,7 @@ ___
 * to retry until fetch is successfull:
 ```typescript
   const result = await retryAsyncUntilResponse( () => fetch(...) );
+  
   const decorated = retryAsyncUntilResponseDecorator( (param) => fetch(...) );
   const result = await decorated('q=1');
 ```
