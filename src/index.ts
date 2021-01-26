@@ -6,6 +6,8 @@ export {
   isTooManyTries,
   retry,
   retryAsync,
+  retryAsyncUntilResponse,
+  retryAsyncUntilResponseDecorator,
   retryAsyncUntilTruthy,
   retryAsyncUntilTruthyDecorator,
   retryUntilTruthy,
