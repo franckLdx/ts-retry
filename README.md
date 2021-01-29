@@ -268,7 +268,7 @@ retryAsyncUntilTruthyDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
 
-__Untilresponse :__
+__UntilResponse :__
 To retry until fetch is sucessfull.
 
 ```typescript
