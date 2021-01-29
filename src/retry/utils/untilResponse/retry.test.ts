@@ -3,7 +3,7 @@ import * as sinon from "sinon";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
 import { isTooManyTries } from "../../tooManyTries";
-import { OK_TYPE } from "./type";
+import { RESPONSE_TYPE } from "./type";
 const should = require("chai").should();
 
 chai.should();
@@ -30,7 +30,7 @@ describe("Retry Util", function () {
       };
       const callback = sinon.stub<
         any,
-        Promise<typeof expectedResult | OK_TYPE>
+        Promise<typeof expectedResult | RESPONSE_TYPE>
       >();
       callback.onFirstCall().resolves({ ok: false });
       callback.onSecondCall().resolves({ ok: false });
