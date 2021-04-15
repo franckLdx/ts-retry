@@ -3,5 +3,6 @@ tempTest
 node_modules
 yarn-error.log
 .yarn
+.yarnrc
 .nyc_output
 coverage
