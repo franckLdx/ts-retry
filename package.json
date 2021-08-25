@@ -11,20 +11,20 @@
   "devDependencies": {
     "@types/chai": "4.2.21",
     "@types/mocha": "9.0.0",
-    "@types/node": "16.4.2",
+    "@types/node": "16.7.1",
     "@types/sinon": "10.0.2",
     "@types/sinon-chai": "3.2.5",
     "chai": "^4.2.0",
     "cross-env": "7.0.3",
-    "mocha": "9.0.2",
+    "mocha": "9.1.0",
     "nyc": "^15.1.0",
     "rimraf": "3.0.2",
     "sinon": "10.0.0",
     "sinon-chai": "3.7.0",
     "ts-mocha": "8.0.0",
-    "ts-node": "10.1.0",
-    "typescript": "4.2.4",
-    "yarn": "^1.22.10"
+    "ts-node": "10.2.1",
+    "typescript": "4.3.5",
+    "yarn": "1.22.11"
   },
   "files": [
     "lib/**/*.js",
