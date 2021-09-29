@@ -30,7 +30,7 @@ describe("Retry decorator", function () {
       await decorated(param);
       throw new Error("Expected error not thrown");
     } catch (error) {
-      error.message.should.be.equals(errorMsg);
+      (error as Error).message.should.be.equals(errorMsg);
       callback.should.have.been.callCount(maxTry);
     }
   });
@@ -60,7 +60,7 @@ describe("Retry decorator", function () {
       await decorated(param);
       throw new Error("Expected error not thrown");
     } catch (error) {
-      error.message.should.be.equals(errorMsg);
+      (error as Error).message.should.be.equals(errorMsg);
       callback.should.have.been.callCount(maxTry);
     }
   });
@@ -109,7 +109,7 @@ describe("Retry decorator", function () {
         await decorated(param);
         throw new Error("Expected error not thrown");
       } catch (error) {
-        error.message.should.be.equals(errorMsg);
+        (error as Error).message.should.be.equals(errorMsg);
         callback.should.have.been.callCount(maxTry);
         until.should.have.been.callCount(0);
       }

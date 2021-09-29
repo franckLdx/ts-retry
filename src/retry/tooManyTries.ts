@@ -5,6 +5,6 @@ export class TooManyTries extends Error {
   tooManyTries = true;
 }
 
-export function isTooManyTries(error: Error): error is TooManyTries {
+export function isTooManyTries(error: unknown): error is TooManyTries {
   return (error as TooManyTries).tooManyTries === true;
 }

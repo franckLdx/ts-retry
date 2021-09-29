@@ -25,7 +25,7 @@ describe("Wait decorators", function () {
       await decorated();
       throw new Error("Expected error not thrown");
     } catch (error) {
-      error.message.should.be.equals(errorMsg);
+      (error as Error).message.should.be.equals(errorMsg);
     }
   });
 
@@ -47,7 +47,7 @@ describe("Wait decorators", function () {
         await decorated();
         throw new Error("Expected error not thrown");
       } catch (error) {
-        error.isTimeout.should.be.equals(true);
+        (error as any).isTimeout.should.be.equals(true);
       }
     },
   );
@@ -74,7 +74,7 @@ describe("Wait decorators", function () {
         await decorated();
         throw new Error("Expected error not thrown");
       } catch (error) {
-        error.message.should.be.equals(errorMsg);
+        (error as Error).message.should.be.equals(errorMsg);
       }
     },
   );
@@ -102,7 +102,7 @@ describe("Wait decorators", function () {
       await decorated();
       throw new Error("Expected error not thrown");
     } catch (error) {
-      error.message.should.be.equals(errorMsg);
+      (error as Error).message.should.be.equals(errorMsg);
     }
   });
 
@@ -124,7 +124,7 @@ describe("Wait decorators", function () {
         await decorated();
         throw new Error("Expected error not thrown");
       } catch (error) {
-        error.isTimeout.should.be.equals(true);
+        (error as any).isTimeout.should.be.equals(true);
       }
     },
   );
@@ -151,7 +151,7 @@ describe("Wait decorators", function () {
         await decorated();
         throw new Error("Expected error not thrown");
       } catch (error) {
-        error.message.should.be.equals(errorMsg);
+        (error as Error).message.should.be.equals(errorMsg);
       }
     },
   );

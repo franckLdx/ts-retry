@@ -33,7 +33,7 @@ describe("Wait until", () => {
     try {
       await waitUntil(fn, duration);
     } catch (err) {
-      actualErr = err;
+      actualErr = err as any;
     }
     if (actualErr === undefined) {
       throw new Error("Should have thrown an exception");
@@ -55,7 +55,7 @@ describe("Wait until", () => {
     try {
       await waitUntil(fn, duration);
     } catch (err) {
-      actualErr = err;
+      actualErr = err as any;
     }
     if (actualErr === undefined) {
       throw new Error("Should have thrown an exception");
@@ -79,7 +79,7 @@ describe("Wait until", () => {
     try {
       await waitUntil(fn);
     } catch (err) {
-      actualErr = err;
+      actualErr = err as any;
     }
     if (actualErr === undefined) {
       throw new Error("Should have thrown an exception");
@@ -103,13 +103,13 @@ describe("Wait until", () => {
     try {
       await waitUntil(fn, duration, new Error(errMsg));
     } catch (err) {
-      actualErr = err;
+      actualErr = err as any;
     }
     if (actualErr === undefined) {
       throw new Error("Should have thrown an exception");
     }
-    should.not.exist(actualErr.isTimeout);
+    should.not.exist((actualErr as any).isTimeout);
     isTimeoutError(actualErr).should.equal(false);
-    (actualErr).message.should.equal(errMsg);
+    actualErr.message.should.equal(errMsg);
   });
 });
