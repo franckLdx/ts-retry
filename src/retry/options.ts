@@ -4,6 +4,7 @@ export interface RetryOptions<RETURN_TYPE = any> {
   maxTry?: number;
   delay?: number;
   until?: UNTIL<RETURN_TYPE> | null;
+  onMaxRetryFunc?: (err: Error) => void; // this can be helpful when you want to save some information before throwing TooManyTries error
 }
 
 export let defaultRetryOptions: RetryOptions<any> = {

@@ -15,7 +15,7 @@ export async function retryAsync<RETURN_TYPE>(
   fn: () => Promise<RETURN_TYPE>,
   retryOptions?: RetryOptions<RETURN_TYPE>,
 ): Promise<RETURN_TYPE> {
-  const { maxTry, delay, until } = {
+  const { maxTry, delay, until, onMaxRetryFunc } = {
     ...getDefaultRetryOptions(),
     ...retryOptions,
   };
@@ -24,7 +24,7 @@ export async function retryAsync<RETURN_TYPE>(
   const canRecall = () => maxTry! > 1;
   const recall = async () => {
     await wait(delay);
-    return await retryAsync(fn, { delay, maxTry: maxTry! - 1, until });
+    return await retryAsync(fn, { delay, maxTry: maxTry! - 1, until, onMaxRetryFunc });
   };
   try {
     const result = await fn();
@@ -40,6 +40,9 @@ export async function retryAsync<RETURN_TYPE>(
     if (!isTooManyTries(err) && canRecall()) {
       return await recall();
     } else {
+      if (onMaxRetryFunc !== undefined) {
+        onMaxRetryFunc(err as Error)
+      }
       throw err;
     }
   }

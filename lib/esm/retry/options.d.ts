@@ -3,6 +3,7 @@ export interface RetryOptions<RETURN_TYPE = any> {
     maxTry?: number;
     delay?: number;
     until?: UNTIL<RETURN_TYPE> | null;
+    onMaxRetryFunc?: (err: Error) => void;
 }
 export declare let defaultRetryOptions: RetryOptions<any>;
 export declare function setDefaultRetryOptions<RETURN_TYPE>(retryOptions: RetryOptions<RETURN_TYPE>): RetryOptions<RETURN_TYPE>;

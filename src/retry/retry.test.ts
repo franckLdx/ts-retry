@@ -113,5 +113,27 @@ describe("Retry", function () {
         (err as Error).message.should.equals(errMsg);
       }
     });
+    it("Fails: onMaxRetryFunc should be called on TooManyRetries when defined", async function () {
+      const result = 1;
+      const errMsg = "BOOM";
+      const callback = sinon.stub();
+      callback.throws(new Error(errMsg));
+      const until = sinon.stub();
+      until.withArgs(result).returns(false);
+      const maxTry = 3;
+      let shouldBeCalled = false
+      const beforeTooManyErrorsFn = (err: Error) => {
+        shouldBeCalled = true
+      }
+      try {
+        await retry(callback, { maxTry, until, onMaxRetryFunc: beforeTooManyErrorsFn });
+      } catch (err) {
+        callback.should.have.been.callCount(maxTry);
+        until.should.have.been.callCount(0);
+        isTooManyTries(err).should.be.false;
+        (err as Error).message.should.equals(errMsg);
+        shouldBeCalled.should.equals(true)
+      }
+    });
   });
 });
