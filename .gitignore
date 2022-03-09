@@ -6,3 +6,4 @@ yarn-error.log
 .yarnrc
 .nyc_output
 coverage
+.idea

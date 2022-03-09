@@ -1,5 +1,5 @@
 # ts-retry
-A little retry tool to execute a function until the function is sucessfull. Can also bind a timeout to a function.
+A little retry tool to execute a function until the function is successful. Can also bind a timeout to a function.
 This lib is usable in typescript, in javascript, in node, in SPA tools (rest, Vue, Svelte...) and browser (available in ESM and common js format). 
 
 
@@ -145,7 +145,7 @@ ___
   const decorated = retryAsyncUntilTruthyDecorator( (p1: string): Promise<boolean|null> => { ... } );
   const result = await decorated('hello world');
 ```
-* to retry until fetch is successfull:
+* to retry until fetch is successfully:
 ```typescript
   const result = await retryAsyncUntilResponse( () => fetch(...) );
   
@@ -155,15 +155,15 @@ ___
 
 ___
 ## API
-### Retry familly
-* `retry(fn, retryOptions?)`: call repeteadly fn until fn does not throw an exception. Stop after retryOptions.maxTry count. Between each call wait retryOptions.delay milliseconds.
-if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise returns fn return value.
-* `retryAsync(fn, retryOptions?)`: same as retry, except fn is an asynchronous function.
+### Retry family
+* `retry(fn, retryOptions?)`: call repeatedly `fn` until `fn` does not throw an exception. Stop after `retryOptions.maxTry` count. Between each call wait `retryOptions.delay` milliseconds.
+if stop to call fn after `retryOptions.maxTry`, throws `fn` exception, otherwise returns fn return value.
+* `retryAsync(fn, retryOptions?)`: same as retry, except `fn` is an asynchronous function.
 * `retryOptions`:
-  - maxTry: [optional] maximum calls to fn.
-  - delay: [optional] delay between each call (in milliseconds).
-  - until: [optional] (lastResult) => boolean: return false if last fn results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn; 
-  When any option is not provided, the default one is applyed. The default options are:
+  - `maxTry`: [optional] maximum calls to fn.
+  - `delay`: [optional] delay between each call (in milliseconds).
+  - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn; 
+  When any option is not provided, the default one is applied. The default options are:
   ```
     delay: 250,   
     maxTry: 4 * 60, 
@@ -178,9 +178,9 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
     // fn does not complete within 10 seconds
   }
 ````
-## Wait familly
+## Wait family
 * `wait(duration?)`: Do nothing during "duration" milliseconds
-* `waitUntil(fn, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in miliseconds), waitUntil returns the fn result. Otherwhise it thows the given error (if any) or a TimeoutError exception.
+* `waitUntil(fn, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in milliseconds), waitUntil returns the fn result. Otherwise, it throws the given error (if any) or a TimeoutError exception.
 * `waitUntilAsync(fn, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
 * `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
 ```javascript
@@ -188,13 +188,52 @@ if stop to call fn after retryOptions.maxTry, throws fn execption, otherwise ret
     // fn does not complete within 10 seconds
   }
 ```
-In case of timeout fn is still executing. It is advise to add a mean to abort it.
-* When duration is not provided, the default one is applyed. The default default is 60000ms.
+In case of timeout fn is still executing. It is advised to add a mean to abort it.
+* When duration is not provided, the default one is applied. The default is 60000ms.
 * `setDefaultDuration(duration: number)`: change the default duration.
 * `getDefaultDuration()`: returns the current default duration.
 * `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with same signature than the given function. On decorated call, fn is called bounded to the duration.
 
-## Utils familly
+## Custom reaction when max retry is achieved
+Sometimes, you need to perform some actions when max retry has achieved and the error is still there. For this `onMaxRetryFunc?: (err: Error) => void;` optional function was added to `RetryOptions`.
+For example, you would like to store results of the error into the file in order to process it later. Here's how you can do it : 
+```typescript
+export const runWithRetry = <T>(
+    message: string,
+    serviceUnderTest: ServiceUnderTest,
+    fn: () => T | Promise<T>,
+    delay = 1000,
+    maxTry = 10
+) => {
+    const saveErrorReport = (err) => {
+        const errorDetails = {
+            serviceName: serviceUnderTest.connectorName,
+            error: err.message as string,
+            description: `Failed to ${message} because of ${err.message as string}`,
+            errorName: err.name as string,
+            stack: err.stack as string,
+        }
+        const path = resolve(
+            __dirname,
+            `../../../failed-service-report/${serviceUnderTest.connectorName}.json`
+        )
+        writeFile(path, Buffer.from(JSON.stringify(errorDetails)))
+    }
+    return retryAsync(
+        async () => {
+            logger.info(`${serviceUnderTest.description}: ${message}`)
+            return fn()
+        },
+        {
+            delay,
+            maxTry,
+            onMaxRetryFunc: saveErrorReport,
+        }
+    )
+}
+```
+
+## Utils family
 `retry` comes with handy utilities function for common use case:
 
 __UntilDefined :__
@@ -286,13 +325,13 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 ```
 
 `RetryUtilsOptions` type is: 
-  - maxTry [optional] maximum calls to fn.
-  - delay: [optional] delay between each call (in milliseconds).
+  - `maxTry`: [optional] maximum calls to fn.
+  - `delay`: [optional] delay between each call (in milliseconds).
 
 When not provided, maxTry and delay of global options are applied.  
 
 
 
 ---
-## Compatilibity
-This lib works with Deno (to import it,use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`
+## Compatibility
+This lib works with Deno (to import it,use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However, it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`
