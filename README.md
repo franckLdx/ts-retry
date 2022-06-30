@@ -1,77 +1,85 @@
 # ts-retry
-A little retry tool to execute a function until the function is successful. Can also bind a timeout to a function.
-This lib is usable in typescript, in javascript, in node, in SPA tools (rest, Vue, Svelte...) and browser (available in ESM and common js format). 
 
+A little retry tool to execute a function until the function is successful. Can also bind a timeout to a function.
+This lib is usable in typescript, in javascript, in node, in SPA tools (rest, Vue, Svelte...) and browser (available in ESM and common js format).
 
 ---
-__Breaking change__: For those who are using 1.x in __typescript__, you may have to add a type to RetryOptions if you want to use
+
+**Breaking change**: For those who are using 1.x in **typescript**, you may have to add a type to RetryOptions if you want to use
 the new `until`function. This type is the called function returns type.
 
 ---
 
-
-
 ## How to:
-* to retry something: 
+
+- to retry something:
   ```javascript
   const result = await retry(
-    ()=> {/* do something */}, 
-    { delay:100, maxTry:5}
+    () => {
+      /* do something */
+    },
+    { delay: 100, maxTry: 5 }
   );
   ```
-* to retry something async : 
+- to retry something async :
   ```javascript
   const result = await retryAsync(
-    async () => {/* do something */}, 
-    { delay:100, maxTry:5 }
+    async () => {
+      /* do something */
+    },
+    { delay: 100, maxTry: 5 }
   );
   ```
-* to retry until the answer is 42 : 
+- to retry until the answer is 42 :
   ```javascript
   try {
     await retryAsync(
-      async () => {/* do something */}, 
-      { 
-        delay:100, 
-        maxTry:5, 
-        until: lastResult => lastResult===42 
+      async () => {
+        /* do something */
+      },
+      {
+        delay: 100,
+        maxTry: 5,
+        until: (lastResult) => lastResult === 42,
       }
     );
   } catch (err) {
     if (isTooManyTries(err)) {
       // Did not get 42 after 'maxTry' calls
     } else {
-      // something else goes wrong 
+      // something else goes wrong
     }
   }
   ```
-* Need to call a function at multiple locations with same retryOptions ? Use decorators:
+- Need to call a function at multiple locations with same retryOptions ? Use decorators:
+
   ```javascript
-  const fn = (param1: string, param2:number) => /* do something */; 
+  const fn = (param1: string, param2:number) => /* do something */;
   const decoratedFn = retryDecorator(
-    fn, 
+    fn,
     { delay:100, maxTry:5 }
   );
   const title1 = await decoratedFn("value1", 1);
   const title2 = await decoratedFn("valueXXX", 2);
 
-  const fn = async (name: string): Promise<any> => { /* something async */ }; 
+  const fn = async (name: string): Promise<any> => { /* something async */ };
   const decoratedFn = retryAsyncDecorator(
-    fn, 
-    { delay:100, maxTry:5 } 
+    fn,
+    { delay:100, maxTry:5 }
   );
   const result1 = await decoratedFn("Smith");
   const result2 = await decoratedFn("Doe");
   ```
-* to wait:
+
+- to wait:
   ```javascript
   await wait(10000); // Wait for 10 seconds
   ```
-* to set a timeout: 
+- to set a timeout:
   ```javascript
   try {
     const result = await waitUntil(
-      async ()=> {/* do something */}, 
+      async ()=> {/* do something */},
       10000
     );
   } catch (err) {
@@ -82,13 +90,12 @@ the new `until`function. This type is the called function returns type.
     }
   }
   ```
-* to set a timeout on something async:   
+- to set a timeout on something async:
   ```javascript
   try {
-    const result = await waitUntilAsync(
-      async ()=> {/* do something */}, 
-      10000
-    );
+    const result = await waitUntilAsync(async () => {
+      /* do something */
+    }, 10000);
   } catch (err) {
     if (isTimeoutError(error)) {
       // fn does not complete after 10 seconds
@@ -97,146 +104,166 @@ the new `until`function. This type is the called function returns type.
     }
   }
   ```
-* Need to call a function at multiple locations with same retryOptions ? Use decorators:
+- Need to call a function at multiple locations with same retryOptions ? Use decorators:
   ```javascript
-    const fn = (title: string, count:number) => /* a long task */; 
+    const fn = (title: string, count:number) => /* a long task */;
     const decoratedFn = waitUntilDecorator(
-      fn, 
+      fn,
       { delay:100, maxTry:5 }
     );
     const title1 = await decoratedFn("Intro", 1);
     const title2 = await decoratedFn("A chapter", 2);
   ```
   ```javascript
-    const fn = async (name: string): Promise<any> => { /* a long task */ }; 
-    const decoratedFn = waitUntilAsyncDecorator(
-      fn, 
-      { delay:100, maxTry:5 }
-    );
-    const result1 = await decoratedFn("John");
-    const result2 = await decoratedFn("Doe");
+  const fn = async (name: string): Promise<any> => {
+    /* a long task */
+  };
+  const decoratedFn = waitUntilAsyncDecorator(fn, { delay: 100, maxTry: 5 });
+  const result1 = await decoratedFn("John");
+  const result2 = await decoratedFn("Doe");
   ```
-___
+
+---
+
 ## Utils
+
 `retry` comes with handy utilities function for common use case:
-* to retry until a function returns something defined (aka not null neither not undefined):
+
+- to retry until a function returns something defined (aka not null neither not undefined):
+
 ```typescript
   // in all cases results is a string and cannot be null or undefined
   const result = await retryUntilDefined( (): string|undefined => { ... } ) );
-  
+
   const result = await retryUntilAsyncDefined( (): Promise<string|null> => { ... } );
-  
+
   const decorated = retryUntilDefinedDecorator( (p1: string): string|undefined => { ... } );
   const result = await decorated('hello world');
-  
+
   const decorated = retryAsyncUntilDefinedDecorator( (p1: string): Promise<string|undefined> => { ... } );
   const result = await decorated('hello world');
 ```
-* to retry until a function returns something truthy:
+
+- to retry until a function returns something truthy:
+
 ```typescript
   // in all cases results is a string and cannot be null or undefined
   const result = await retryUntilTruthy( (): boolean|undefined => { ... } ) );
-  
+
   const result = await retryAsyncUntilTruthy( (): Promise<number|null> => { ... } );
 
   const decorated = retryUntilTruthyDecorator( (p1: string): boolean|undefined => { ... } );
   const result = await decorated('hello world');
-  
+
   const decorated = retryAsyncUntilTruthyDecorator( (p1: string): Promise<boolean|null> => { ... } );
   const result = await decorated('hello world');
 ```
-* to retry until fetch is successfully:
+
+- to retry until fetch is successfully:
+
 ```typescript
   const result = await retryAsyncUntilResponse( () => fetch(...) );
-  
+
   const decorated = retryAsyncUntilResponseDecorator( (param) => fetch(...) );
   const result = await decorated('q=1');
 ```
 
-___
+---
+
 ## API
+
 ### Retry family
-* `retry(fn, retryOptions?)`: call repeatedly `fn` until `fn` does not throw an exception. Stop after `retryOptions.maxTry` count. Between each call wait `retryOptions.delay` milliseconds.
-if stop to call fn after `retryOptions.maxTry`, throws `fn` exception, otherwise returns fn return value.
-* `retryAsync(fn, retryOptions?)`: same as retry, except `fn` is an asynchronous function.
-* `retryOptions`:
+
+- `retry(fn, retryOptions?)`: call repeatedly `fn` until `fn` does not throw an exception. Stop after `retryOptions.maxTry` count. Between each call wait `retryOptions.delay` milliseconds.
+  if stop to call fn after `retryOptions.maxTry`, throws `fn` exception, otherwise returns fn return value.
+- `retryAsync(fn, retryOptions?)`: same as retry, except `fn` is an asynchronous function.
+- `retryOptions`:
   - `maxTry`: [optional] maximum calls to fn.
   - `delay`: [optional] delay between each call (in milliseconds).
-  - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn; 
-  When any option is not provided, the default one is applied. The default options are:
+  - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn;
+    When any option is not provided, the default one is applied. The default options are:
   ```
-    delay: 250,   
-    maxTry: 4 * 60, 
+    delay: 250,
+    maxTry: 4 * 60,
     until: null
   ```
-* `setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>)`: change the default retryOptions.
-* `getDefaultRetryOptions<T>()`: returns the current default retry options.
-* `retryAsyncDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)` and  `retryDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)`: decorators that return a function with same signature than the given function. On decorated call, fn is called repeteadly it does not throw an exception or until retryOptions.maxTry. 
-* `TooManyTries`: an error thrown by retry functions when `until` returns false after `maxTry` calls. It comes with a type guard: 
-```javascript
-  if (isTooManyTries(error)) {
-    // fn does not complete within 10 seconds
-  }
-````
-## Wait family
-* `wait(duration?)`: Do nothing during "duration" milliseconds
-* `waitUntil(fn, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in milliseconds), waitUntil returns the fn result. Otherwise, it throws the given error (if any) or a TimeoutError exception.
-* `waitUntilAsync(fn, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
-* `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
-```javascript
-  if (isTimeoutError(error)) {
-    // fn does not complete within 10 seconds
-  }
-```
-In case of timeout fn is still executing. It is advised to add a mean to abort it.
-* When duration is not provided, the default one is applied. The default is 60000ms.
-* `setDefaultDuration(duration: number)`: change the default duration.
-* `getDefaultDuration()`: returns the current default duration.
-* `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with same signature than the given function. On decorated call, fn is called bounded to the duration.
+- `setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>)`: change the default retryOptions.
+- `getDefaultRetryOptions<T>()`: returns the current default retry options.
+- `retryAsyncDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)` and `retryDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)`: decorators that return a function with same signature than the given function. On decorated call, fn is called repeteadly it does not throw an exception or until retryOptions.maxTry.
+- `TooManyTries`: an error thrown by retry functions when `until` returns false after `maxTry` calls. It comes with a type guard:
 
-## Custom reaction when max retry is achieved
-Sometimes, you need to perform some actions when max retry has achieved and the error is still there. For this `onMaxRetryFunc?: (err: Error) => void;` optional function was added to `RetryOptions`.
-For example, you would like to store results of the error into the file in order to process it later. Here's how you can do it : 
-```typescript
-export const runWithRetry = <T>(
-    message: string,
-    serviceUnderTest: ServiceUnderTest,
-    fn: () => T | Promise<T>,
-    delay = 1000,
-    maxTry = 10
-) => {
-    const saveErrorReport = (err) => {
-        const errorDetails = {
-            serviceName: serviceUnderTest.connectorName,
-            error: err.message as string,
-            description: `Failed to ${message} because of ${err.message as string}`,
-            errorName: err.name as string,
-            stack: err.stack as string,
-        }
-        const path = resolve(
-            __dirname,
-            `../../../failed-service-report/${serviceUnderTest.connectorName}.json`
-        )
-        writeFile(path, Buffer.from(JSON.stringify(errorDetails)))
-    }
-    return retryAsync(
-        async () => {
-            logger.info(`${serviceUnderTest.description}: ${message}`)
-            return fn()
-        },
-        {
-            delay,
-            maxTry,
-            onMaxRetryFunc: saveErrorReport,
-        }
-    )
+```javascript
+if (isTooManyTries(error)) {
+  // fn does not complete within 10 seconds
 }
 ```
 
+## Wait family
+
+- `wait(duration?)`: Do nothing during "duration" milliseconds
+- `waitUntil(fn, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in milliseconds), waitUntil returns the fn result. Otherwise, it throws the given error (if any) or a TimeoutError exception.
+- `waitUntilAsync(fn, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
+- `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
+
+```javascript
+if (isTimeoutError(error)) {
+  // fn does not complete within 10 seconds
+}
+```
+
+In case of timeout fn is still executing. It is advised to add a mean to abort it.
+
+- When duration is not provided, the default one is applied. The default is 60000ms.
+- `setDefaultDuration(duration: number)`: change the default duration.
+- `getDefaultDuration()`: returns the current default duration.
+- `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with same signature than the given function. On decorated call, fn is called bounded to the duration.
+
+## Custom reaction when max retry is achieved
+
+Sometimes, you need to perform some actions when max retry has achieved and the error is still there. For this `onMaxRetryFunc?: (err: Error) => void;` optional function was added to `RetryOptions`.
+For example, you would like to store results of the error into the file in order to process it later. Here's how you can do it :
+
+```typescript
+export const runWithRetry = <T>(
+  message: string,
+  serviceUnderTest: ServiceUnderTest,
+  fn: () => T | Promise<T>,
+  delay = 1000,
+  maxTry = 10
+) => {
+  const saveErrorReport = (err) => {
+    const errorDetails = {
+      serviceName: serviceUnderTest.connectorName,
+      error: err.message as string,
+      description: `Failed to ${message} because of ${err.message as string}`,
+      errorName: err.name as string,
+      stack: err.stack as string,
+    };
+    const path = resolve(
+      __dirname,
+      `../../../failed-service-report/${serviceUnderTest.connectorName}.json`
+    );
+    writeFile(path, Buffer.from(JSON.stringify(errorDetails)));
+  };
+  return retryAsync(
+    async () => {
+      logger.info(`${serviceUnderTest.description}: ${message}`);
+      return fn();
+    },
+    {
+      delay,
+      maxTry,
+      onMaxRetryFunc: saveErrorReport,
+    }
+  );
+};
+```
+
 ## Utils family
+
 `retry` comes with handy utilities function for common use case:
 
-__UntilDefined :__
+**UntilDefined :**
 To retry until we get a value which is neither null nor undefined.
 
 For calling sync function:
@@ -271,8 +298,7 @@ retryAsyncUntilDefinedDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
 
-
-__UntilTruthy :__
+**UntilTruthy :**
 To retry until we get a value which javascript consider as truthy.
 
 For calling sync function:
@@ -307,7 +333,7 @@ retryAsyncUntilTruthyDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
 
-__UntilResponse :__
+**UntilResponse :**
 To retry until fetch is sucessfull.
 
 ```typescript
@@ -324,14 +350,15 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
 
-`RetryUtilsOptions` type is: 
-  - `maxTry`: [optional] maximum calls to fn.
-  - `delay`: [optional] delay between each call (in milliseconds).
+`RetryUtilsOptions` type is:
 
-When not provided, maxTry and delay of global options are applied.  
+- `maxTry`: [optional] maximum calls to fn.
+- `delay`: [optional] delay between each call (in milliseconds).
 
-
+When not provided, maxTry and delay of global options are applied.
 
 ---
+
 ## Compatibility
+
 This lib works with Deno (to import it,use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However, it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`
