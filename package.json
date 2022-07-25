@@ -1,6 +1,6 @@
 {
   "name": "ts-retry",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "browser": "lib/cjs/browser.js",
