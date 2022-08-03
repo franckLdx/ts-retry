@@ -354,6 +354,8 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 
 - `maxTry`: [optional] maximum calls to fn.
 - `delay`: [optional] delay between each call (in milliseconds).
+- `until`: [optional] function that receive the result of a try. retries are stopped when this function return true
+- `onMaxRetryFunc`: [optional]: function called when maximum retries has been reached.
 
 When not provided, maxTry and delay of global options are applied.
 
