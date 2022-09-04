@@ -18,3 +18,8 @@ export {
   retryAsyncUntilResponse,
   retryAsyncUntilResponseDecorator,
 } from "./untilResponse";
+
+export {
+  retryAsyncDecorator,
+  retryDecorator
+} from './decorators'

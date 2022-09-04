@@ -1,5 +1,5 @@
 import { retryAsyncDecorator, retryDecorator } from "./decorators";
-import { isTooManyTries } from "./tooManyTries";
+import { isTooManyTries } from "../../tooManyTries";
 
 import * as sinon from "sinon";
 const should = require("chai").should();
