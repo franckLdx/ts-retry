@@ -54,7 +54,7 @@ describe("RetryDefaultOption", function () {
 
   it("default delay can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
-    const newDelay = initialOptions.delay! * 2;
+    const newDelay = initialOptions.delay as number * 2;
     const expectedOptions: RetryOptions<void> = {
       ...initialOptions,
       delay: newDelay,

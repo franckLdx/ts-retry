@@ -1,4 +1,4 @@
-import { DELAY, getDefaultRetryOptions, RetryOptions, UNTIL } from "./options"
+import { defaultDelay, defaultMaxTry, DELAY, getDefaultRetryOptions, RetryOptions, UNTIL } from "./options"
 
 export interface RetryParameters<RETURN_TYPE> {
   currentTry: number
@@ -16,7 +16,7 @@ export function getRetryParameters<RETURN_TYPE>(currentTry: number, retryOptions
   return {
     ...fullOptions,
     currentTry,
-    maxTry: fullOptions.maxTry || 4 * 250,
+    maxTry: fullOptions.maxTry || defaultMaxTry,
     delay: getDelay(fullOptions.delay),
     until: fullOptions.until ? fullOptions.until : () => true
   }
@@ -24,7 +24,7 @@ export function getRetryParameters<RETURN_TYPE>(currentTry: number, retryOptions
 
 function getDelay<RETURN_TYPE>(delay: DELAY<RETURN_TYPE> | number | undefined): DELAY<RETURN_TYPE> {
   if (delay === undefined) {
-    return () => 250;
+    return () => defaultDelay;
   }
   if (typeof delay === 'function') {
     return delay;
