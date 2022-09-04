@@ -1,11 +1,11 @@
 import { retryAsyncDecorator, retryDecorator } from "./decorators";
-
-import sinon = require("sinon");
 import { isTooManyTries } from "./tooManyTries";
+
+import * as sinon from "sinon";
 const should = require("chai").should();
 
-describe("Retry decorator", function () {
-  it("async decorator should return the valid result", async function () {
+describe("Retry decorator", () => {
+  it("async decorator should return the valid result", async () => {
     const param = "Question";
     const answer = 42;
     const callback = sinon.stub();
@@ -18,7 +18,7 @@ describe("Retry decorator", function () {
     callback.should.have.been.callCount(1);
   });
 
-  it("async decorator should throw an exception", async function () {
+  it("async decorator should throw an exception", async () => {
     const param = "Question";
     const errorMsg = "BOOM";
     const error = new Error(errorMsg);
@@ -35,7 +35,7 @@ describe("Retry decorator", function () {
     }
   });
 
-  it("decorator should return the valid result", async function () {
+  it("decorator should return the valid result", async () => {
     const param = "Question";
     const answer = 42;
     const callback = sinon.stub();
@@ -48,7 +48,7 @@ describe("Retry decorator", function () {
     callback.should.have.been.callCount(1);
   });
 
-  it("decorator should throw an exception", async function () {
+  it("decorator should throw an exception", async () => {
     const param = "Question";
     const errorMsg = "BOOM";
     const callback = sinon.stub();
@@ -65,8 +65,8 @@ describe("Retry decorator", function () {
     }
   });
 
-  describe("Decorator should use 'until' callback", async function () {
-    it("should return a valid result", async function () {
+  describe("Decorator should use 'until' callback", async () => {
+    it("should return a valid result", async () => {
       const param = "Question";
       const answer = 42;
       const callback = sinon.stub();
@@ -81,7 +81,7 @@ describe("Retry decorator", function () {
       callback.should.have.been.callCount(1);
       until.should.have.been.callCount(1);
     });
-    it("should return a valid result when until returs true", async function () {
+    it("should return a valid result when until returs true", async () => {
       const param = "Question";
       const answer = 42;
       const callback = sinon.stub();
@@ -96,7 +96,7 @@ describe("Retry decorator", function () {
       callback.should.have.been.callCount(2);
       until.should.have.been.callCount(2);
     });
-    it("should throw an error when callback fails", async function () {
+    it("should throw an error when callback fails", async () => {
       const param = "Question";
       const errorMsg = "BOOM";
       const callback = sinon.stub();
@@ -114,7 +114,7 @@ describe("Retry decorator", function () {
         until.should.have.been.callCount(0);
       }
     });
-    it("should throw a TooManyTries when 'until' always return false", async function () {
+    it("should throw a TooManyTries when 'until' always return false", async () => {
       const maxTry = 3;
       const param = "Question";
       const answer = 42;

@@ -1,4 +1,5 @@
-import { retry, retryAsync, RetryOptions } from ".";
+import { RetryOptions } from "./options";
+import { retry, retryAsync } from "./retry";
 
 export function retryAsyncDecorator<
   RETURN_TYPE extends (...args: any[]) => Promise<any>,
