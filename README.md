@@ -376,7 +376,7 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
 
-## `RetryUtilsOptions` type is the same than `RetryUtilsOptions` but without `until` option.
+`RetryUtilsOptions` type is the same than `RetryUtilsOptions` but without `until` option.
 
 ## Compatibility
 
