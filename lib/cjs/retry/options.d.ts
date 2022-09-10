@@ -7,10 +7,12 @@ export declare type DELAY<RETURN_TYPE> = (parameter: {
 }) => number;
 export interface RetryOptions<RETURN_TYPE = any> {
     maxTry?: number;
-    delay?: number;
+    delay?: number | DELAY<RETURN_TYPE>;
     until?: UNTIL<RETURN_TYPE> | null;
     onMaxRetryFunc?: (err: Error) => void;
 }
+export declare const defaultDelay = 250;
+export declare const defaultMaxTry: number;
 export declare let defaultRetryOptions: RetryOptions<any>;
 export declare function setDefaultRetryOptions<RETURN_TYPE>(retryOptions: RetryOptions<RETURN_TYPE>): RetryOptions<RETURN_TYPE>;
 export declare function getDefaultRetryOptions<RETURN_TYPE = any>(): Readonly<RetryOptions<RETURN_TYPE>>;

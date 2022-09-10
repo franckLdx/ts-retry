@@ -376,16 +376,7 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 ): (...args: PARAMETERS_TYPE) => Promise<RETURN_TYPE>
 ```
 
-`RetryUtilsOptions` type is:
-
-- `maxTry`: [optional] maximum calls to fn.
-- `delay`: [optional] delay between each call (in milliseconds).
-- `until`: [optional] function that receive the result of a try. retries are stopped when this function return true
-- `onMaxRetryFunc`: [optional]: function called when maximum retries has been reached.
-
-When not provided, maxTry and delay of global options are applied.
-
----
+## `RetryUtilsOptions` type is the same than `RetryUtilsOptions` but without `until` option.
 
 ## Compatibility
 
