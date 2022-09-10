@@ -1,15 +1,11 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
-import {
-  getDefaultRetryOptions,
-  retry,
-  RetryOptions,
-  setDefaultRetryOptions,
-} from ".";
 import { isTooManyTries } from "./tooManyTries";
-const should = require("chai").should();
+import { getDefaultRetryOptions, RetryOptions, setDefaultRetryOptions } from './options'
+import { retry } from './retry'
 
+const should = require("chai").should();
 chai.should();
 chai.use(sinonChai);
 
@@ -42,7 +38,7 @@ describe("Retry", function () {
     callback.throws("BOOM");
     try {
       await retry(callback);
-    } catch (err) {}
+    } catch (err) { }
     callback.should.have.been.callCount(getDefaultRetryOptions().maxTry!);
   });
 
@@ -52,7 +48,7 @@ describe("Retry", function () {
     const options: RetryOptions<void> = { delay: 3, maxTry: 100 };
     try {
       await retry(callback, options);
-    } catch (err) {}
+    } catch (err) { }
     callback.should.have.been.callCount(options.maxTry!);
   });
 

@@ -5,7 +5,12 @@ This lib is usable in typescript, in javascript, in node, in SPA tools (rest, Vu
 
 ---
 
-**Breaking change**: For those who are using 1.x in **typescript**, you may have to add a type to RetryOptions if you want to use
+**Breaking change**:
+To migrate to 3.x: retryAsyncDecorator and retryAsync ahs been move in utils/decorators. These impact only
+those that import those functions directly from decorator.ts file
+Other 3.X items are new and implies no breaking change.
+
+For those who are using 1.x in **typescript**, you may have to add a type to RetryOptions if you want to use
 the new `until`function. This type is the called function returns type.
 
 ---
@@ -179,9 +184,9 @@ the new `until`function. This type is the called function returns type.
 - `retryAsync(fn, retryOptions?)`: same as retry, except `fn` is an asynchronous function.
 - `retryOptions`:
   - `maxTry`: [optional] maximum calls to fn.
-  - `delay`: [optional] delay between each call (in milliseconds).
+  - `delay`: [optional] delay between each call (in milliseconds). Could be either a number or a function (when delay time dependent from number of retrys, of previous result...), see below for explanation about delay
   - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn;
-    When any option is not provided, the default one is applied. The default options are:
+    When an option value is not provided, the default one is applied. The default options are:
   ```
     delay: 250,
     maxTry: 4 * 60,
@@ -197,6 +202,27 @@ if (isTooManyTries(error)) {
   // fn does not complete within 10 seconds
 }
 ```
+
+### When delay can vary
+
+When delay option is a function, it is called before each retry: this allow to have a delay that can change between retires (ex: delay can increase exponentially).
+The function receives the following parameters:
+
+```
+(parameter: {
+  currentTry: number,
+  marTry: number,
+  lastDelay?: number
+  lastResult?: RETURN_TYPE
+}) => number;
+```
+
+where:
+
+- `currentTry`: the number of call to fn (first is 1, not 0).
+- `maxTry`: maximum calls to fn.
+- `lastDelay`: the previous delay, undefined when no delay has been computed yet.
+- `lastResult`: the last result, undefined is last call to fn failed
 
 ## Wait family
 

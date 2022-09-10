@@ -1,6 +1,7 @@
-import { assertDefined, asyncDecorator } from "../misc";
+import { asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
-import { getDefaultRetryOptions, RetryOptions } from "./options";
+import { RetryOptions } from "./options";
+import { getRetryParameters, RetryParameters } from "./parameters";
 import { isTooManyTries, TooManyTries } from "./tooManyTries";
 
 export async function retry<RETURN_TYPE>(
@@ -15,35 +16,49 @@ export async function retryAsync<RETURN_TYPE>(
   fn: () => Promise<RETURN_TYPE>,
   retryOptions?: RetryOptions<RETURN_TYPE>,
 ): Promise<RETURN_TYPE> {
-  const { maxTry, delay, until, onMaxRetryFunc } = {
-    ...getDefaultRetryOptions(),
-    ...retryOptions,
-  };
-  assertDefined(maxTry, `maxTry must be defined`);
-  assertDefined(delay, `delay must be defined`);
-  const canRecall = () => maxTry! > 1;
-  const recall = async () => {
-    await wait(delay);
-    return await retryAsync(fn, { delay, maxTry: maxTry! - 1, until, onMaxRetryFunc });
-  };
+  const retryParameters = getRetryParameters(1, retryOptions)
+  return await actualRetry(fn, retryParameters);
+}
+
+async function actualRetry<RETURN_TYPE>(
+  fn: () => Promise<RETURN_TYPE>,
+  retryParameters: RetryParameters<RETURN_TYPE>): Promise<RETURN_TYPE> {
+  const canRecall = retryParameters.currentTry < retryParameters.maxTry;
   try {
     const result = await fn();
-    const done = until ? until(result) : true;
-    if (done) {
+    if (retryParameters.until(result)) {
       return result;
-    } else if (canRecall()) {
-      return await recall();
+    } else if (canRecall) {
+      return await recall(fn, retryParameters, result);
     } else {
       throw new TooManyTries();
     }
   } catch (err) {
-    if (!isTooManyTries(err) && canRecall()) {
-      return await recall();
+    if (!isTooManyTries(err) && canRecall) {
+      return await recall(fn, retryParameters);
     } else {
-      if (onMaxRetryFunc !== undefined) {
-        onMaxRetryFunc(err as Error)
+      if (retryParameters.onMaxRetryFunc !== undefined) {
+        retryParameters.onMaxRetryFunc(err as Error)
       }
       throw err;
     }
   }
 }
+
+async function recall<RETURN_TYPE>(
+  fn: () => Promise<RETURN_TYPE>,
+  retryParameters: RetryParameters<RETURN_TYPE>,
+  lastResult?: RETURN_TYPE): Promise<RETURN_TYPE> {
+  const delay = retryParameters.delay({
+    currentTry: retryParameters.currentTry,
+    marTry: retryParameters.maxTry,
+    lastDelay: retryParameters.lastDelay,
+    lastResult
+  })
+  await wait(delay);
+  const newRetryParameters: RetryParameters<RETURN_TYPE> = {
+    ...retryParameters,
+    currentTry: retryParameters.currentTry + 1
+  }
+  return await actualRetry(fn, newRetryParameters);
+};

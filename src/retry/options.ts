@@ -1,15 +1,25 @@
 export type UNTIL<RETURN_TYPE> = (result: RETURN_TYPE) => boolean;
 
+export type DELAY<RETURN_TYPE> = (parameter: {
+  currentTry: number,
+  marTry: number,
+  lastDelay?: number
+  lastResult?: RETURN_TYPE
+}) => number;
+
 export interface RetryOptions<RETURN_TYPE = any> {
   maxTry?: number;
-  delay?: number;
+  delay?: number | DELAY<RETURN_TYPE>;
   until?: UNTIL<RETURN_TYPE> | null;
   onMaxRetryFunc?: (err: Error) => void; // this can be helpful when you want to save some information before throwing TooManyTries error
 }
 
+export const defaultDelay = 250;
+export const defaultMaxTry = 4 * 60;
+
 export let defaultRetryOptions: RetryOptions<any> = {
-  delay: 250,
-  maxTry: 4 * 60,
+  delay: defaultDelay,
+  maxTry: defaultMaxTry,
   until: null,
 };
 
