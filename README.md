@@ -184,7 +184,7 @@ the new `until`function. This type is the called function returns type.
 - `retryAsync(fn, retryOptions?)`: same as retry, except `fn` is an asynchronous function.
 - `retryOptions`:
   - `maxTry`: [optional] maximum calls to fn.
-  - `delay`: [optional] delay between each call (in milliseconds). Could be either a number or a function (when delay time dependent from number of retrys, of previous result...), see below for explantion about delay
+  - `delay`: [optional] delay between each call (in milliseconds). Could be either a number or a function (when delay time dependent from number of retrys, of previous result...), see below for explanation about delay
   - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn;
     When an option value is not provided, the default one is applied. The default options are:
   ```
@@ -203,7 +203,7 @@ if (isTooManyTries(error)) {
 }
 ```
 
-### When delay tile can vary
+### When delay can vary
 
 When delay option is a function, it is called before each retry: this allow to have a delay that can change between retires (ex: delay can increase exponentially).
 The function receives the following parameters:
