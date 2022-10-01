@@ -378,6 +378,43 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 
 `RetryUtilsOptions` type is the same than `RetryUtilsOptions` but without `until` option.
 
+**createExponetialDelay**
+Returns a delay function that provide exponetial delais
+
+```typescript
+const delay = createExponetialDelay(20);
+const result = await retryAsync(
+  async () => {
+    /* do something */
+  },
+  { delay, maxTry: 5 }
+);
+```
+
+delay between each try will return 20, 400, 8000, 160000, 3200000
+
+**createExponetialDelay**
+Returns a delay function that provide multiplicated delais:
+
+```typescript
+createMutiplicableDelay<RETURN_TYPE>(initialDelay: number, multiplicator: number)
+```
+
+First delay retunrs initialDelay, second initialDelay*multiplicator, third multiplicator initialDelay*(multiplicator\*2) and so on
+
+```typescript
+const delay = createMutiplicableDelay(20, 3);
+const delay = createExponetialDelay(20);
+const result = await retryAsync(
+  async () => {
+    /* do something */
+  },
+  { delay, maxTry: 5 }
+);
+```
+
+delay will be 20, 60, 120, 180, 240
+
 ## Compatibility
 
 This lib works with Deno (to import it,use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However, it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`

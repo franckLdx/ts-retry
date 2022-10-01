@@ -51,7 +51,7 @@ async function recall<RETURN_TYPE>(
   lastResult?: RETURN_TYPE): Promise<RETURN_TYPE> {
   const delay = retryParameters.delay({
     currentTry: retryParameters.currentTry,
-    marTry: retryParameters.maxTry,
+    maxTry: retryParameters.maxTry,
     lastDelay: retryParameters.lastDelay,
     lastResult
   })
