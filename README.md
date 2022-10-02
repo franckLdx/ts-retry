@@ -15,9 +15,10 @@ the new `until`function. This type is the called function returns type.
 
 ---
 
-## How to:
+## How to
 
 - to retry something:
+
   ```javascript
   const result = await retry(
     () => {
@@ -26,7 +27,9 @@ the new `until`function. This type is the called function returns type.
     { delay: 100, maxTry: 5 }
   );
   ```
+
 - to retry something async :
+
   ```javascript
   const result = await retryAsync(
     async () => {
@@ -35,7 +38,9 @@ the new `until`function. This type is the called function returns type.
     { delay: 100, maxTry: 5 }
   );
   ```
+
 - to retry until the answer is 42 :
+
   ```javascript
   try {
     await retryAsync(
@@ -56,6 +61,7 @@ the new `until`function. This type is the called function returns type.
     }
   }
   ```
+
 - Need to call a function at multiple locations with same retryOptions ? Use decorators:
 
   ```javascript
@@ -77,10 +83,13 @@ the new `until`function. This type is the called function returns type.
   ```
 
 - to wait:
+
   ```javascript
   await wait(10000); // Wait for 10 seconds
   ```
+
 - to set a timeout:
+
   ```javascript
   try {
     const result = await waitUntil(
@@ -95,7 +104,9 @@ the new `until`function. This type is the called function returns type.
     }
   }
   ```
+
 - to set a timeout on something async:
+
   ```javascript
   try {
     const result = await waitUntilAsync(async () => {
@@ -109,7 +120,9 @@ the new `until`function. This type is the called function returns type.
     }
   }
   ```
+
 - Need to call a function at multiple locations with same retryOptions ? Use decorators:
+
   ```javascript
     const fn = (title: string, count:number) => /* a long task */;
     const decoratedFn = waitUntilDecorator(
@@ -119,6 +132,7 @@ the new `until`function. This type is the called function returns type.
     const title1 = await decoratedFn("Intro", 1);
     const title2 = await decoratedFn("A chapter", 2);
   ```
+
   ```javascript
   const fn = async (name: string): Promise<any> => {
     /* a long task */
@@ -187,11 +201,13 @@ the new `until`function. This type is the called function returns type.
   - `delay`: [optional] delay between each call (in milliseconds). Could be either a number or a function (when delay time dependent from number of retrys, of previous result...), see below for explanation about delay
   - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn;
     When an option value is not provided, the default one is applied. The default options are:
-  ```
+
+  ```javascript
     delay: 250,
     maxTry: 4 * 60,
     until: null
   ```
+
 - `setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>)`: change the default retryOptions.
 - `getDefaultRetryOptions<T>()`: returns the current default retry options.
 - `retryAsyncDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)` and `retryDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)`: decorators that return a function with same signature than the given function. On decorated call, fn is called repeteadly it does not throw an exception or until retryOptions.maxTry.
@@ -208,7 +224,7 @@ if (isTooManyTries(error)) {
 When delay option is a function, it is called before each retry: this allow to have a delay that can change between retires (ex: delay can increase exponentially).
 The function receives the following parameters:
 
-```
+```javascript
 (parameter: {
   currentTry: number,
   marTry: number,
@@ -381,7 +397,7 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 **createExponetialDelay**
 Returns a delay function that provide exponetial delais
 
-```typescript
+```javascript
 const delay = createExponetialDelay(20);
 const result = await retryAsync(
   async () => {
@@ -402,7 +418,7 @@ createMutiplicableDelay<RETURN_TYPE>(initialDelay: number, multiplicator: number
 
 First delay retunrs initialDelay, second initialDelay*multiplicator, third multiplicator initialDelay*(multiplicator\*2) and so on
 
-```typescript
+```javascript
 const delay = createMutiplicableDelay(20, 3);
 const delay = createExponetialDelay(20);
 const result = await retryAsync(
