@@ -240,68 +240,7 @@ where:
 - `lastDelay`: the previous delay, undefined when no delay has been computed yet.
 - `lastResult`: the last result, undefined is last call to fn failed
 
-## Wait family
-
-- `wait(duration?)`: Do nothing during "duration" milliseconds
-- `waitUntil(fn, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in milliseconds), waitUntil returns the fn result. Otherwise, it throws the given error (if any) or a TimeoutError exception.
-- `waitUntilAsync(fn, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
-- `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
-
-```javascript
-if (isTimeoutError(error)) {
-  // fn does not complete within 10 seconds
-}
-```
-
-In case of timeout fn is still executing. It is advised to add a mean to abort it.
-
-- When duration is not provided, the default one is applied. The default is 60000ms.
-- `setDefaultDuration(duration: number)`: change the default duration.
-- `getDefaultDuration()`: returns the current default duration.
-- `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with same signature than the given function. On decorated call, fn is called bounded to the duration.
-
-## Custom reaction when max retry is achieved
-
-Sometimes, you need to perform some actions when max retry has achieved and the error is still there. For this `onMaxRetryFunc?: (err: Error) => void;` optional function was added to `RetryOptions`.
-For example, you would like to store results of the error into the file in order to process it later. Here's how you can do it :
-
-```typescript
-export const runWithRetry = <T>(
-  message: string,
-  serviceUnderTest: ServiceUnderTest,
-  fn: () => T | Promise<T>,
-  delay = 1000,
-  maxTry = 10
-) => {
-  const saveErrorReport = (err) => {
-    const errorDetails = {
-      serviceName: serviceUnderTest.connectorName,
-      error: err.message as string,
-      description: `Failed to ${message} because of ${err.message as string}`,
-      errorName: err.name as string,
-      stack: err.stack as string,
-    };
-    const path = resolve(
-      __dirname,
-      `../../../failed-service-report/${serviceUnderTest.connectorName}.json`
-    );
-    writeFile(path, Buffer.from(JSON.stringify(errorDetails)));
-  };
-  return retryAsync(
-    async () => {
-      logger.info(`${serviceUnderTest.description}: ${message}`);
-      return fn();
-    },
-    {
-      delay,
-      maxTry,
-      onMaxRetryFunc: saveErrorReport,
-    }
-  );
-};
-```
-
-## Utils family
+## Until family
 
 `retry` comes with handy utilities function for common use case:
 
@@ -394,6 +333,8 @@ retryAsyncUntilResponseDecorator<PARAMETERS_TYPE, RETURN_TYPE extends { ok: bool
 
 `RetryUtilsOptions` type is the same than `RetryUtilsOptions` but without `until` option.
 
+## Delay family
+
 **createExponetialDelay**
 Returns a delay function that provide exponetial delais
 
@@ -430,6 +371,67 @@ const result = await retryAsync(
 ```
 
 delay will be 20, 60, 120, 180, 240
+
+## Wait family
+
+- `wait(duration?)`: Do nothing during "duration" milliseconds
+- `waitUntil(fn, duration?, error?)`: waitUntil call asynchronously fn once. If fn complete within the duration (express in milliseconds), waitUntil returns the fn result. Otherwise, it throws the given error (if any) or a TimeoutError exception.
+- `waitUntilAsync(fn, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
+- `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
+
+```javascript
+if (isTimeoutError(error)) {
+  // fn does not complete within 10 seconds
+}
+```
+
+In case of timeout fn is still executing. It is advised to add a mean to abort it.
+
+- When duration is not provided, the default one is applied. The default is 60000ms.
+- `setDefaultDuration(duration: number)`: change the default duration.
+- `getDefaultDuration()`: returns the current default duration.
+- `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with same signature than the given function. On decorated call, fn is called bounded to the duration.
+
+## Custom reaction when max retry is achieved
+
+Sometimes, you need to perform some actions when max retry has achieved and the error is still there. For this `onMaxRetryFunc?: (err: Error) => void;` optional function was added to `RetryOptions`.
+For example, you would like to store results of the error into the file in order to process it later. Here's how you can do it :
+
+```typescript
+export const runWithRetry = <T>(
+  message: string,
+  serviceUnderTest: ServiceUnderTest,
+  fn: () => T | Promise<T>,
+  delay = 1000,
+  maxTry = 10
+) => {
+  const saveErrorReport = (err) => {
+    const errorDetails = {
+      serviceName: serviceUnderTest.connectorName,
+      error: err.message as string,
+      description: `Failed to ${message} because of ${err.message as string}`,
+      errorName: err.name as string,
+      stack: err.stack as string,
+    };
+    const path = resolve(
+      __dirname,
+      `../../../failed-service-report/${serviceUnderTest.connectorName}.json`
+    );
+    writeFile(path, Buffer.from(JSON.stringify(errorDetails)));
+  };
+  return retryAsync(
+    async () => {
+      logger.info(`${serviceUnderTest.description}: ${message}`);
+      return fn();
+    },
+    {
+      delay,
+      maxTry,
+      onMaxRetryFunc: saveErrorReport,
+    }
+  );
+};
+```
 
 ## Compatibility
 
