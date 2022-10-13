@@ -1,7 +1,7 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
-import { isTooManyTries } from "./tooManyTries";
+import { isTooManyTries, TooManyTries } from "./tooManyTries";
 import { getDefaultRetryOptions, RetryOptions, setDefaultRetryOptions } from './options'
 import { retry } from './retry'
 
@@ -76,6 +76,7 @@ describe("Retry", function () {
         callback.should.have.been.callCount(maxTry);
         until.should.have.been.callCount(maxTry);
         isTooManyTries(err).should.be.true;
+        (err as TooManyTries<any>).getLastResult().should.equals(result)
       }
     });
     it("Call the callback until the result is accepted", async function () {
