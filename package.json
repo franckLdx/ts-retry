@@ -10,8 +10,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "4.3.3",
-    "@types/mocha": "9.1.1",
-    "@types/node": "18.7.16",
+    "@types/mocha": "10.0.0",
+    "@types/node": "18.8.5",
     "@types/sinon": "10.0.13",
     "@types/sinon-chai": "3.2.8",
     "chai": "^4.3.6",
@@ -19,11 +19,11 @@
     "mocha": "10.0.0",
     "nyc": "^15.1.0",
     "rimraf": "3.0.2",
-    "sinon": "14.0.0",
+    "sinon": "14.0.1",
     "sinon-chai": "3.7.0",
     "ts-mocha": "10.0.0",
     "ts-node": "10.9.1",
-    "typescript": "4.8.3",
+    "typescript": "4.8.4",
     "yarn": "1.22.19"
   },
   "files": [
