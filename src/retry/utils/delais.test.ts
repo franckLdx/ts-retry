@@ -29,9 +29,6 @@ describe('Delay utilities', () => {
     for (let expectedDelay = 20, currentTry = 1; currentTry < 20; currentTry++, expectedDelay = (currentTry - 1) * 3 * 20) {
       lastDelay = delay({ ...initialDelayParameters, currentTry, lastDelay })
       lastDelay.should.be.equal(expectedDelay)
-      console.log(
-        lastDelay
-      )
     }
   })
 })

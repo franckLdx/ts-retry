@@ -31,7 +31,7 @@ async function actualRetry<RETURN_TYPE>(
     } else if (canRecall) {
       return await recall(fn, retryParameters, result);
     } else {
-      throw new TooManyTries();
+      throw new TooManyTries(result);
     }
   } catch (err) {
     if (!isTooManyTries(err) && canRecall) {

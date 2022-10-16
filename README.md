@@ -211,11 +211,12 @@ the new `until`function. This type is the called function returns type.
 - `setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>)`: change the default retryOptions.
 - `getDefaultRetryOptions<T>()`: returns the current default retry options.
 - `retryAsyncDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)` and `retryDecorator<T>(fn: T, retryOptions?: RetryOptions<T>)`: decorators that return a function with same signature than the given function. On decorated call, fn is called repeteadly it does not throw an exception or until retryOptions.maxTry.
-- `TooManyTries`: an error thrown by retry functions when `until` returns false after `maxTry` calls. It comes with a type guard:
+- `TooManyTries`: an error thrown by retry functions when `until` returns false after `maxTry` calls. It comes with a type guard and includes the last failed result:
 
 ```javascript
 if (isTooManyTries(error)) {
-  // fn does not complete within 10 seconds
+  // retry failed
+  console.error(`last error is ${error.getLastResult()}`)
 }
 ```
 
