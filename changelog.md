@@ -1,3 +1,6 @@
+# 4.1.0
+createRandomDelay added
+
 # 4.0.0
 
 ToomanyRetries now contains last error. Therefore is is typed with RETURN_TYPE.

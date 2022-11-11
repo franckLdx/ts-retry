@@ -16,3 +16,8 @@ export function createMutiplicableDelay<RETURN_TYPE>(initialDelay: number, multi
 
   return delay
 }
+
+export function createRandomDelay<RETURN_TYPE>(min: number, max: number): DELAY<RETURN_TYPE> {
+  const multiplicator = max - min + 1
+  return () => Math.floor(Math.random() * multiplicator + min)
+}
