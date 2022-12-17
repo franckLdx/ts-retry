@@ -1,11 +1,11 @@
-export declare type UNTIL<RETURN_TYPE> = (result: RETURN_TYPE) => boolean;
+export type UNTIL<RETURN_TYPE> = (result: RETURN_TYPE) => boolean;
 export interface DelayParameters<RETURN_TYPE> {
     currentTry: number;
     maxTry: number;
     lastDelay?: number;
     lastResult?: RETURN_TYPE;
 }
-export declare type DELAY<RETURN_TYPE> = (parameter: DelayParameters<RETURN_TYPE>) => number;
+export type DELAY<RETURN_TYPE> = (parameter: DelayParameters<RETURN_TYPE>) => number;
 export interface RetryOptions<RETURN_TYPE = any> {
     maxTry?: number;
     delay?: number | DELAY<RETURN_TYPE>;

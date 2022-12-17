@@ -1,3 +1,3 @@
-export declare type RESPONSE_TYPE = {
+export type RESPONSE_TYPE = {
     ok: boolean;
 };
