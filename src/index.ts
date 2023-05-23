@@ -13,6 +13,9 @@ export {
   retryUntilTruthy,
   retryUntilTruthyDecorator,
   setDefaultRetryOptions,
+  createExponetialDelay,
+  createMutiplicableDelay,
+  createRandomDelay
 } from "./retry";
 
 export type { TimeoutError } from "./wait";

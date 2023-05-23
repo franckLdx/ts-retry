@@ -3,3 +3,4 @@ export { retryAsyncUntilDefined, retryAsyncUntilDefinedDecorator, retryUntilDefi
 export { retryAsyncUntilTruthy, retryAsyncUntilTruthyDecorator, retryUntilTruthy, retryUntilTruthyDecorator, } from "./untilTruthy";
 export { retryAsyncUntilResponse, retryAsyncUntilResponseDecorator, } from "./untilResponse";
 export { retryAsyncDecorator, retryDecorator } from './decorators';
+export { createExponetialDelay, createMutiplicableDelay, createRandomDelay } from './delay';

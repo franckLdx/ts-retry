@@ -23,3 +23,9 @@ export {
   retryAsyncDecorator,
   retryDecorator
 } from './decorators'
+
+export {
+  createExponetialDelay,
+  createMutiplicableDelay,
+  createRandomDelay
+} from './delay'
