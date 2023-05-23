@@ -1,3 +1,7 @@
+# 4.1.2
+Update deps
+Fix export: add createExponetialDelay, createMutiplicableDelay and createRandomDelay
+
 # 4.1.1
 Update deps
 
