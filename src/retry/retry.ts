@@ -35,9 +35,12 @@ async function actualRetry<RETURN_TYPE>(
     }
   } catch (err) {
     if (!isTooManyTries(err) && canRecall) {
+      if (retryParameters.onError) {
+        retryParameters.onError(err as Error)
+      }
       return await recall(fn, retryParameters);
     } else {
-      if (retryParameters.onMaxRetryFunc !== undefined) {
+      if (retryParameters.onMaxRetryFunc) {
         retryParameters.onMaxRetryFunc(err as Error)
       }
       throw err;
