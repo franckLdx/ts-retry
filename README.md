@@ -228,7 +228,7 @@ The function receives the following parameters:
 ```javascript
 (parameter: {
   currentTry: number,
-  marTry: number,
+  maxTry: number,
   lastDelay?: number
   lastResult?: RETURN_TYPE
 }) => number;
