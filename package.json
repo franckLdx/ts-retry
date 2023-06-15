@@ -3,7 +3,6 @@
   "version": "4.1.2",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
-  "browser": "lib/cjs/browser.js",
   "typings": "lib/cjs/index.d.ts",
   "repository": "https://github.com/franckLdx/ts-retry.git",
   "author": "Franck Ledoux <franck.ledoux.pro@gmail.com>",
