@@ -6,5 +6,6 @@ export interface RetryParameters<RETURN_TYPE> {
     delay: DELAY<RETURN_TYPE>;
     until: UNTIL<RETURN_TYPE>;
     onMaxRetryFunc?: (err: Error) => void;
+    onError?: (err: Error) => void;
 }
 export declare function getRetryParameters<RETURN_TYPE>(currentTry: number, retryOptions?: RetryOptions<RETURN_TYPE>): Readonly<RetryParameters<RETURN_TYPE>>;

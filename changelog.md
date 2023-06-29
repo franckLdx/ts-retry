@@ -1,3 +1,6 @@
+# 4.2.1
+Addexport of retryUntilDefined and retryAsyncUntilDefinedDecorator
+
 # 4.2.0
 Add onError to RetryOptions
 Remove browser entry from package.json, its an issue for reac-native project
