@@ -1,4 +1,9 @@
+# 4.2.2
+
+Update dependencies & export retryAsyncUntilDefined
+
 # 4.2.1
+
 Addexport of retryUntilDefined and retryAsyncUntilDefinedDecorator
 
 # 4.2.0
