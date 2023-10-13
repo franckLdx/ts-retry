@@ -1,4 +1,4 @@
-export { RetryUtilsOptions } from "./options";
+export type { RetryUtilsOptions } from "./options";
 
 export {
   retryAsyncUntilDefined,

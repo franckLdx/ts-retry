@@ -1,9 +1,8 @@
 import { waitUntil } from "..";
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai from "sinon-chai";
 import { isTimeoutError } from "./wait";
 import { getDefaultDuration, setDefaultDuration } from "./options";
-import { setDefaultRetryOptions } from "../retry";
 const should = require("chai").should();
 
 chai.should();

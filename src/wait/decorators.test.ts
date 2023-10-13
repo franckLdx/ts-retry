@@ -1,4 +1,4 @@
-import sinon = require("sinon");
+import sinon from "sinon";
 import { waitUntilAsyncDecorator, waitUntilDecorator } from "./decorators";
 
 describe("Wait decorators", function () {
@@ -35,7 +35,7 @@ describe("Wait decorators", function () {
       const timeout = 50;
       const answer = 42;
       const callback = () => {
-        return new Promise<number>((resolve, reject) => {
+        return new Promise<number>((resolve) => {
           setTimeout(
             () => resolve(answer),
             timeout + 50,
@@ -58,7 +58,7 @@ describe("Wait decorators", function () {
       const timeout = 50;
       const errorMsg = "BOOM";
       const callback = () => {
-        return new Promise<void>((resolve, reject) => {
+        return new Promise<void>((resolve) => {
           setTimeout(
             () => resolve(),
             timeout + 50,
@@ -112,7 +112,7 @@ describe("Wait decorators", function () {
       const timeout = 50;
       const answer = 42;
       const callback = () => {
-        return new Promise<number>((resolve, reject) => {
+        return new Promise<number>((resolve) => {
           setTimeout(
             () => resolve(answer),
             timeout + 50,
@@ -135,7 +135,7 @@ describe("Wait decorators", function () {
       const timeout = 50;
       const errorMsg = "BOOM";
       const callback = () => {
-        return new Promise<void>((resolve, reject) => {
+        return new Promise<void>((resolve) => {
           setTimeout(
             () => resolve(),
             timeout + 50,

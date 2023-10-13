@@ -2,7 +2,6 @@ import { retryAsyncDecorator, retryDecorator } from "./decorators";
 import { isTooManyTries } from "../../tooManyTries";
 
 import * as sinon from "sinon";
-const should = require("chai").should();
 
 describe("Retry decorator", () => {
   it("async decorator should return the valid result", async () => {

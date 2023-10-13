@@ -1,11 +1,10 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai from "sinon-chai";
 import { isTooManyTries, TooManyTries } from "./tooManyTries";
 import { getDefaultRetryOptions, RetryOptions, setDefaultRetryOptions } from './options'
 import { retry } from './retry'
 
-const should = require("chai").should();
 chai.should();
 chai.use(sinonChai);
 
@@ -119,7 +118,7 @@ describe("Retry", function () {
       until.withArgs(result).returns(false);
       const maxTry = 3;
       let shouldBeCalled = false
-      const beforeTooManyErrorsFn = (err: Error) => {
+      const beforeTooManyErrorsFn = () => {
         shouldBeCalled = true
       }
       try {
