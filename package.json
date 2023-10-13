@@ -1,13 +1,16 @@
 {
   "name": "ts-retry",
   "version": "4.2.3",
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
-  "typings": "lib/cjs/index.d.ts",
+  "exports": {
+    "import": "./lib/index.mjs",
+    "require": "./lib/index.cjs"
+  },
+  "types": "lib/index.d.ts",
   "repository": "https://github.com/franckLdx/ts-retry.git",
   "author": "Franck Ledoux <franck.ledoux.pro@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "@types/chai": "4.3.6",
     "@types/mocha": "10.0.2",
     "@types/node": "20.8.0",
@@ -18,15 +21,21 @@
     "mocha": "10.2.0",
     "nyc": "^15.1.0",
     "rimraf": "5.0.5",
+    "rollup": "^4.0.2",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-typescript": "^1.0.1",
     "sinon": "16.0.0",
     "sinon-chai": "3.7.0",
     "ts-mocha": "10.0.0",
     "ts-node": "10.9.1",
+    "tslib": "^2.6.2",
     "typescript": "5.2.2",
     "yarn": "1.22.19"
   },
   "files": [
     "lib/**/*.js",
+    "lib/**/*.mjs",
+    "lib/**/*.cjs",
     "lib/**/*.d.ts",
     "package.json",
     "README.md",
@@ -35,7 +44,7 @@
   "scripts": {
     "prebuild": "rimraf lib",
     "watch": "tsc --watch",
-    "build": "tsc && tsc -p tsconfig.esm.json",
+    "build": "rollup -c",
     "test": "mocha --require ts-node/register src/**/*.test.ts",
     "test-coverage": "nyc mocha --require ts-node/register src/**/*.test.ts"
   },

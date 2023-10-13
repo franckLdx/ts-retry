@@ -1,9 +1,8 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai from "sinon-chai";
 import { retryAsyncUntilResponseDecorator } from "./decorators";
 import { isTooManyTries } from "../../tooManyTries";
-const should = require("chai").should();
 
 chai.should();
 chai.use(sinonChai);

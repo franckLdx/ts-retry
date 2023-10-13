@@ -1,4 +1,4 @@
-import { retry, retryAsync } from "../../retry";
+import { retryAsync } from "../../retry";
 import {
   retryUntilOptionsToRetryOptionsHof,
   RetryUtilsOptions,

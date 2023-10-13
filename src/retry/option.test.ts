@@ -1,11 +1,10 @@
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai from "sinon-chai";
 import {
   getDefaultRetryOptions,
   RetryOptions,
   setDefaultRetryOptions,
 } from ".";
-const should = require("chai").should();
 
 chai.should();
 chai.use(sinonChai);
@@ -26,7 +25,6 @@ describe("RetryDefaultOption", function () {
   });
 
   it("defaultOptions can be changed", async function () {
-    const initialOptions = getDefaultRetryOptions();
     const newOptions: RetryOptions<void> = {
       maxTry: 10,
       delay: 10,
@@ -69,7 +67,7 @@ describe("RetryDefaultOption", function () {
 
   it("default until can be changed", async function () {
     const initialOptions = getDefaultRetryOptions();
-    const newUntil = (result: string) => true;
+    const newUntil = () => true;
     const expectedOptions: RetryOptions<string> = {
       ...initialOptions,
       until: newUntil,

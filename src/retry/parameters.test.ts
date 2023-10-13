@@ -1,11 +1,7 @@
-import * as sinon from "sinon";
-import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
 import { getRetryParameters } from "./parameters";
 import { expect } from "chai";
 import { describe } from "mocha";
-import { getDefaultDuration } from "../wait/options";
-import { defaultMaxTry, DELAY, getDefaultRetryOptions, setDefaultRetryOptions } from "./options";
+import { DELAY, getDefaultRetryOptions, setDefaultRetryOptions } from "./options";
 
 describe('Parameters', () => {
   const realDefaultRetryOptions = getDefaultRetryOptions();
