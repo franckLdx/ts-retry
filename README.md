@@ -93,7 +93,7 @@ the new `until`function. This type is the called function returns type.
   ```javascript
   try {
     const result = await waitUntil(
-      async ()=> {/* do something */},
+      ()=> {/* do something */},
       10000
     );
   } catch (err) {
