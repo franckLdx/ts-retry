@@ -1,3 +1,7 @@
+# 4.2.4
+
+Update dependencies & Fix readme
+
 # 4.2.3
 
 Update dependencies
