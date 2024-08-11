@@ -1,3 +1,8 @@
+# 4.2.6
+
+Update dependencies to fix testing, add attempt data to onError & onSuccessFunc
+function for logging purposes
+
 # 4.2.5
 
 Update dependencies
@@ -19,23 +24,27 @@ Update dependencies & export retryAsyncUntilDefined
 Addexport of retryUntilDefined and retryAsyncUntilDefinedDecorator
 
 # 4.2.0
-Add onError to RetryOptions
-Remove browser entry from package.json, its an issue for reac-native project
+
+Add onError to RetryOptions Remove browser entry from package.json, its an issue
+for reac-native project
 
 # 4.1.2
-Update deps
-Fix export: add createExponetialDelay, createMutiplicableDelay and createRandomDelay
+
+Update deps Fix export: add createExponetialDelay, createMutiplicableDelay and
+createRandomDelay
 
 # 4.1.1
+
 Update deps
 
 # 4.1.0
+
 createRandomDelay added
 
 # 4.0.0
 
 ToomanyRetries now contains last error. Therefore is is typed with RETURN_TYPE.
-This can lead to typescript error, hence the major release. There's no other 
+This can lead to typescript error, hence the major release. There's no other
 breaking change.
 
 # 3.0.0
