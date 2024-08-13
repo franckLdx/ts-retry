@@ -14,8 +14,8 @@ export interface RetryOptions<RETURN_TYPE = any> {
   delay?: number | DELAY<RETURN_TYPE>;
   until?: UNTIL<RETURN_TYPE> | null;
   onError?: (err: Error, currentTry:number) => void; // called on each error except the last one. To catch/log the last error use onMaxRetryFunc
-  onMaxRetryFunc?: (err: Error) => void; // this can be helpful when you want to save some information before throwing TooManyTries error
-  onSuccessFunc?: (currentTry: number) => void; // called on success. Useful for logging when returning the result.
+  onMaxRetryFunc?: (err: Error, currentTry:number) => void; // this can be helpful when you want to save some information before throwing TooManyTries error
+  onSuccessFunc?: (result: RETURN_TYPE, currentTry: number) => void; // called on success. Useful for logging when returning the result.
 }
 
 export const defaultDelay = 250;

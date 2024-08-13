@@ -28,7 +28,7 @@ async function actualRetry<RETURN_TYPE>(
     const result = await fn();
     if (retryParameters.until(result)) {
       if (retryParameters.onSuccessFunc) {
-        retryParameters.onSuccessFunc(retryParameters.currentTry)
+        retryParameters.onSuccessFunc(result, retryParameters.currentTry)
       }
       return result;
     } else if (canRecall) {
@@ -46,7 +46,7 @@ async function actualRetry<RETURN_TYPE>(
       return await recall(fn, retryParameters);
     } else {
       if (retryParameters.onMaxRetryFunc) {
-        retryParameters.onMaxRetryFunc(err as Error)
+        retryParameters.onMaxRetryFunc(err as Error, retryParameters.currentTry)
       }
       throw err;
     }
