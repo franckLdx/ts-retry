@@ -200,7 +200,9 @@ the new `until`function. This type is the called function returns type.
   - `maxTry`: [optional] maximum calls to fn.
   - `delay`: [optional] delay between each call (in milliseconds). Could be either a number or a function (when delay time dependent from number of retrys, of previous result...), see below for explanation about delay
   - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn;
-  - `onError`: [optional](err: Error) => void: called on each error except the last one. To catch/log the last error use onMaxRetryFunc
+  - `onError`: [optional](err: Error, currentTry: number) => void: called on each error except the last one. Includes the current try for logging. To catch/log the last error use onMaxRetryFunc
+ - `onMaxRetryFunc`: [optional](err: Error) => void: called on the final error at the maxTry limit only
+  - `onSuccess`: [optional](currentTry: number) => void: called on success. Includes the current try for logging
     When an option value is not provided, the default one is applied. The default options are:
 
   ```javascript

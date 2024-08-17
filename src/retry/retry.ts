@@ -27,21 +27,26 @@ async function actualRetry<RETURN_TYPE>(
   try {
     const result = await fn();
     if (retryParameters.until(result)) {
+      if (retryParameters.onSuccessFunc) {
+        retryParameters.onSuccessFunc(result, retryParameters.currentTry)
+      }
       return result;
     } else if (canRecall) {
-      return await recall(fn, retryParameters, result);
+      // i.e. throw so that we log via retryParameters.onError below 
+      // as !isTooManyTries && canRecall
+      throw new Error("function result failed to meet until() requirements")
     } else {
       throw new TooManyTries(result);
     }
   } catch (err) {
     if (!isTooManyTries(err) && canRecall) {
       if (retryParameters.onError) {
-        retryParameters.onError(err as Error)
+        retryParameters.onError(err as Error, retryParameters.currentTry)
       }
       return await recall(fn, retryParameters);
     } else {
       if (retryParameters.onMaxRetryFunc) {
-        retryParameters.onMaxRetryFunc(err as Error)
+        retryParameters.onMaxRetryFunc(err as Error, retryParameters.currentTry)
       }
       throw err;
     }
