@@ -1,3 +1,7 @@
+# 5.0.1
+
+Fix missing exports: retryDecorator a retryAsyncDecorator
+
 # 5.0.0
 
 Update dependencies to fix testing, 
