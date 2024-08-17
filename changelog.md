@@ -1,6 +1,8 @@
-# 4.2.6
+# 5.0.0
 
-Update dependencies to fix testing, add attempt data to onError & onSuccessFunc
+Update dependencies to fix testing, 
+
+Breaking changes: add attempt data to onError & onSuccessFunc
 function for logging purposes
 
 # 4.2.5
