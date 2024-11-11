@@ -6,9 +6,9 @@ export interface RetryParameters<RETURN_TYPE> {
   lastDelay?: number
   delay: DELAY<RETURN_TYPE>
   until: UNTIL<RETURN_TYPE>
-  onMaxRetryFunc?: (err: Error, currentTry:number) => void;
-  onSuccessFunc?: (result:RETURN_TYPE, currentTry:number)=>void;
-  onError?: (err: Error, currentTry:number) => void;
+  onMaxRetryFunc?: (err: Error, currentTry: number) => void;
+  onSuccessFunc?: (result: RETURN_TYPE, currentTry: number) => void;
+  onError?: (err: Error, currentTry: number) => boolean | undefined;
 }
 
 export function getRetryParameters<RETURN_TYPE>(currentTry: number, retryOptions?: RetryOptions<RETURN_TYPE>): Readonly<

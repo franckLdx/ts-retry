@@ -8,8 +8,10 @@ describe("Abort error", function () {
 
   it("Should return true when error is an AbortError", function () {
     const origninalError = new Error("BOOM");
-    const abortError = new AbortError(origninalError);
+    const currentTry = 3
+    const abortError = new AbortError(origninalError, currentTry);
     isAbortError(abortError).should.true;
-    abortError.getError().should.be.equal(origninalError);
+    (abortError.getError() as Error).should.be.equal(origninalError);
+    abortError.getCurrentTry().should.be.equal(currentTry);
   });
 });
