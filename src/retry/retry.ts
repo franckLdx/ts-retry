@@ -2,7 +2,7 @@ import { asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
 import { RetryOptions } from "./options";
 import { getRetryParameters, RetryParameters } from "./parameters";
-import { isTooManyTries, TooManyTries } from "./tooManyTries";
+import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
 
 export async function retry<RETURN_TYPE>(
   fn: () => RETURN_TYPE,

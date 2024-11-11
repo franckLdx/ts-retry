@@ -1,9 +1,9 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
-import { isTooManyTries, TooManyTries } from "./tooManyTries";
 import { getDefaultRetryOptions, RetryOptions, setDefaultRetryOptions } from './options'
 import { retry } from './retry'
+import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
 
 const should = require("chai").should();
 chai.should();
