@@ -1,3 +1,15 @@
+# 6.0.0
+
+onError function may now return boolean:
+  - when returning nothing (behavior until 5.x): retries continue
+  - when returnin true, retries continue
+  - when returning flase, retries stops and an AbortError is thrown
+
+AbortError:
+  An error thrown when reties are aborted due to an exception
+  getError return the last error
+  getCurrentTry the aborte try
+
 # 5.0.1
 
 Fix missing exports: retryDecorator a retryAsyncDecorator
