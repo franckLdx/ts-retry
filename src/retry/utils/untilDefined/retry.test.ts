@@ -2,7 +2,7 @@ import { retryAsyncUntilDefined, retryUntilDefined } from "./retry";
 import * as sinon from "sinon";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
-import { isTooManyTries } from "../../tooManyTries";
+import { isTooManyTries } from "../erros/tooManyTries";
 const should = require("chai").should();
 
 chai.should();

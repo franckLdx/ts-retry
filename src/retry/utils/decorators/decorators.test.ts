@@ -1,5 +1,5 @@
+import { isTooManyTries } from "../erros/tooManyTries";
 import { retryAsyncDecorator, retryDecorator } from "./decorators";
-import { isTooManyTries } from "../../tooManyTries";
 
 import * as sinon from "sinon";
 const should = require("chai").should();
@@ -81,6 +81,7 @@ describe("Retry decorator", () => {
       callback.should.have.been.callCount(1);
       until.should.have.been.callCount(1);
     });
+
     it("should return a valid result when until returs true", async () => {
       const param = "Question";
       const answer = 42;
@@ -96,6 +97,7 @@ describe("Retry decorator", () => {
       callback.should.have.been.callCount(2);
       until.should.have.been.callCount(2);
     });
+
     it("should throw an error when callback fails", async () => {
       const param = "Question";
       const errorMsg = "BOOM";
@@ -114,6 +116,7 @@ describe("Retry decorator", () => {
         until.should.have.been.callCount(0);
       }
     });
+
     it("should throw a TooManyTries when 'until' always return false", async () => {
       const maxTry = 3;
       const param = "Question";

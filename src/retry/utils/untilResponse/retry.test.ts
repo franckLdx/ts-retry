@@ -2,8 +2,8 @@ import { retryAsyncUntilResponse } from "./retry";
 import * as sinon from "sinon";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
-import { isTooManyTries } from "../../tooManyTries";
 import { RESPONSE_TYPE } from "./type";
+import { isTooManyTries } from "../erros/tooManyTries";
 const should = require("chai").should();
 
 chai.should();

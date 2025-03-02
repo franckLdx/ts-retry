@@ -2,7 +2,8 @@ import { asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
 import { RetryOptions } from "./options";
 import { getRetryParameters, RetryParameters } from "./parameters";
-import { isTooManyTries, TooManyTries } from "./tooManyTries";
+import { AbortError } from "./utils/erros/abortError";
+import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
 
 export async function retry<RETURN_TYPE>(
   fn: () => RETURN_TYPE,
@@ -40,8 +41,9 @@ async function actualRetry<RETURN_TYPE>(
     }
   } catch (err) {
     if (!isTooManyTries(err) && canRecall) {
-      if (retryParameters.onError) {
-        retryParameters.onError(err as Error, retryParameters.currentTry)
+      const canRecall = retryParameters.onError?.(err as Error, retryParameters.currentTry)
+      if (canRecall === false) {
+        throw new AbortError(err as Error, retryParameters.currentTry)
       }
       return await recall(fn, retryParameters);
     } else {
