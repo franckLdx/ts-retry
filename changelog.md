@@ -5,10 +5,15 @@ onError function may now return boolean:
   - when returnin true, retries continue
   - when returning flase, retries stops and an AbortError is thrown
 
+The behavior of previuos release is preserve. If you don't want to use this functionality you do not need do 
+do any change in tour code 
+
 AbortError:
   An error thrown when reties are aborted due to an exception
   getError return the last error
   getCurrentTry the aborte try
+
+
 
 # 5.0.1
 
