@@ -4,6 +4,7 @@ export interface DelayParameters<RETURN_TYPE> {
     maxTry: number;
     lastDelay?: number;
     lastResult?: RETURN_TYPE;
+    lastError?: Error;
 }
 export type DELAY<RETURN_TYPE> = (parameter: DelayParameters<RETURN_TYPE>) => number;
 export interface RetryOptions<RETURN_TYPE = any> {
