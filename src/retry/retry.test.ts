@@ -4,7 +4,7 @@ import sinonChai = require("sinon-chai");
 import "chai/register-should";
 import { getDefaultRetryOptions, RetryOptions, setDefaultRetryOptions } from './options'
 import { retry } from './retry'
-import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
+import { isTooManyTries, TooManyTries } from "./utils/errors/tooManyTries";
 
 const should = require("chai").should();
 chai.should();

@@ -2,8 +2,8 @@ import { asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
 import { RetryOptions } from "./options";
 import { getRetryParameters, RetryParameters } from "./parameters";
-import { AbortError } from "./utils/erros/abortError";
-import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
+import { AbortError } from "./utils/errors/abortError";
+import { isTooManyTries, TooManyTries } from "./utils/errors/tooManyTries";
 
 export async function retry<RETURN_TYPE>(
   fn: () => RETURN_TYPE,
