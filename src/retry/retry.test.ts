@@ -3,7 +3,7 @@ import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
 import { getDefaultRetryOptions, RetryOptions, setDefaultRetryOptions } from './options'
 import { retry } from './retry'
-import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
+import { isTooManyTries, TooManyTries } from "./utils/errors/tooManyTries";
 
 const should = require("chai").should();
 chai.should();

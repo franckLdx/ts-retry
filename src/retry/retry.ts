@@ -2,8 +2,8 @@ import { asyncDecorator } from "../misc";
 import { wait } from "../wait/wait";
 import { RetryOptions } from "./options";
 import { getRetryParameters, RetryParameters } from "./parameters";
-import { AbortError } from "./utils/erros/abortError";
-import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
+import { AbortError } from "./utils/errors/abortError";
+import { isTooManyTries, TooManyTries } from "./utils/errors/tooManyTries";
 
 export async function retry<RETURN_TYPE>(
   fn: () => RETURN_TYPE,
@@ -45,7 +45,7 @@ async function actualRetry<RETURN_TYPE>(
       if (canRecall === false) {
         throw new AbortError(err as Error, retryParameters.currentTry)
       }
-      return await recall(fn, retryParameters);
+      return await recall(fn, retryParameters, undefined, err as Error);
     } else {
       if (retryParameters.onMaxRetryFunc) {
         retryParameters.onMaxRetryFunc(err as Error, retryParameters.currentTry)
@@ -58,12 +58,14 @@ async function actualRetry<RETURN_TYPE>(
 async function recall<RETURN_TYPE>(
   fn: () => Promise<RETURN_TYPE>,
   retryParameters: RetryParameters<RETURN_TYPE>,
-  lastResult?: RETURN_TYPE): Promise<RETURN_TYPE> {
+  lastResult?: RETURN_TYPE,
+  lastError?: Error): Promise<RETURN_TYPE> {
   const delay = retryParameters.delay({
     currentTry: retryParameters.currentTry,
     maxTry: retryParameters.maxTry,
     lastDelay: retryParameters.lastDelay,
-    lastResult
+    lastResult,
+    lastError,
   })
   await wait(delay);
   const newRetryParameters: RetryParameters<RETURN_TYPE> = {

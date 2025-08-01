@@ -2,7 +2,7 @@ import * as sinon from "sinon";
 import * as chai from "chai";
 import * as sinonChai from "sinon-chai";
 import { retryAsyncUntilResponseDecorator } from "./decorators";
-import { isTooManyTries } from "../erros/tooManyTries";
+import { isTooManyTries } from "../errors/tooManyTries";
 const should = require("chai").should();
 
 chai.should();

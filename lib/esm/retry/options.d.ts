@@ -4,13 +4,14 @@ export interface DelayParameters<RETURN_TYPE> {
     maxTry: number;
     lastDelay?: number;
     lastResult?: RETURN_TYPE;
+    lastError?: Error;
 }
 export type DELAY<RETURN_TYPE> = (parameter: DelayParameters<RETURN_TYPE>) => number;
 export interface RetryOptions<RETURN_TYPE = any> {
     maxTry?: number;
     delay?: number | DELAY<RETURN_TYPE>;
     until?: UNTIL<RETURN_TYPE> | null;
-    onError?: (err: Error, currentTry: number) => void;
+    onError?: (err: Error, currentTry: number) => boolean | undefined;
     onMaxRetryFunc?: (err: Error, currentTry: number) => void;
     onSuccessFunc?: (result: RETURN_TYPE, currentTry: number) => void;
 }
