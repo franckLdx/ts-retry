@@ -1,10 +1,12 @@
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai = require("sinon-chai");
+import "chai/register-should";
 import { getDefaultDuration, setDefaultDuration } from "../.";
 const should = require("chai").should();
 
 chai.should();
-chai.use(sinonChai);
+const _sinonChai = (sinonChai as any).default || (sinonChai as any);
+chai.use(_sinonChai);
 
 describe("wait option", function () {
   const defaultDuration = getDefaultDuration();

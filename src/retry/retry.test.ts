@@ -1,13 +1,15 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai = require("sinon-chai");
+import "chai/register-should";
 import { getDefaultRetryOptions, RetryOptions, setDefaultRetryOptions } from './options'
 import { retry } from './retry'
 import { isTooManyTries, TooManyTries } from "./utils/erros/tooManyTries";
 
 const should = require("chai").should();
 chai.should();
-chai.use(sinonChai);
+const _sinonChai = (sinonChai as any).default || (sinonChai as any);
+chai.use(_sinonChai);
 
 describe("Retry", function () {
   const realDefaultRetryOptions = getDefaultRetryOptions();

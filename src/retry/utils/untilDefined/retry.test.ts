@@ -1,12 +1,14 @@
 import { retryAsyncUntilDefined, retryUntilDefined } from "./retry";
 import * as sinon from "sinon";
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai = require("sinon-chai");
+import "chai/register-should";
 import { isTooManyTries } from "../erros/tooManyTries";
 const should = require("chai").should();
 
 chai.should();
-chai.use(sinonChai);
+const _sinonChai = (sinonChai as any).default || (sinonChai as any);
+chai.use(_sinonChai);
 
 describe("Retry Util", function () {
   describe("RetryUntilDefined", function () {
