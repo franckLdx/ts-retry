@@ -1,19 +1,27 @@
+# 7.0.0
+
+Sometimes errors (such as rate limits) will include the wait time needed before retrying. This exposes the error to the delay callback.
+
+Breaking change:
+fixes the erro -> error typo in directory path.
+
+Courtesy of https://github.com/intelligems-tech
+
 # 6.0.0
 
 onError function may now return boolean:
-  - when returning nothing (behavior until 5.x): retries continue
-  - when returnin true, retries continue
-  - when returning flase, retries stops and an AbortError is thrown
 
-The behavior of previuos release is preserve. If you don't want to use this functionality you do not need do 
-do any change in tour code 
+- when returning nothing (behavior until 5.x): retries continue
+- when returnin true, retries continue
+- when returning flase, retries stops and an AbortError is thrown
+
+The behavior of previuos release is preserve. If you don't want to use this functionality you do not need do
+do any change in tour code
 
 AbortError:
-  An error thrown when reties are aborted due to an exception
-  getError return the last error
-  getCurrentTry the aborte try
-
-
+An error thrown when reties are aborted due to an exception
+getError return the last error
+getCurrentTry the aborte try
 
 # 5.0.1
 
@@ -21,7 +29,7 @@ Fix missing exports: retryDecorator a retryAsyncDecorator
 
 # 5.0.0
 
-Update dependencies to fix testing, 
+Update dependencies to fix testing,
 
 Breaking changes: add attempt data to onError & onSuccessFunc
 function for logging purposes
