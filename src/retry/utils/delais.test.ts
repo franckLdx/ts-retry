@@ -1,12 +1,14 @@
 import * as sinon from "sinon";
 import * as chai from "chai";
-import * as sinonChai from "sinon-chai";
+import sinonChai = require("sinon-chai");
+import "chai/register-should";
 import { createExponetialDelay, createMutiplicableDelay, createRandomDelay } from "./delay"
 import { DelayParameters } from "../options";
 
 const should = require("chai").should();
 chai.should();
-chai.use(sinonChai);
+const _sinonChai = (sinonChai as any).default || (sinonChai as any);
+chai.use(_sinonChai);
 
 describe('Delay utilities', () => {
   const initialDelayParameters: DelayParameters<number> = {

@@ -9,7 +9,8 @@ import { isTooManyTries } from "../errors/tooManyTries";
 const should = require("chai").should();
 
 chai.should();
-chai.use(sinonChai);
+const _sinonChai = (sinonChai as any).default || (sinonChai as any);
+chai.use(_sinonChai);
 
 describe("Retry Util", function () {
   describe("RetryUntilDefinedDecorator", function () {
