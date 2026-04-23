@@ -279,7 +279,8 @@ The function receives the following parameters:
   currentTry: number,
   maxTry: number,
   lastDelay?: number
-  lastResult?: RETURN_TYPE
+  lastResult?: RETURN_TYPE,
+  lastError?: Error
 }) => number;
 ```
 
@@ -475,13 +476,14 @@ export const runWithRetry = <T>(
   delay = 1000,
   maxTry = 10,
 ) => {
-  const saveErrorReport = (err) => {
+  const saveErrorReport = (err, currentTry) => {
     const errorDetails = {
       serviceName: serviceUnderTest.connectorName,
       error: err.message as string,
       description: `Failed to ${message} because of ${err.message as string}`,
       errorName: err.name as string,
       stack: err.stack as string,
+      currentTry,
     };
     const path = resolve(
       __dirname,
