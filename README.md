@@ -24,7 +24,7 @@ the new `until`function. This type is the called function returns type.
     () => {
       /* do something */
     },
-    { delay: 100, maxTry: 5 }
+    { delay: 100, maxTry: 5 },
   );
   ```
 
@@ -35,7 +35,7 @@ the new `until`function. This type is the called function returns type.
     async () => {
       /* do something */
     },
-    { delay: 100, maxTry: 5 }
+    { delay: 100, maxTry: 5 },
   );
   ```
 
@@ -51,7 +51,7 @@ the new `until`function. This type is the called function returns type.
         delay: 100,
         maxTry: 5,
         until: (lastResult) => lastResult === 42,
-      }
+      },
     );
   } catch (err) {
     if (isTooManyTries(err)) {
@@ -200,15 +200,15 @@ the new `until`function. This type is the called function returns type.
   - `maxTry`: [optional] maximum calls to fn.
   - `delay`: [optional] delay between each call (in milliseconds). Could be either a number or a function (when delay time dependent from number of retrys, of previous result...), see below for explanation about delay
   - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn;
-  - `onError`: [optional](err: Error, currentTry: number) => void: called on each error except the last one. Includes the current try for logging. To catch/log the last error use onMaxRetryFunc
- - `onMaxRetryFunc`: [optional](err: Error) => void: called on the final error at the maxTry limit only
-  - `onSuccess`: [optional](currentTry: number) => void: called on success. Includes the current try for logging
-    When an option value is not provided, the default one is applied. The default options are:
+  - `onError`: [optional](err: Error, currentTry: number) => boolean | undefined: called on each error except the last one. Includes the current try for logging. Return true to continue retries, false to abort and throw an AbortError. If nothing is returned, retries continue. To catch/log the last error use onMaxRetryFunc
+- `onMaxRetryFunc`: [optional](err: Error, currentTry: number) => void: called on the final error at the maxTry limit only
+- `onSuccessFunc`: [optional](result: RETURN_TYPE, currentTry: number) => void: called on success. Includes the current try for logging
+  When an option value is not provided, the default one is applied. The default options are:
 
-  ```javascript
-    delay: 250,
-    maxTry: 4 * 60,
-  ```
+```javascript
+  delay: 250,
+  maxTry: 4 * 60,
+```
 
 - `setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>)`: change the default retryOptions.
 - `getDefaultRetryOptions<T>()`: returns the current default retry options.
@@ -218,7 +218,18 @@ the new `until`function. This type is the called function returns type.
 ```javascript
 if (isTooManyTries(error)) {
   // retry failed
-  console.error(`last error is ${error.getLastResult()}`)
+  console.error(`last error is ${error.getLastResult()}`);
+}
+```
+
+- `AbortError`: an error thrown when retries are aborted due to an exception in `onError` callback returning false. It comes with a type guard and includes the original error and the current try:
+
+```javascript
+if (isAbortError(error)) {
+  // retry aborted
+  console.error(
+    `aborted at try ${error.getCurrentTry()} due to ${error.getError().message}`,
+  );
 }
 ```
 
@@ -232,7 +243,8 @@ The function receives the following parameters:
   currentTry: number,
   maxTry: number,
   lastDelay?: number
-  lastResult?: RETURN_TYPE
+  lastResult?: RETURN_TYPE,
+  lastError?: Error
 }) => number;
 ```
 
@@ -242,6 +254,7 @@ where:
 - `maxTry`: maximum calls to fn.
 - `lastDelay`: the previous delay, undefined when no delay has been computed yet.
 - `lastResult`: the last result, undefined is last call to fn failed
+- `lastError`: the last error, undefined if last call to fn succeeded
 
 ## Until family
 
@@ -347,7 +360,7 @@ const result = await retryAsync(
   async () => {
     /* do something */
   },
-  { delay, maxTry: 5 }
+  { delay, maxTry: 5 },
 );
 ```
 
@@ -368,12 +381,11 @@ const result = await retryAsync(
   async () => {
     /* do something */
   },
-  { delay, maxTry: 5 }
+  { delay, maxTry: 5 },
 );
 ```
 
 delay will be 20, 60, 120, 180, 240
-
 
 **createRandomDelay**
 Returns a delay function that provide radom delais between given min and max (included):
@@ -390,7 +402,7 @@ const result = await retryAsync(
   async () => {
     /* do something */
   },
-  { delay, maxTry: 5 }
+  { delay, maxTry: 5 },
 );
 ```
 
@@ -427,19 +439,20 @@ export const runWithRetry = <T>(
   serviceUnderTest: ServiceUnderTest,
   fn: () => T | Promise<T>,
   delay = 1000,
-  maxTry = 10
+  maxTry = 10,
 ) => {
-  const saveErrorReport = (err) => {
+  const saveErrorReport = (err, currentTry) => {
     const errorDetails = {
       serviceName: serviceUnderTest.connectorName,
       error: err.message as string,
       description: `Failed to ${message} because of ${err.message as string}`,
       errorName: err.name as string,
       stack: err.stack as string,
+      currentTry,
     };
     const path = resolve(
       __dirname,
-      `../../../failed-service-report/${serviceUnderTest.connectorName}.json`
+      `../../../failed-service-report/${serviceUnderTest.connectorName}.json`,
     );
     writeFile(path, Buffer.from(JSON.stringify(errorDetails)));
   };
@@ -452,7 +465,7 @@ export const runWithRetry = <T>(
       delay,
       maxTry,
       onMaxRetryFunc: saveErrorReport,
-    }
+    },
   );
 };
 ```
