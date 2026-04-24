@@ -1,9 +1,8 @@
 import { retryAsyncUntilDefined, retryUntilDefined } from "./retry";
 import * as sinon from "sinon";
 import * as chai from "chai";
-import sinonChai = require("sinon-chai");
-import "chai/register-should";
-import { isTooManyTries } from "../erros/tooManyTries";
+import * as sinonChai from "sinon-chai";
+import { isTooManyTries } from "../errors/tooManyTries";
 const should = require("chai").should();
 
 chai.should();
