@@ -13,8 +13,6 @@ Other 3.X items are new and implies no breaking change.
 For those who are using 1.x in **typescript**, you may have to add a type to RetryOptions if you want to use
 the new `until`function. This type is the called function returns type.
 
----
-
 ## How to
 
 - to retry something:
@@ -24,7 +22,7 @@ the new `until`function. This type is the called function returns type.
     () => {
       /* do something */
     },
-    { delay: 100, maxTry: 5 }
+    { delay: 100, maxTry: 5 },
   );
   ```
 
@@ -35,7 +33,7 @@ the new `until`function. This type is the called function returns type.
     async () => {
       /* do something */
     },
-    { delay: 100, maxTry: 5 }
+    { delay: 100, maxTry: 5 },
   );
   ```
 
@@ -51,7 +49,7 @@ the new `until`function. This type is the called function returns type.
         delay: 100,
         maxTry: 5,
         until: (lastResult) => lastResult === 42,
-      }
+      },
     );
   } catch (err) {
     if (isTooManyTries(err)) {
@@ -201,14 +199,14 @@ the new `until`function. This type is the called function returns type.
   - `delay`: [optional] delay between each call (in milliseconds). Could be either a number or a function (when delay time dependent from number of retrys, of previous result...), see below for explanation about delay
   - `until`: [optional] (lastResult) => boolean: return false if last `fn` results is not the expected one: continue to call fn until `until` returns true. A `TooManyTries` is thrown after `maxTry` calls to fn;
   - `onError`: [optional](err: Error, currentTry: number) => void: called on each error except the last one. Includes the current try for logging. To catch/log the last error use onMaxRetryFunc
- - `onMaxRetryFunc`: [optional](err: Error) => void: called on the final error at the maxTry limit only
-  - `onSuccess`: [optional](currentTry: number) => void: called on success. Includes the current try for logging
-    When an option value is not provided, the default one is applied. The default options are:
+- `onMaxRetryFunc`: [optional](err: Error) => void: called on the final error at the maxTry limit only
+- `onSuccess`: [optional](currentTry: number) => void: called on success. Includes the current try for logging
+  When an option value is not provided, the default one is applied. The default options are:
 
-  ```javascript
-    delay: 250,
-    maxTry: 4 * 60,
-  ```
+```javascript
+  delay: 250,
+  maxTry: 4 * 60,
+```
 
 - `setDefaultRetryOptions<T>(retryOptions: RetryOptions<T>)`: change the default retryOptions.
 - `getDefaultRetryOptions<T>()`: returns the current default retry options.
@@ -218,7 +216,7 @@ the new `until`function. This type is the called function returns type.
 ```javascript
 if (isTooManyTries(error)) {
   // retry failed
-  console.error(`last error is ${error.getLastResult()}`)
+  console.error(`last error is ${error.getLastResult()}`);
 }
 ```
 
@@ -347,7 +345,7 @@ const result = await retryAsync(
   async () => {
     /* do something */
   },
-  { delay, maxTry: 5 }
+  { delay, maxTry: 5 },
 );
 ```
 
@@ -368,12 +366,11 @@ const result = await retryAsync(
   async () => {
     /* do something */
   },
-  { delay, maxTry: 5 }
+  { delay, maxTry: 5 },
 );
 ```
 
 delay will be 20, 60, 120, 180, 240
-
 
 **createRandomDelay**
 Returns a delay function that provide radom delais between given min and max (included):
@@ -390,7 +387,7 @@ const result = await retryAsync(
   async () => {
     /* do something */
   },
-  { delay, maxTry: 5 }
+  { delay, maxTry: 5 },
 );
 ```
 
@@ -427,7 +424,7 @@ export const runWithRetry = <T>(
   serviceUnderTest: ServiceUnderTest,
   fn: () => T | Promise<T>,
   delay = 1000,
-  maxTry = 10
+  maxTry = 10,
 ) => {
   const saveErrorReport = (err) => {
     const errorDetails = {
@@ -439,7 +436,7 @@ export const runWithRetry = <T>(
     };
     const path = resolve(
       __dirname,
-      `../../../failed-service-report/${serviceUnderTest.connectorName}.json`
+      `../../../failed-service-report/${serviceUnderTest.connectorName}.json`,
     );
     writeFile(path, Buffer.from(JSON.stringify(errorDetails)));
   };
@@ -452,7 +449,7 @@ export const runWithRetry = <T>(
       delay,
       maxTry,
       onMaxRetryFunc: saveErrorReport,
-    }
+    },
   );
 };
 ```
