@@ -149,7 +149,7 @@ the new `until` function. This type is the called function's return type.
       /* do something */
     }, 10000);
   } catch (err) {
-    if (isTimeoutError(error)) {
+    if (isTimeoutError(err)) {
       // fn does not complete after 10 seconds
     } else {
       // fn throws an exception
@@ -279,7 +279,8 @@ The function receives the following parameters:
   currentTry: number,
   maxTry: number,
   lastDelay?: number
-  lastResult?: RETURN_TYPE
+  lastResult?: RETURN_TYPE,
+  lastError?: Error
 }) => number;
 ```
 
@@ -289,6 +290,7 @@ where:
 - `maxTry`: maximum calls to fn.
 - `lastDelay`: the previous delay, undefined when no delay has been computed yet.
 - `lastResult`: the last result, undefined if the last call to fn failed
+- `lastError`: the last error, undefined if the last call to fn succeeded
 
 ## Until family
 
@@ -365,7 +367,7 @@ retryAsyncUntilTruthyDecorator<PARAMETERS_TYPE, RETURN_TYPE>(
 ```
 
 **UntilResponse :**
-To retry until fetch is sucessfull.
+To retry until fetch is successful.
 
 ```typescript
 retryAsyncUntilResponse<PARAMETERS_TYPE, RETURN_TYPE extends { ok: boolean }>(
@@ -405,12 +407,13 @@ Returns a delay function that provides multiplicative delays:
 
 ```typescript
 createMultiplicativeDelay<RETURN_TYPE>(initialDelay: number, multiplicator: number)
+createMultiplicableDelay<RETURN_TYPE>(initialDelay: number, multiplier: number)
 ```
 
 First delay returns initialDelay, second initialDelay*multiplicator, third multiplicator * initialDelay _ (multiplicator _ 2) and so on
 
 ```javascript
-const delay = createMultiplicativeDelay(20);
+const delay = createMultiplicableDelay(20);
 const result = await retryAsync(
   async () => {
     /* do something */
@@ -447,7 +450,7 @@ delay between each try will be a random value between 500 and 10000 ms.
 - `wait(duration?)`: Does nothing for "duration" milliseconds
 - `waitUntil(fn, duration?, error?)`: waitUntil calls fn asynchronously once. If fn completes within the duration (expressed in milliseconds), waitUntil returns the fn result. Otherwise, it throws the given error (if any) or a TimeoutError exception.
 - `waitUntilAsync(fn, duration?, error?)`: same as waitUntil, except fn is an asynchronous function.
-- `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with a isTimeoutError type guard:
+- `TimeoutError`: an error thrown by waitUntil and waitUntilAsync. It comes with an isTimeoutError type guard:
 
 ```javascript
 if (isTimeoutError(error)) {
@@ -455,16 +458,16 @@ if (isTimeoutError(error)) {
 }
 ```
 
-In case of timeout fn is still executing. It is advised to add a mean to abort it.
+In case of timeout fn is still executing. It is advised to add a means to abort it.
 
 - When duration is not provided, the default one is applied. The default is 60000ms.
 - `setDefaultDuration(duration: number)`: change the default duration.
 - `getDefaultDuration()`: returns the current default duration.
-- `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with same signature than the given function. On decorated call, fn is called bounded to the duration.
+- `waitUntilAsyncDecorator(fn: T, duration?: number, error?: Error)` and `waitUntilDecorator(fn: T, duration?: number, error?: Error)`: decorators that return a function with the same signature as the given function. On decorated call, fn is called bound to the duration.
 
 ## Custom reaction when max retry is achieved
 
-Sometimes, you need to perform some actions when max retry has achieved and the error is still there. For this `onMaxRetryFunc?: (err: Error) => void;` optional function was added to `RetryOptions`.
+Sometimes, you need to perform some actions when max retry is achieved and the error is still there. For this `onMaxRetryFunc?: (err: Error, currentTry: number) => void;` optional function was added to `RetryOptions`.
 For example, you would like to store results of the error into the file in order to process it later. Here's how you can do it :
 
 ```typescript
@@ -475,13 +478,14 @@ export const runWithRetry = <T>(
   delay = 1000,
   maxTry = 10,
 ) => {
-  const saveErrorReport = (err) => {
+  const saveErrorReport = (err, currentTry) => {
     const errorDetails = {
       serviceName: serviceUnderTest.connectorName,
       error: err.message as string,
       description: `Failed to ${message} because of ${err.message as string}`,
       errorName: err.name as string,
       stack: err.stack as string,
+      currentTry,
     };
     const path = resolve(
       __dirname,
@@ -505,4 +509,4 @@ export const runWithRetry = <T>(
 
 ## Compatibility
 
-This lib works with Deno (to import it,use the url `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However, it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`
+This lib works with Deno (to import it, use the URL `https://raw.githubusercontent.com/franckLdx/ts-retry/<version>/src/index.ts`). However, it's more convenient to use the specific port of this lib to Deno: see `https://deno.land/x/retry`

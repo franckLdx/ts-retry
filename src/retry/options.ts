@@ -3,8 +3,9 @@ export type UNTIL<RETURN_TYPE> = (result: RETURN_TYPE) => boolean;
 export interface DelayParameters<RETURN_TYPE> {
   currentTry: number,
   maxTry: number,
-  lastDelay?: number
-  lastResult?: RETURN_TYPE
+  lastDelay?: number,
+  lastResult?: RETURN_TYPE,
+  lastError?: Error
 }
 
 export type DELAY<RETURN_TYPE> = (parameter: DelayParameters<RETURN_TYPE>) => number;

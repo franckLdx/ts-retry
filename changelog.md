@@ -1,18 +1,31 @@
+# 7.0.0
+
+Sometimes errors (such as rate limits) will include the wait time needed before retrying. This exposes the error to the delay callback.
+
+Breaking change:
+fixes the erro -> error typo in directory path.
+
+Courtesy of https://github.com/intelligems-tech
+
 # 6.0.0
 
 onError function may now return boolean:
 
 - when returning nothing (behavior until 5.x): retries continue
+- when returnin true, retries continue
+- when returning flase, retries stops and an AbortError is thrown
+
+- when returning nothing (behavior until 5.x): retries continue
 - when returning true, retries continue
 - when returning false, retries stop and an AbortError is thrown
 
-The behavior of previous releases is preserved. If you don't want to use this functionality you do not need to
-do any change in your code
+The behavior of previuos release is preserve. If you don't want to use this functionality you do not need do
+do any change in tour code
 
 AbortError:
-An error thrown when retries are aborted due to an exception
-getError returns the last error
-getCurrentTry returns the aborted try
+An error thrown when reties are aborted due to an exception
+getError return the last error
+getCurrentTry the aborte try
 
 # 5.0.2
 
