@@ -3,5 +3,7 @@ export { getDefaultRetryOptions, setDefaultRetryOptions } from "./options";
 export { retry, retryAsync } from "./retry";
 export type { TooManyTries } from "./utils/erros/tooManyTries";
 export { isTooManyTries } from "./utils/erros/tooManyTries";
+export type { AbortError } from "./utils/erros/abortError";
+export { isAbortError } from "./utils/erros/abortError";
 export type { RetryUtilsOptions } from "./utils";
 export { retryAsyncUntilDefined, retryAsyncUntilDefinedDecorator, retryAsyncUntilTruthy, retryAsyncUntilTruthyDecorator, retryUntilDefined, retryUntilDefinedDecorator, retryUntilTruthy, retryUntilTruthyDecorator, retryAsyncUntilResponse, retryAsyncUntilResponseDecorator, createExponetialDelay, createMutiplicableDelay, createRandomDelay, retryAsyncDecorator, retryDecorator, } from "./utils";
