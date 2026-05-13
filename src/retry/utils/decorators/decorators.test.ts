@@ -1,4 +1,4 @@
-import { isTooManyTries } from "../erros/tooManyTries";
+import { isTooManyTries } from "../errors/tooManyTries";
 import { retryAsyncDecorator, retryDecorator } from "./decorators";
 
 import * as sinon from "sinon";
