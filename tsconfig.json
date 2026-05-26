@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "lib/cjs",
+    "rootDir": "./src",
     "target": "es2015",
     "module": "commonjs",
     "lib": [
@@ -10,13 +11,18 @@
       "es2018"
     ],
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     "declaration": true,
     "pretty": true,
     "newLine": "lf",
     "stripInternal": true,
     "strict": true,
     "alwaysStrict": true,
-    "sourceMap": false
+    "sourceMap": false,
+    "types": [
+      "node",
+      "mocha"
+    ]
   },
   "exclude": [
     "**/*.test.ts",

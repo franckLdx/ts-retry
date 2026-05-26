@@ -4,7 +4,7 @@ import * as chai from "chai";
 import sinonChai = require("sinon-chai");
 import "chai/register-should";
 import { RESPONSE_TYPE } from "./type";
-import { isTooManyTries } from "../erros/tooManyTries";
+import { isTooManyTries } from "../errors/tooManyTries";
 const should = require("chai").should();
 
 chai.should();
