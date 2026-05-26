@@ -6,8 +6,8 @@ export { retry, retryAsync } from "./retry";
 export type { TooManyTries } from "./utils/errors/tooManyTries";
 export { isTooManyTries } from "./utils/errors/tooManyTries";
 
-export type { AbortError } from "./utils/erros/abortError";
-export { isAbortError } from "./utils/erros/abortError";
+export type { AbortError } from "./utils/errors/abortError";
+export { isAbortError } from "./utils/errors/abortError";
 
 export type { RetryUtilsOptions } from "./utils";
 export {
