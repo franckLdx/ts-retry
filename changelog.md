@@ -1,6 +1,6 @@
 # 7.0.1
 
-Fix typo
+Fix errors typo
 
 # 7.0.0
 
