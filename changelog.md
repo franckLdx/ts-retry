@@ -1,3 +1,7 @@
+# 7.0.1
+
+Fix typo
+
 # 7.0.0
 
 Sometimes errors (such as rate limits) will include the wait time needed before retrying. This exposes the error to the delay callback.
