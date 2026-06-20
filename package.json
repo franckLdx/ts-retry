@@ -5,6 +5,10 @@
   "module": "lib/esm/index.js",
   "typings": "lib/cjs/index.d.ts",
   "repository": "https://github.com/franckLdx/ts-retry.git",
+  "homepage": "https://github.com/franckLdx/ts-retry#readme",
+  "bugs": {
+    "url": "https://github.com/franckLdx/ts-retry/issues"
+  },
   "author": "Franck Ledoux <franck.ledoux.pro@gmail.com>",
   "license": "MIT",
   "devDependencies": {
